@@ -1,6 +1,7 @@
 plugins {
-    id("com.android.application")
-    id("org.jetbrains.kotlin.android")
+    id(Plugins.androidApplication)
+    id(Plugins.androidKotlin)
+    id(Plugins.kotlinKapt)
 }
 
 android {
@@ -53,12 +54,22 @@ dependencies {
 
     implementation(AndroidX.coreKtx)
     implementation(AndroidX.lifecycle)
+    implementation(AndroidX.composeViewModel)
+    implementation(AndroidX.composeNavigation)
+    implementation(AndroidX.hiltNavigationCompose)
+
+
     implementation(Compose.activityCompose)
     implementation(platform(Compose.composeBOM))
     implementation(Compose.composeUI)
     implementation(Compose.composeUIGraphic)
     implementation(Compose.composeToolingPreview)
     implementation(Compose.material3)
+
+    implementation(DaggerHilt.hiltAndroid)
+    kapt(DaggerHilt.hiltCompiler)
+
+
     testImplementation(Test.jUnit)
     androidTestImplementation(Test.jUnitExt)
     androidTestImplementation(Test.espressoCore)
