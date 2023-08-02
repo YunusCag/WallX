@@ -55,5 +55,9 @@ android {
         implementation DaggerHilt.hiltAndroid
 
         implementation Timber.timber
+
+        testImplementation(TestLibs.jUnit)
+        androidTestImplementation(TestLibs.jUnitExt)
+        androidTestImplementation(TestLibs.espressoCore)
     }
 }

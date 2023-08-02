@@ -21,4 +21,12 @@ dependencies {
     implementation(Compose.composeUIGraphic)
     implementation(Compose.composeToolingPreview)
     implementation(Compose.material3)
+
+    testImplementation(TestLibs.jUnit)
+    androidTestImplementation(TestLibs.jUnitExt)
+    androidTestImplementation(TestLibs.espressoCore)
+    androidTestImplementation(platform(Compose.composeBOM))
+    androidTestImplementation(Compose.composeUITestJUnit)
+    debugImplementation(Compose.composeTestUITooling)
+    debugImplementation(Compose.composeTestManifest)
 }

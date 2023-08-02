@@ -70,11 +70,11 @@ dependencies {
     kapt(DaggerHilt.hiltCompiler)
 
 
-    testImplementation(Test.jUnit)
-    //androidTestImplementation(Test.jUnitExt)
-    //androidTestImplementation(Test.espressoCore)
-    //androidTestImplementation(platform(Compose.composeBOM))
-    //androidTestImplementation(Compose.composeUITestJUnit)
+    testImplementation(TestLibs.jUnit)
+    androidTestImplementation(TestLibs.jUnitExt)
+    androidTestImplementation(TestLibs.espressoCore)
+    androidTestImplementation(platform(Compose.composeBOM))
+    androidTestImplementation(Compose.composeUITestJUnit)
     debugImplementation(Compose.composeTestUITooling)
     debugImplementation(Compose.composeTestManifest)
 }
