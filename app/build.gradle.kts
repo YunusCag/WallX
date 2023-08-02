@@ -1,7 +1,6 @@
 plugins {
     id(Plugins.androidApplication)
     id(Plugins.androidKotlin)
-    id(Plugins.kotlinKapt)
 }
 
 android {
@@ -67,14 +66,11 @@ dependencies {
     implementation(Compose.material3)
 
     implementation(DaggerHilt.hiltAndroid)
-    kapt(DaggerHilt.hiltCompiler)
 
 
-    testImplementation(Test.jUnit)
-    //androidTestImplementation(Test.jUnitExt)
-    //androidTestImplementation(Test.espressoCore)
-    //androidTestImplementation(platform(Compose.composeBOM))
-    //androidTestImplementation(Compose.composeUITestJUnit)
+    androidTestImplementation(TestLibs.espressoCore)
+    androidTestImplementation(platform(Compose.composeBOM))
+    androidTestImplementation(Compose.composeUITestJUnit)
     debugImplementation(Compose.composeTestUITooling)
     debugImplementation(Compose.composeTestManifest)
 }

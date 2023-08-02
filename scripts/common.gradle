@@ -1,7 +1,6 @@
 apply plugin : "com.android.application"
 apply plugin : "org.jetbrains.kotlin.android"
-apply plugin : "kotlin-kapt"
-
+apply plugin: 'kotlin-kapt'
 
 android {
     compileSdk AppConfig.compileSdk
@@ -29,6 +28,8 @@ android {
         }
 
         release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             buildConfigField("String","API_KEY", localProperties["API_KEY"])
             buildConfigField("String","SECRET_KEY", localProperties["SECRET_KEY"])
             buildConfigField("String","BASE_URL", localProperties["BASE_URL"])
@@ -36,6 +37,7 @@ android {
     }
 
     compileOptions {
+        coreLibraryDesugaringEnabled true
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
     }
@@ -51,9 +53,13 @@ android {
         implementation AndroidX.coreKtx
         implementation AndroidX.lifecycle
 
-        kapt DaggerHilt.hiltCompiler
         implementation DaggerHilt.hiltAndroid
+        kapt DaggerHilt.hiltCompiler
 
         implementation Timber.timber
+
+        testImplementation(TestLibs.jUnit)
+        androidTestImplementation(TestLibs.jUnitExt)
+        androidTestImplementation(TestLibs.espressoCore)
     }
 }
