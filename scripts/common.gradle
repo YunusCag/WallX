@@ -1,0 +1,59 @@
+apply plugin : "com.android.application"
+apply plugin : "org.jetbrains.kotlin.android"
+apply plugin : "kotlin-kapt"
+
+
+android {
+    compileSdk AppConfig.compileSdk
+    namespace AppConfig.applicationId
+
+    defaultConfig {
+        compileSdk AppConfig.compileSdk
+        minSdk AppConfig.minSdk
+        targetSdk AppConfig.targetSdk
+        versionCode AppConfig.versionCode
+        versionName AppConfig.versionName
+
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles("consumer-rules.pro")
+    }
+
+    buildTypes {
+        def localProperties = new Properties()
+        localProperties.load(new FileInputStream(rootProject.file("local.properties")))
+
+        debug {
+            buildConfigField("String","API_KEY", localProperties["API_KEY"])
+            buildConfigField("String","SECRET_KEY", localProperties["SECRET_KEY"])
+            buildConfigField("String","BASE_URL", localProperties["BASE_URL"])
+        }
+
+        release {
+            buildConfigField("String","API_KEY", localProperties["API_KEY"])
+            buildConfigField("String","SECRET_KEY", localProperties["SECRET_KEY"])
+            buildConfigField("String","BASE_URL", localProperties["BASE_URL"])
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_1_8
+        targetCompatibility = JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = AppConfig.jvmTarget
+    }
+
+    buildFeatures {
+        buildConfig = true
+    }
+
+    dependencies {
+        implementation AndroidX.coreKtx
+        implementation AndroidX.lifecycle
+
+        kapt DaggerHilt.hiltCompiler
+        implementation DaggerHilt.hiltAndroid
+
+        implementation Timber.timber
+    }
+}

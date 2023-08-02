@@ -71,10 +71,10 @@ dependencies {
 
 
     testImplementation(Test.jUnit)
-    androidTestImplementation(Test.jUnitExt)
-    androidTestImplementation(Test.espressoCore)
-    androidTestImplementation(platform(Compose.composeBOM))
-    androidTestImplementation(Compose.composeUITestJUnit)
+    //androidTestImplementation(Test.jUnitExt)
+    //androidTestImplementation(Test.espressoCore)
+    //androidTestImplementation(platform(Compose.composeBOM))
+    //androidTestImplementation(Compose.composeUITestJUnit)
     debugImplementation(Compose.composeTestUITooling)
     debugImplementation(Compose.composeTestManifest)
 }

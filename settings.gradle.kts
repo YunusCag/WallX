@@ -15,3 +15,6 @@ dependencyResolutionManagement {
 
 rootProject.name = "WallX"
 include(":app")
+include(":core")
+include(":core-ui")
+include(":features:main")

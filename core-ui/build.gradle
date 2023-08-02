@@ -1,0 +1,24 @@
+apply from: "$rootDir/scripts/common.gradle"
+
+android {
+    buildFeatures {
+        compose = true
+    }
+    composeOptions {
+        kotlinCompilerExtensionVersion = AppConfig.kotlinCompilerExtensionVersion
+    }
+}
+
+dependencies {
+    implementation(AndroidX.composeViewModel)
+    implementation(AndroidX.composeNavigation)
+    implementation(AndroidX.hiltNavigationCompose)
+
+
+    implementation(Compose.activityCompose)
+    implementation(platform(Compose.composeBOM))
+    implementation(Compose.composeUI)
+    implementation(Compose.composeUIGraphic)
+    implementation(Compose.composeToolingPreview)
+    implementation(Compose.material3)
+}
