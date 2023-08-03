@@ -8,6 +8,7 @@ object Compose {
     const val composeUIGraphic = "androidx.compose.ui:ui-graphics"
     const val composeToolingPreview = "androidx.compose.ui:ui-tooling-preview"
     const val material3 = "androidx.compose.material3:material3"
+    const val materialWindowSizeClass = "androidx.compose.material3:material3-window-size-class"
 
     // Test Dependencies
     const val composeUITestJUnit = "androidx.compose.ui:ui-test-junit4"

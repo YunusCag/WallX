@@ -51,6 +51,8 @@ android {
 
 dependencies {
 
+    implementation(project(Modules.core_ui))
+
     implementation(AndroidX.coreKtx)
     implementation(AndroidX.lifecycle)
     implementation(AndroidX.composeViewModel)

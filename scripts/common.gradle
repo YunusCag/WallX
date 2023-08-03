@@ -1,6 +1,5 @@
 apply plugin : "com.android.application"
 apply plugin : "org.jetbrains.kotlin.android"
-apply plugin: 'kotlin-kapt'
 
 android {
     compileSdk AppConfig.compileSdk
@@ -43,6 +42,7 @@ android {
     }
     kotlinOptions {
         jvmTarget = AppConfig.jvmTarget
+        freeCompilerArgs = ['-Xjvm-default=compatibility']
     }
 
     buildFeatures {
@@ -54,7 +54,6 @@ android {
         implementation AndroidX.lifecycle
 
         implementation DaggerHilt.hiltAndroid
-        kapt DaggerHilt.hiltCompiler
 
         implementation Timber.timber
 

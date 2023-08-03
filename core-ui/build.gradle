@@ -21,6 +21,7 @@ dependencies {
     implementation(Compose.composeUIGraphic)
     implementation(Compose.composeToolingPreview)
     implementation(Compose.material3)
+    implementation(Compose.materialWindowSizeClass)
 
     testImplementation(TestLibs.jUnit)
     androidTestImplementation(TestLibs.jUnitExt)

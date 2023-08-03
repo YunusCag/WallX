@@ -10,13 +10,14 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import com.yunuscagliyan.wallx.ui.theme.WallXTheme
+import com.yunuscagliyan.core_ui.theme.WallXAppTheme
+import com.yunuscagliyan.core_ui.theme.WallXAppThemeTheme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            WallXTheme {
+            WallXAppThemeTheme {
                 // A surface container using the 'background' color from the theme
                 Surface(
                     modifier = Modifier.fillMaxSize(),
@@ -33,14 +34,16 @@ class MainActivity : ComponentActivity() {
 fun Greeting(name: String, modifier: Modifier = Modifier) {
     Text(
         text = "Hello $name!",
-        modifier = modifier
+        modifier = modifier,
+        style = WallXAppTheme.typography.title1,
+        color = WallXAppTheme.colors.textPrimary
     )
 }
 
 @Preview(showBackground = true)
 @Composable
 fun GreetingPreview() {
-    WallXTheme {
+    WallXAppThemeTheme {
         Greeting("Android")
     }
 }
