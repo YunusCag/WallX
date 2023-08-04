@@ -15,7 +15,7 @@ val mediumShapes:WallXShapes = WallXShapes(
     medium = RoundedCornerShape(6.dp),
     large = RoundedCornerShape(8.dp),
 )
-val largeShapes:WallXShapes = WallXShapes(
+val LargeShapes:WallXShapes = WallXShapes(
     small = RoundedCornerShape(6.dp),
     medium = RoundedCornerShape(8.dp),
     large = RoundedCornerShape(10.dp),

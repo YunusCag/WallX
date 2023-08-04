@@ -11,7 +11,7 @@ val compactDimensions = WallXDimen(
 val mediumDimensions = WallXDimen(
     screenType = ScreenType.MEDIUM
 )
-val largeDimensions = WallXDimen(
+val LargeDimensions = WallXDimen(
     screenType = ScreenType.LARGE
 )
 

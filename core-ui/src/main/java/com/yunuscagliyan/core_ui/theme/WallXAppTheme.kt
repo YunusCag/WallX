@@ -1,16 +1,18 @@
 package com.yunuscagliyan.core_ui.theme
 
 import android.app.Activity
+import android.util.Log
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.windowsizeclass.ExperimentalMaterial3WindowSizeClassApi
 import androidx.compose.material3.windowsizeclass.WindowWidthSizeClass
 import androidx.compose.material3.windowsizeclass.calculateWindowSizeClass
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.ReadOnlyComposable
 import androidx.compose.runtime.SideEffect
+import androidx.compose.runtime.compositionLocalOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalView
@@ -39,19 +41,19 @@ object WallXAppTheme {
 
 }
 
-private val LocalAppColors = staticCompositionLocalOf<WallXAppColor> {
-    lightColor
+private val LocalAppColors = compositionLocalOf<WallXAppColor> {
+    DarkColor
 }
 
-private val LocalAppShapes = staticCompositionLocalOf<WallXShapes> {
-    error("WallXAppShapes was not assigned.")
+private val LocalAppShapes = compositionLocalOf<WallXShapes> {
+    LargeShapes
 }
 
-private val LocalTypography = staticCompositionLocalOf<WallXTypography> {
-    error("WallXAppTypography was not assigned.")
+private val LocalTypography = compositionLocalOf<WallXTypography> {
+    LargeTypography
 }
-private val LocalDimension = staticCompositionLocalOf<WallXDimen> {
-    error("WallXAppDimen was not assigned.")
+private val LocalDimension = compositionLocalOf<WallXDimen> {
+    LargeDimensions
 }
 
 @OptIn(ExperimentalMaterial3WindowSizeClassApi::class)
@@ -64,9 +66,9 @@ fun WallXAppThemeTheme(
     content: @Composable () -> Unit
 ) {
     val colors = if (darkTheme) {
-        darkColor
+        DarkColor
     } else {
-        lightColor
+        LightColor
     }
 
     val view = LocalView.current
@@ -82,9 +84,9 @@ fun WallXAppThemeTheme(
 
     val window = calculateWindowSizeClass(activity = activity)
 
-    var shapes = largeShapes
-    var typography = largeTypography
-    var dimension = largeDimensions
+    var shapes = remember{LargeShapes}
+    var typography = remember{LargeTypography}
+    var dimension = remember{LargeDimensions}
 
     when (window.widthSizeClass) {
         WindowWidthSizeClass.Compact -> {
@@ -95,14 +97,14 @@ fun WallXAppThemeTheme(
 
         WindowWidthSizeClass.Medium -> {
             shapes = mediumShapes
-            typography = mediumTypography
+            typography = MediumTypography
             dimension = mediumDimensions
         }
 
         WindowWidthSizeClass.Expanded -> {
-            shapes = largeShapes
-            typography = largeTypography
-            dimension = largeDimensions
+            shapes = LargeShapes
+            typography = LargeTypography
+            dimension = LargeDimensions
         }
     }
 

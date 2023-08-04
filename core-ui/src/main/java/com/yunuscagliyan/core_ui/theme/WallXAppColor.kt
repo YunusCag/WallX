@@ -7,7 +7,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.graphics.Color
 
 
-val lightColor = WallXAppColor(
+val LightColor = WallXAppColor(
     primary = Color(0xFF202020),
     primaryDark = Color(0xFF202020),
     secondary = Color(0xFF4A148C),
@@ -15,7 +15,7 @@ val lightColor = WallXAppColor(
     background = Color(0xFFF5F5F5),
     black = Color(0xFF000000),
     white = Color(0xFFFFFFFF),
-    textPrimary = Color(0xFFFFFFFF),
+    textPrimary = Color(0xFF000000),
     secondaryGray = Color(0xFF8294A8),
     card = Color(0xFF8294A8),
     bottomBar = Color(0xFF673AB7),
@@ -23,7 +23,7 @@ val lightColor = WallXAppColor(
     isDark = false
 )
 
-val darkColor = WallXAppColor(
+val DarkColor = WallXAppColor(
     primary = Color(0xFF202020),
     primaryDark = Color(0xFF202020),
     secondary = Color(0xFF4A148C),

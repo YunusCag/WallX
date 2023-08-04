@@ -15,132 +15,132 @@ val compactTypography:WallXTypography = WallXTypography(
         fontFamily = WallXAppFontFamily.Monserrat,
         fontWeight = FontWeight.Bold,
         fontSize = 18.sp,
-        lineHeight = 26.sp
+        lineHeight = 20.sp
     ),
     title2 = TextStyle(
         fontFamily = WallXAppFontFamily.Monserrat,
         fontWeight = FontWeight.SemiBold,
         fontSize = 18.sp,
-        lineHeight = 24.sp
+        lineHeight = 20.sp
     ),
     normal1 = TextStyle(
         fontFamily = WallXAppFontFamily.Monserrat,
         fontWeight = FontWeight.SemiBold,
         fontSize = 14.sp,
-        lineHeight = 22.sp
+        lineHeight = 16.sp
     ),
     normal2 = TextStyle(
         fontFamily = WallXAppFontFamily.Monserrat,
         fontWeight = FontWeight.Medium,
         fontSize = 14.sp,
-        lineHeight = 20.sp
+        lineHeight = 16.sp
     ),
     normal3 = TextStyle(
         fontFamily = WallXAppFontFamily.Monserrat,
         fontWeight = FontWeight.Normal,
-        fontSize = 12.sp,
-        lineHeight = 20.sp
+        fontSize = 14.sp,
+        lineHeight = 16.sp
     ),
     small1 = TextStyle(
         fontFamily = WallXAppFontFamily.Monserrat,
         fontWeight = FontWeight.Normal,
         fontSize = 10.sp,
-        lineHeight = 18.sp
+        lineHeight = 12.sp
     ),
     small2 = TextStyle(
         fontFamily = WallXAppFontFamily.Monserrat,
         fontWeight = FontWeight.Light,
         fontSize = 10.sp,
-        lineHeight = 16.sp
+        lineHeight = 12.sp
     ),
 )
 
-val mediumTypography:WallXTypography = WallXTypography(
+val MediumTypography:WallXTypography = WallXTypography(
     title1 = TextStyle(
         fontFamily = WallXAppFontFamily.Monserrat,
         fontWeight = FontWeight.Bold,
-        fontSize = 20.sp,
-        lineHeight = 32.sp
+        fontSize = 22.sp,
+        lineHeight = 24.sp
     ),
     title2 = TextStyle(
         fontFamily = WallXAppFontFamily.Monserrat,
         fontWeight = FontWeight.SemiBold,
-        fontSize = 20.sp,
-        lineHeight = 28.sp
+        fontSize = 22.sp,
+        lineHeight = 24.sp
     ),
     normal1 = TextStyle(
         fontFamily = WallXAppFontFamily.Monserrat,
         fontWeight = FontWeight.SemiBold,
-        fontSize = 18.sp,
-        lineHeight = 26.sp
+        fontSize = 16.sp,
+        lineHeight = 18.sp
     ),
     normal2 = TextStyle(
         fontFamily = WallXAppFontFamily.Monserrat,
         fontWeight = FontWeight.Medium,
-        fontSize = 18.sp,
-        lineHeight = 26.sp
+        fontSize = 16.sp,
+        lineHeight = 18.sp
     ),
     normal3 = TextStyle(
         fontFamily = WallXAppFontFamily.Monserrat,
         fontWeight = FontWeight.Normal,
         fontSize = 16.sp,
-        lineHeight = 24.sp
+        lineHeight = 16.sp
     ),
     small1 = TextStyle(
         fontFamily = WallXAppFontFamily.Monserrat,
         fontWeight = FontWeight.Normal,
         fontSize = 12.sp,
-        lineHeight = 20.sp
+        lineHeight = 14.sp
     ),
     small2 = TextStyle(
         fontFamily = WallXAppFontFamily.Monserrat,
         fontWeight = FontWeight.Light,
         fontSize = 12.sp,
-        lineHeight = 18.sp
+        lineHeight = 14.sp
     ),
 )
-val largeTypography:WallXTypography = WallXTypography(
+val LargeTypography:WallXTypography = WallXTypography(
     title1 = TextStyle(
         fontFamily = WallXAppFontFamily.Monserrat,
         fontWeight = FontWeight.Bold,
-        fontSize = 24.sp,
-        lineHeight = 34.sp
+        fontSize = 26.sp,
+        lineHeight = 28.sp
     ),
     title2 = TextStyle(
         fontFamily = WallXAppFontFamily.Monserrat,
         fontWeight = FontWeight.SemiBold,
-        fontSize = 24.sp,
-        lineHeight = 32.sp
+        fontSize = 26.sp,
+        lineHeight = 28.sp
     ),
     normal1 = TextStyle(
         fontFamily = WallXAppFontFamily.Monserrat,
         fontWeight = FontWeight.SemiBold,
         fontSize = 20.sp,
-        lineHeight = 28.sp
+        lineHeight = 22.sp
     ),
     normal2 = TextStyle(
         fontFamily = WallXAppFontFamily.Monserrat,
         fontWeight = FontWeight.Medium,
         fontSize = 20.sp,
-        lineHeight = 28.sp
+        lineHeight = 22.sp
     ),
     normal3 = TextStyle(
         fontFamily = WallXAppFontFamily.Monserrat,
         fontWeight = FontWeight.Normal,
-        fontSize = 18.sp,
-        lineHeight = 26.sp
+        fontSize = 20.sp,
+        lineHeight = 22.sp
     ),
     small1 = TextStyle(
         fontFamily = WallXAppFontFamily.Monserrat,
         fontWeight = FontWeight.Normal,
-        fontSize = 14.sp,
-        lineHeight = 24.sp
+        fontSize = 18.sp,
+        lineHeight = 20.sp
     ),
     small2 = TextStyle(
         fontFamily = WallXAppFontFamily.Monserrat,
         fontWeight = FontWeight.Light,
-        fontSize = 14.sp,
-        lineHeight = 22.sp
+        fontSize = 16.sp,
+        lineHeight = 18.sp
     ),
 )
 
@@ -191,19 +191,23 @@ object WallXAppFontFamily {
     @Stable
     val Monserrat = FontFamily(
         Font(
-            R.font.monserrat_light,
+            R.font.montserrat_light,
             weight = FontWeight.Light
         ),
         Font(
-            R.font.monserrat_medium,
+            R.font.montserrat_regular,
+            weight = FontWeight.Normal
+        ),
+        Font(
+            R.font.montserrat_medium,
             weight = FontWeight.Medium
         ),
         Font(
-            R.font.monserrat_semi_bold,
+            R.font.montserrat_semi_bold,
             weight = FontWeight.SemiBold
         ),
         Font(
-            R.font.monserrat_bold,
+            R.font.montserrat_bold,
             weight = FontWeight.Bold
         )
     )

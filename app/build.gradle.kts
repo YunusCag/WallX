@@ -69,6 +69,7 @@ dependencies {
 
     implementation(DaggerHilt.hiltAndroid)
 
+    implementation(Timber.timber)
     testImplementation(TestLibs.jUnit)
     androidTestImplementation(TestLibs.espressoCore)
     androidTestImplementation(platform(Compose.composeBOM))
