@@ -11,9 +11,12 @@ val compactDimensions = WallXDimen(
     paddingSmall3 = 12.dp,
 
     paddingMedium1 = 16.dp,
+    paddingMedium2 = 24.dp,
 
     iconSizeSmall = 24.dp,
     iconSizeLarge = 64.dp,
+
+    borderWidth = 1.dp,
     screenType = ScreenType.COMPACT
 )
 val mediumDimensions = WallXDimen(
@@ -22,7 +25,9 @@ val mediumDimensions = WallXDimen(
     paddingSmall3 = 16.dp,
 
     paddingMedium1 = 24.dp,
+    paddingMedium2 = 32.dp,
 
+    borderWidth = 2.dp,
     iconSizeSmall = 32.dp,
     iconSizeLarge = 72.dp,
     screenType = ScreenType.MEDIUM
@@ -33,7 +38,9 @@ val LargeDimensions = WallXDimen(
     paddingSmall3 = 32.dp,
 
     paddingMedium1 = 32.dp,
+    paddingMedium2 = 40.dp,
 
+    borderWidth = 3.dp,
     iconSizeSmall = 40.dp,
     iconSizeLarge = 80.dp,
     screenType = ScreenType.LARGE
@@ -53,6 +60,8 @@ data class WallXDimen(
     val iconSizeLarge:Dp = 0.dp,
     val large1:Dp = 0.dp,
     val large2:Dp = 0.dp,
+
+    val borderWidth: Dp = 0.dp,
     val screenType: ScreenType = ScreenType.LARGE
 )
 

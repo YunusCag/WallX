@@ -6,12 +6,11 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
@@ -38,6 +37,7 @@ import androidx.compose.ui.window.DialogProperties
 import androidx.constraintlayout.compose.ConstraintLayout
 import com.yunuscagliyan.core.util.Constant.StringParameter.EMPTY_STRING
 import com.yunuscagliyan.core_ui.R
+import com.yunuscagliyan.core_ui.components.button.FilledSecondaryTextButton
 import com.yunuscagliyan.core_ui.extension.noRippleClickable
 import com.yunuscagliyan.core_ui.theme.WallXAppTheme
 
@@ -55,7 +55,8 @@ fun BaseDialog(
     ),
     containerColor: Color = WallXAppTheme.colors.background,
     disabledContainerColor: Color = WallXAppTheme.colors.background,
-    onDismissRequest: () -> Unit
+    onDismissRequest: () -> Unit,
+    bottomButtons: (@Composable RowScope.() -> Unit)? = null,
 ) {
     Dialog(
         onDismissRequest = onDismissRequest,
@@ -63,6 +64,11 @@ fun BaseDialog(
     ) {
         Surface(
             modifier = Modifier
+                .noRippleClickable {
+                    if (properties.dismissOnClickOutside) {
+                        onDismissRequest()
+                    }
+                }
                 .fillMaxSize(),
             color = WallXAppTheme.colors.black.copy(
                 alpha = 0.3f
@@ -73,8 +79,8 @@ fun BaseDialog(
             ) {
                 ConstraintLayout(
                     modifier = Modifier
-                ){
-                    val (card,icon) = createRefs()
+                ) {
+                    val (card, icon) = createRefs()
                     val padding = WallXAppTheme.dimension.iconSizeLarge / 2
 
                     Card(
@@ -147,6 +153,17 @@ fun BaseDialog(
                                         modifier = Modifier
                                             .fillMaxWidth()
                                     )
+                                    Spacer(modifier = Modifier.height(WallXAppTheme.dimension.paddingSmall1))
+                                }
+                                Spacer(modifier = Modifier.height(WallXAppTheme.dimension.paddingSmall1))
+                                bottomButtons?.let { buttons ->
+                                    Row(
+                                        modifier = Modifier
+                                            .fillMaxWidth(),
+                                        horizontalArrangement = Arrangement.Center
+                                    ) {
+                                        buttons()
+                                    }
                                     Spacer(modifier = Modifier.height(WallXAppTheme.dimension.paddingMedium1))
                                 }
                             }
@@ -165,7 +182,7 @@ fun BaseDialog(
                             .padding(
                                 2.dp
                             )
-                        ){
+                        ) {
                             Icon(
                                 painter = painterResource(id = id),
                                 contentDescription = EMPTY_STRING,
@@ -188,7 +205,8 @@ fun BaseDialog(
 fun InfoDialog(
     title: String? = null,
     description: String,
-    onDismissRequest: () -> Unit
+    onDismissRequest: () -> Unit,
+    onOkayClicked:(() -> Unit)? = null
 ) {
     BaseDialog(
         iconId = R.drawable.ic_info,
@@ -196,14 +214,25 @@ fun InfoDialog(
         title = title,
         description = description,
         onDismissRequest = onDismissRequest
-    )
+    ) {
+        FilledSecondaryTextButton(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(
+                    horizontal = WallXAppTheme.dimension.paddingMedium1
+                ),
+            text = stringResource(id = R.string.common_okay),
+            onClick = onOkayClicked ?: onDismissRequest
+        )
+    }
 }
 
 @Composable
 fun WarningDialog(
     title: String? = null,
     description: String,
-    onDismissRequest: () -> Unit
+    onDismissRequest: () -> Unit,
+    onOkayClicked:(() -> Unit)? = null
 ) {
     BaseDialog(
         iconId = R.drawable.ic_warning,
@@ -211,14 +240,25 @@ fun WarningDialog(
         title = title,
         description = description,
         onDismissRequest = onDismissRequest
-    )
+    ){
+        FilledSecondaryTextButton(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(
+                    horizontal = WallXAppTheme.dimension.paddingMedium1
+                ),
+            text = stringResource(id = R.string.common_okay),
+            onClick = onOkayClicked ?: onDismissRequest
+        )
+    }
 }
 
 @Composable
 fun ErrorDialog(
     title: String? = null,
     description: String,
-    onDismissRequest: () -> Unit
+    onDismissRequest: () -> Unit,
+    onOkayClicked:(() -> Unit)? = null
 ) {
     BaseDialog(
         iconId = R.drawable.ic_error,
@@ -226,13 +266,25 @@ fun ErrorDialog(
         title = title,
         description = description,
         onDismissRequest = onDismissRequest
-    )
+    ){
+        FilledSecondaryTextButton(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(
+                    horizontal = WallXAppTheme.dimension.paddingMedium1
+                ),
+            text = stringResource(id = R.string.common_okay),
+            onClick = onOkayClicked ?: onDismissRequest
+        )
+    }
 }
+
 @Composable
 fun SuccessDialog(
     title: String? = null,
     description: String,
-    onDismissRequest: () -> Unit
+    onDismissRequest: () -> Unit,
+    onOkayClicked:(() -> Unit)? = null
 ) {
     BaseDialog(
         iconId = R.drawable.ic_success,
@@ -240,7 +292,17 @@ fun SuccessDialog(
         title = title,
         description = description,
         onDismissRequest = onDismissRequest
-    )
+    ){
+        FilledSecondaryTextButton(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(
+                    horizontal = WallXAppTheme.dimension.paddingMedium1
+                ),
+            text = stringResource(id = R.string.common_okay),
+            onClick = onOkayClicked ?: onDismissRequest
+        )
+    }
 }
 
 
@@ -248,10 +310,13 @@ fun SuccessDialog(
 @Composable
 fun PreviewBaseDialog() {
     MaterialTheme {
-        BaseDialog(
+        SuccessDialog(
             title = "Başlık",
-            description = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s"
-        ){
+            description = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s",
+            onDismissRequest = {
+
+            }
+        ) {
 
         }
     }
