@@ -1,6 +1,7 @@
 apply from: "$rootDir/scripts/common.gradle"
 
 android {
+    namespace "com.yunuscagliyan.core_ui"
     buildFeatures {
         compose = true
     }
@@ -24,6 +25,7 @@ dependencies {
     implementation(Compose.composeToolingPreview)
     implementation(Compose.material3)
     implementation(Compose.materialWindowSizeClass)
+    implementation(Compose.constraintLayout)
 
     testImplementation(TestLibs.jUnit)
     androidTestImplementation(TestLibs.jUnitExt)

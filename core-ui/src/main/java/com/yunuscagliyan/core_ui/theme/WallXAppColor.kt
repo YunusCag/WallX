@@ -20,6 +20,10 @@ val LightColor = WallXAppColor(
     card = Color(0xFF8294A8),
     bottomBar = Color(0xFF673AB7),
     dividerColor = Color(0xFF9e9e9e),
+    error = Color(0xFFF44336),
+    warning = Color(0xFFFFEB3B),
+    success = Color(0xFF4CAF50),
+    info = Color(0xFF03A9F4),
     isDark = false
 )
 
@@ -36,6 +40,10 @@ val DarkColor = WallXAppColor(
     card = Color(0xFF8294A8),
     bottomBar = Color(0xFF673AB7),
     dividerColor = Color(0xFF9e9e9e),
+    error = Color(0xFFF44336),
+    warning = Color(0xFFFFEB3B),
+    success = Color(0xFF4CAF50),
+    info = Color(0xFF03A9F4),
     isDark = false
 )
 
@@ -53,6 +61,10 @@ class WallXAppColor(
     card:Color,
     bottomBar:Color,
     dividerColor:Color,
+    error:Color,
+    warning:Color,
+    success:Color,
+    info:Color,
     isDark:Boolean
 ) {
     var white by mutableStateOf(white)
@@ -79,6 +91,14 @@ class WallXAppColor(
         private set
     var dividerColor by mutableStateOf(dividerColor)
         private set
+    var error by mutableStateOf(error)
+        private set
+    var warning by mutableStateOf(warning)
+        private set
+    var success by mutableStateOf(success)
+        private set
+    var info by mutableStateOf(info)
+        private set
     var isDark by mutableStateOf(isDark)
         private set
 
@@ -95,6 +115,10 @@ class WallXAppColor(
         card = card,
         bottomBar =bottomBar,
         dividerColor = dividerColor,
+        error = error,
+        warning = warning,
+        success = success,
+        info = info,
         isDark = isDark
     )
 
@@ -111,6 +135,10 @@ class WallXAppColor(
         card = other.card
         bottomBar = other.bottomBar
         dividerColor = other.dividerColor
+        error = other.error
+        warning = other.warning
+        success = other.success
+        info = other.info
         isDark = other.isDark
     }
 }

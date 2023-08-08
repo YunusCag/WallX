@@ -8,19 +8,41 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
+import com.yunuscagliyan.core_ui.components.dialog.BaseDialog
 import com.yunuscagliyan.core_ui.theme.WallXAppTheme
-import com.yunuscagliyan.core_ui.theme.WallXAppThemeTheme
+import com.yunuscagliyan.core_ui.R
+import com.yunuscagliyan.core_ui.components.dialog.ErrorDialog
+import com.yunuscagliyan.core_ui.components.dialog.InfoDialog
+import com.yunuscagliyan.core_ui.components.dialog.SuccessDialog
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            WallXAppThemeTheme {
+            WallXAppTheme {
+                var showDialog by remember {mutableStateOf(false) }
+
+                if(showDialog) {
+                    SuccessDialog(
+                        title = "Başlık 1",
+                        description = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s",
+                        onDismissRequest = {
+                            showDialog = false
+                        }
+                    )
+                }
+
                 Column(
                     modifier = Modifier
                         .fillMaxSize()
@@ -48,13 +70,18 @@ class MainActivity : ComponentActivity() {
                         style = WallXAppTheme.typography.normal3
                     )
                     TextStyleView(
-                        name = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
+                        name = "Small1-Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
                         style = WallXAppTheme.typography.small1
                     )
                     TextStyleView(
-                        name = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
+                        name = "Small2-Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
                         style = WallXAppTheme.typography.small2
                     )
+
+
+                    Button(onClick = { showDialog = true}) {
+                        Text(text = "Show Dialog")
+                    }
                 }
 
             }

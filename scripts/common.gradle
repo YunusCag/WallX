@@ -46,7 +46,7 @@ android {
     }
 
     buildFeatures {
-        buildConfig = true
+        buildConfig true
     }
 
     dependencies {
