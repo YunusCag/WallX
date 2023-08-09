@@ -37,6 +37,7 @@ import androidx.compose.ui.window.DialogProperties
 import androidx.constraintlayout.compose.ConstraintLayout
 import com.yunuscagliyan.core.util.Constant.StringParameter.EMPTY_STRING
 import com.yunuscagliyan.core_ui.R
+import com.yunuscagliyan.core_ui.components.anim.AnimationBox
 import com.yunuscagliyan.core_ui.components.button.FilledSecondaryTextButton
 import com.yunuscagliyan.core_ui.extension.noRippleClickable
 import com.yunuscagliyan.core_ui.theme.WallXAppTheme
@@ -77,124 +78,125 @@ fun BaseDialog(
             Box(
                 contentAlignment = Alignment.Center
             ) {
-                ConstraintLayout(
-                    modifier = Modifier
-                ) {
-                    val (card, icon) = createRefs()
-                    val padding = WallXAppTheme.dimension.iconSizeLarge / 2
-
-                    Card(
-                        shape = CardDefaults.outlinedShape,
+                AnimationBox {
+                    ConstraintLayout(
                         modifier = Modifier
-                            .fillMaxWidth(fraction = 0.8f)
-                            .constrainAs(card) {
-                                top.linkTo(parent.top, padding + 2.dp)
-                                start.linkTo(parent.start)
-                                end.linkTo(parent.end)
-                            },
-                        colors = CardDefaults.cardColors(
-                            containerColor = containerColor,
-                            disabledContainerColor = disabledContainerColor
-                        )
                     ) {
-                        Column(
+                        val (card, icon) = createRefs()
+                        val padding = WallXAppTheme.dimension.iconSizeLarge / 2
+
+                        Card(
+                            shape = CardDefaults.outlinedShape,
                             modifier = Modifier
-                                .fillMaxWidth(),
-                            horizontalAlignment = Alignment.CenterHorizontally
+                                .fillMaxWidth(fraction = 0.8f)
+                                .constrainAs(card) {
+                                    top.linkTo(parent.top, padding + 2.dp)
+                                    start.linkTo(parent.start)
+                                    end.linkTo(parent.end)
+                                },
+                            colors = CardDefaults.cardColors(
+                                containerColor = containerColor,
+                                disabledContainerColor = disabledContainerColor
+                            )
                         ) {
-                            Row(
-                                modifier = Modifier
-                                    .fillMaxWidth(),
-                                horizontalArrangement = Arrangement.End
-                            ) {
-                                Icon(
-                                    Icons.Default.Close,
-                                    contentDescription = stringResource(id = R.string.common_close),
-                                    tint = WallXAppTheme.colors.textPrimary,
-                                    modifier = Modifier
-                                        .noRippleClickable {
-                                            onDismissRequest()
-                                        }
-                                        .padding(
-                                            top = WallXAppTheme.dimension.paddingSmall2,
-                                            end = WallXAppTheme.dimension.paddingSmall2
-                                        )
-                                        .size(WallXAppTheme.dimension.iconSizeSmall)
-                                )
-                            }
-                            Spacer(modifier = Modifier.height(padding - (WallXAppTheme.dimension.iconSizeSmall + WallXAppTheme.dimension.paddingSmall2)))
                             Column(
                                 modifier = Modifier
-                                    .fillMaxWidth()
-                                    .padding(
-                                        horizontal = WallXAppTheme.dimension.paddingSmall2,
-                                    ),
-                                verticalArrangement = Arrangement.Center,
+                                    .fillMaxWidth(),
                                 horizontalAlignment = Alignment.CenterHorizontally
                             ) {
-                                title?.let { title ->
-                                    Text(
-                                        text = title,
-                                        style = WallXAppTheme.typography.normal1,
-                                        color = WallXAppTheme.colors.textPrimary,
-                                        textAlign = TextAlign.Center,
+                                Row(
+                                    modifier = Modifier
+                                        .fillMaxWidth(),
+                                    horizontalArrangement = Arrangement.End
+                                ) {
+                                    Icon(
+                                        Icons.Default.Close,
+                                        contentDescription = stringResource(id = R.string.common_close),
+                                        tint = WallXAppTheme.colors.textPrimary,
                                         modifier = Modifier
-                                            .fillMaxWidth()
+                                            .noRippleClickable {
+                                                onDismissRequest()
+                                            }
+                                            .padding(
+                                                top = WallXAppTheme.dimension.paddingSmall2,
+                                                end = WallXAppTheme.dimension.paddingSmall2
+                                            )
+                                            .size(WallXAppTheme.dimension.iconSizeSmall)
                                     )
-                                    Spacer(modifier = Modifier.height(WallXAppTheme.dimension.paddingSmall1))
                                 }
-
-                                description?.let { description ->
-                                    Text(
-                                        text = description,
-                                        style = WallXAppTheme.typography.normal3,
-                                        color = WallXAppTheme.colors.textPrimary,
-                                        textAlign = TextAlign.Center,
-                                        modifier = Modifier
-                                            .fillMaxWidth()
-                                    )
-                                    Spacer(modifier = Modifier.height(WallXAppTheme.dimension.paddingSmall1))
-                                }
-                                Spacer(modifier = Modifier.height(WallXAppTheme.dimension.paddingSmall1))
-                                bottomButtons?.let { buttons ->
-                                    Row(
-                                        modifier = Modifier
-                                            .fillMaxWidth(),
-                                        horizontalArrangement = Arrangement.Center
-                                    ) {
-                                        buttons()
+                                Spacer(modifier = Modifier.height(padding - (WallXAppTheme.dimension.iconSizeSmall + WallXAppTheme.dimension.paddingSmall2)))
+                                Column(
+                                    modifier = Modifier
+                                        .fillMaxWidth()
+                                        .padding(
+                                            horizontal = WallXAppTheme.dimension.paddingSmall2,
+                                        ),
+                                    verticalArrangement = Arrangement.Center,
+                                    horizontalAlignment = Alignment.CenterHorizontally
+                                ) {
+                                    title?.let { title ->
+                                        Text(
+                                            text = title,
+                                            style = WallXAppTheme.typography.normal1,
+                                            color = WallXAppTheme.colors.textPrimary,
+                                            textAlign = TextAlign.Center,
+                                            modifier = Modifier
+                                                .fillMaxWidth()
+                                        )
+                                        Spacer(modifier = Modifier.height(WallXAppTheme.dimension.paddingSmall1))
                                     }
-                                    Spacer(modifier = Modifier.height(WallXAppTheme.dimension.paddingMedium1))
+
+                                    description?.let { description ->
+                                        Text(
+                                            text = description,
+                                            style = WallXAppTheme.typography.normal3,
+                                            color = WallXAppTheme.colors.textPrimary,
+                                            textAlign = TextAlign.Center,
+                                            modifier = Modifier
+                                                .fillMaxWidth()
+                                        )
+                                        Spacer(modifier = Modifier.height(WallXAppTheme.dimension.paddingSmall1))
+                                    }
+                                    Spacer(modifier = Modifier.height(WallXAppTheme.dimension.paddingSmall1))
+                                    bottomButtons?.let { buttons ->
+                                        Row(
+                                            modifier = Modifier
+                                                .fillMaxWidth(),
+                                            horizontalArrangement = Arrangement.Center
+                                        ) {
+                                            buttons()
+                                        }
+                                        Spacer(modifier = Modifier.height(WallXAppTheme.dimension.paddingMedium1))
+                                    }
                                 }
                             }
                         }
-                    }
 
-                    iconId?.let { id ->
-                        Box(modifier = Modifier
-                            .clip(CircleShape)
-                            .background(WallXAppTheme.colors.background)
-                            .constrainAs(icon) {
-                                top.linkTo(parent.top)
-                                start.linkTo(parent.start)
-                                end.linkTo(parent.end)
+                        iconId?.let { id ->
+                            Box(modifier = Modifier
+                                .clip(CircleShape)
+                                .background(WallXAppTheme.colors.background)
+                                .constrainAs(icon) {
+                                    top.linkTo(parent.top)
+                                    start.linkTo(parent.start)
+                                    end.linkTo(parent.end)
+                                }
+                                .padding(
+                                    2.dp
+                                )
+                            ) {
+                                Icon(
+                                    painter = painterResource(id = id),
+                                    contentDescription = EMPTY_STRING,
+                                    tint = iconTint,
+                                    modifier = Modifier
+                                        .size(WallXAppTheme.dimension.iconSizeLarge)
+                                )
                             }
-                            .padding(
-                                2.dp
-                            )
-                        ) {
-                            Icon(
-                                painter = painterResource(id = id),
-                                contentDescription = EMPTY_STRING,
-                                tint = iconTint,
-                                modifier = Modifier
-                                    .size(WallXAppTheme.dimension.iconSizeLarge)
-                            )
-                        }
 
+                        }
                     }
                 }
-
             }
         }
     }
