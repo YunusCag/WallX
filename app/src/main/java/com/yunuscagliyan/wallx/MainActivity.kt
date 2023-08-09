@@ -26,7 +26,9 @@ import com.yunuscagliyan.core_ui.components.dialog.ErrorDialog
 import com.yunuscagliyan.core_ui.components.dialog.InfoDialog
 import com.yunuscagliyan.core_ui.components.dialog.SuccessDialog
 import com.yunuscagliyan.core_ui.components.dialog.WarningDialog
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
