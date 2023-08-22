@@ -60,9 +60,9 @@ fun WallXAppTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
     // Dynamic color is available on Android 12+
     dynamicColor: Boolean = true,
-    activity: Activity = LocalContext.current as Activity,
     content: @Composable () -> Unit
 ) {
+    val activity = LocalContext.current as Activity
     val colors = if (darkTheme) {
         DarkColor
     } else {
@@ -72,7 +72,7 @@ fun WallXAppTheme(
     val view = LocalView.current
     if (!view.isInEditMode) {
         SideEffect {
-            val window = (view.context as Activity).window
+            val window = activity.window
             window.statusBarColor = colors.primary.toArgb()
             WindowCompat.getInsetsController(window, view).isAppearanceLightStatusBars = darkTheme
         }

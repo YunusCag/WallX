@@ -2,13 +2,14 @@ object Compose {
     private const val activityComposeVersion = "1.7.2"
     private const val composeBOMVersion = "2023.03.00"
     private const val constraitLayoutVersion = "1.0.0"
+    private const val material3Version = "1.1.1"
 
     const val activityCompose = "androidx.activity:activity-compose:$activityComposeVersion"
     const val composeBOM = "androidx.compose:compose-bom:$composeBOMVersion"
     const val composeUI = "androidx.compose.ui:ui"
     const val composeUIGraphic = "androidx.compose.ui:ui-graphics"
     const val composeToolingPreview = "androidx.compose.ui:ui-tooling-preview"
-    const val material3 = "androidx.compose.material3:material3"
+    const val material3 = "androidx.compose.material3:material3:$material3Version"
     const val materialWindowSizeClass = "androidx.compose.material3:material3-window-size-class"
     const val constraintLayout = "androidx.constraintlayout:constraintlayout-compose:$constraitLayoutVersion"
 
