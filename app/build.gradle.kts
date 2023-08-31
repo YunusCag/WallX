@@ -1,6 +1,8 @@
 plugins {
     id(Plugins.androidApplication)
     id(Plugins.androidKotlin)
+    id(Plugins.kotlinKapt)
+    id("com.google.dagger.hilt.android")
 }
 
 android {
@@ -30,8 +32,8 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
     kotlinOptions {
         jvmTarget = AppConfig.jvmTarget
@@ -52,6 +54,7 @@ android {
 dependencies {
 
     implementation(project(Modules.core_ui))
+    implementation(project(Modules.home))
 
     implementation(AndroidX.coreKtx)
     implementation(AndroidX.lifecycle)
@@ -67,7 +70,10 @@ dependencies {
     implementation(Compose.composeToolingPreview)
     implementation(Compose.material3)
 
+    implementation(Accompanist.animatedNavigation)
+
     implementation(DaggerHilt.hiltAndroid)
+    kapt(DaggerHilt.hiltCompiler)
 
     implementation(Timber.timber)
     testImplementation(TestLibs.jUnit)

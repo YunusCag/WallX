@@ -1,4 +1,4 @@
-package com.yunuscagliyan.main
+package com.yunuscagliyan.home
 
 import org.junit.Test
 

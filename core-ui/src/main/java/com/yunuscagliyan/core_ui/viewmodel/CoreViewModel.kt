@@ -14,10 +14,7 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-@HiltViewModel
-abstract class CoreViewModel<S,E> @Inject constructor(
-
-):ViewModel() {
+abstract class CoreViewModel<S,E>:ViewModel() {
 
     abstract fun getInitialState():S
 
