@@ -2,7 +2,7 @@ plugins {
     id(Plugins.androidApplication)
     id(Plugins.androidKotlin)
     id(Plugins.kotlinKapt)
-    id("com.google.dagger.hilt.android")
+    id(Plugins.hilt)
 }
 
 android {
