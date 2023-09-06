@@ -17,6 +17,9 @@ class Constant {
         const val ORDER_BY= "order_by"
         const val CLIENT_ID= "client_id"
     }
+    object PaginationUtil{
+        const val PER_PAGE = 20
+    }
     object NetworkCacheUtil {
         const val CACHE_HEADER_KEY = "Cache-Control"
         const val CACHE_FILE_NAME = "offlineCache"

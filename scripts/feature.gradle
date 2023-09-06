@@ -19,6 +19,11 @@ dependencies {
 
     implementation(Accompanist.animatedNavigation)
 
+    implementation Compose.pagingRuntime
+    implementation Compose.pagingCompose
+
+    implementation Compose.coil
+
     implementation(Compose.activityCompose)
     implementation(platform(Compose.composeBOM))
     implementation(Compose.composeUI)

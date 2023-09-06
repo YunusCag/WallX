@@ -11,4 +11,7 @@ dependencies {
     implementation Retrofit.moshiConverter
     implementation Retrofit.moshiKotlin
     implementation Retrofit.moshiConverter
+
+    implementation Compose.pagingRuntime
+    implementation Compose.pagingCompose
 }
