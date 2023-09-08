@@ -6,7 +6,6 @@ object Compose {
     private const val pagingVersion= "3.1.1"
     private const val pagingComposeVersion= "3.2.0"
     private const val coilVersion = "2.4.0"
-
     const val activityCompose = "androidx.activity:activity-compose:$activityComposeVersion"
     const val composeBOM = "androidx.compose:compose-bom:$composeBOMVersion"
     const val composeUI = "androidx.compose.ui:ui"

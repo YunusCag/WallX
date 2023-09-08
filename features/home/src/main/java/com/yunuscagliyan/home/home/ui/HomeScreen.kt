@@ -1,21 +1,22 @@
 package com.yunuscagliyan.home.home.ui
 
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.paging.compose.collectAsLazyPagingItems
-import androidx.paging.compose.itemKey
-import coil.compose.AsyncImage
+import com.yunuscagliyan.core.data.remote.model.photo.PhotoModel
+import com.yunuscagliyan.core_ui.R
+import com.yunuscagliyan.core_ui.components.grid.PhotoStaggeredGrid
+import com.yunuscagliyan.core_ui.components.tab.WallTapRow
 import com.yunuscagliyan.core_ui.event.ScreenRoutes
 import com.yunuscagliyan.core_ui.screen.CoreScreen
 import com.yunuscagliyan.home.home.viewModel.HomeState
 import com.yunuscagliyan.home.home.viewModel.HomeViewModel
+import timber.log.Timber
 
 
 object HomeScreen : CoreScreen<HomeState, HomeEvent>() {
@@ -25,25 +26,48 @@ object HomeScreen : CoreScreen<HomeState, HomeEvent>() {
     @Composable
     override fun viewModel(): HomeViewModel = hiltViewModel()
 
+    @OptIn(ExperimentalFoundationApi::class)
     @Composable
     override fun Content(
         state: HomeState,
         onEvent: (HomeEvent) -> Unit
     ) {
+        val newPhotos = state.newPhotos.collectAsLazyPagingItems()
         val popularPhotos = state.popularPhotos.collectAsLazyPagingItems()
-        LazyColumn {
-            items(popularPhotos.itemCount, key = popularPhotos.itemKey()) { index ->
-                val photo = popularPhotos[index]
-                photo?.urls?.thumb?.let {
-                    AsyncImage(
+
+        val onPhotoClick: (PhotoModel) -> Unit = remember {
+            {
+                Timber.e("Photo Clicked.")
+                onEvent(HomeEvent.OnPhotoClick(it))
+            }
+        }
+
+        WallTapRow(
+            modifier = Modifier
+                .fillMaxSize(),
+            titles = listOf(
+                stringResource(id = R.string.home_tab_latest),
+                stringResource(id = R.string.home_tab_popular)
+            )
+        ) { page ->
+            when (page) {
+                0 -> {
+                    PhotoStaggeredGrid(
                         modifier = Modifier
                             .fillMaxSize(),
-                        model = it,
-                        contentDescription = it,
-                        contentScale = ContentScale.FillWidth
+                        photosLazyItems = newPhotos,
+                        onClick = onPhotoClick
                     )
                 }
 
+                1 -> {
+                    PhotoStaggeredGrid(
+                        modifier = Modifier
+                            .fillMaxSize(),
+                        photosLazyItems = popularPhotos,
+                        onClick = onPhotoClick
+                    )
+                }
             }
         }
     }

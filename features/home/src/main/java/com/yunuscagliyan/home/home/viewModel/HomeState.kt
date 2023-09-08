@@ -8,5 +8,6 @@ import kotlinx.coroutines.flow.emptyFlow
 
 @Stable
 data class HomeState(
+    val newPhotos: Flow<PagingData<PhotoModel>> = emptyFlow(),
     val popularPhotos: Flow<PagingData<PhotoModel>> = emptyFlow()
 )

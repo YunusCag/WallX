@@ -19,16 +19,24 @@ class HomeViewModel @Inject constructor(
         getPhotos()
     }
 
-    fun getPhotos() {
+    private fun getPhotos() {
         updateState {
             copy(
+                newPhotos = photoRepository.getPhotos(
+                    orderBy = PhotoOrderBy.Latest
+                ),
                 popularPhotos = photoRepository.getPhotos(
                     orderBy = PhotoOrderBy.Popular
                 ).cachedIn(viewModelScope)
             )
         }
     }
-    override fun onEvent(event: HomeEvent) {
 
+    override fun onEvent(event: HomeEvent) {
+        when (event) {
+            is HomeEvent.OnPhotoClick -> {
+                // TODO Navigate PhotoDetail.
+            }
+        }
     }
 }

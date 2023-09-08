@@ -27,6 +27,15 @@ dependencies {
     implementation(Compose.materialWindowSizeClass)
     implementation(Compose.constraintLayout)
 
+    implementation(Compose.coil)
+
+    implementation(Compose.pagingRuntime)
+    implementation(Compose.pagingCompose)
+
+    implementation(Accompanist.accompanistPager)
+    implementation(Accompanist.accompanistPagerIndicator)
+
+
     testImplementation(TestLibs.jUnit)
     androidTestImplementation(TestLibs.jUnitExt)
     androidTestImplementation(TestLibs.espressoCore)

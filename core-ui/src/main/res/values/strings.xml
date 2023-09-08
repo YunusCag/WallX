@@ -11,4 +11,6 @@
     <string name="bottom_bar_settings_title">Settings</string>
 
     <!--Home Page-->
+    <string name="home_tab_latest">Latest</string>
+    <string name="home_tab_popular">Popular</string>
 </resources>

@@ -3,6 +3,8 @@ package com.yunuscagliyan.home.main.ui
 import androidx.compose.animation.AnimatedContentTransitionScope
 import androidx.compose.animation.core.LinearEasing
 import androidx.compose.animation.core.tween
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -107,10 +109,10 @@ object MainScreen : CoreScreen<MainState, MainEvent>() {
                 }
             }
         ) {
-            this.navController?.let {
+            this.navController?.let {navController->
                 SetupNavGraph(
                     mainHostController = navHostController,
-                    rootNavController = it
+                    rootNavController = navController
                 )
             }
 
@@ -136,10 +138,13 @@ object MainScreen : CoreScreen<MainState, MainEvent>() {
 
     @Composable
     fun SetupNavGraph(
+        modifier: Modifier = Modifier,
         mainHostController: NavHostController,
         rootNavController: NavHostController,
     ) {
         NavHost(
+            modifier = modifier
+                .fillMaxSize(),
             navController = mainHostController,
             startDestination = ScreenRoutes.HomeScreen.route,
             enterTransition = {

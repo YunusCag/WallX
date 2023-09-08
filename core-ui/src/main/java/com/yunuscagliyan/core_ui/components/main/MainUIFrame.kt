@@ -1,7 +1,9 @@
 package com.yunuscagliyan.core_ui.components.main
 
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Snackbar
@@ -21,7 +23,7 @@ fun MainUIFrame(
     topBar: @Composable () -> Unit = {},
     bottomBar: @Composable () -> Unit = {},
     backgroundColor: Color = WallXAppTheme.colors.background,
-    content: @Composable (PaddingValues) -> Unit
+    content: @Composable () -> Unit
 ) {
     Scaffold(
         modifier = modifier
@@ -38,6 +40,13 @@ fun MainUIFrame(
                 )
             }
         },
-        content = content,
+        content = {
+            Box(
+                modifier = Modifier
+                    .padding(it)
+            ) {
+                content()
+            }
+        },
     )
 }

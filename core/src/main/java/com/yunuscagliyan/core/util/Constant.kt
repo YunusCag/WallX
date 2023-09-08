@@ -31,5 +31,6 @@ class Constant {
     object DurationUtil {
         const val DEFAULT_ANIMATION_DURATION = 300L
         const val TRANSITION_DURATION = 500
+        const val SHIMMER_DURATION = 1000
     }
 }
