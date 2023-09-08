@@ -4,6 +4,10 @@ package com.yunuscagliyan.core.data.remote.model.photo
 import android.os.Parcelable
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
+import com.yunuscagliyan.core.data.remote.model.link.Links
+import com.yunuscagliyan.core.data.remote.model.sponsor.Sponsorship
+import com.yunuscagliyan.core.data.remote.model.url.Urls
+import com.yunuscagliyan.core.data.remote.model.user.User
 import kotlinx.parcelize.Parcelize
 
 @Parcelize

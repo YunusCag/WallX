@@ -1,4 +1,4 @@
-package com.yunuscagliyan.core.data.remote.model.photo
+package com.yunuscagliyan.core.data.remote.model.url
 
 
 import android.os.Parcelable
