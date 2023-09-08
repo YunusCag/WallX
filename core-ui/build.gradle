@@ -1,6 +1,7 @@
 apply from: "$rootDir/scripts/common.gradle"
 
 android {
+    namespace "com.yunuscagliyan.core_ui"
     buildFeatures {
         compose = true
     }
@@ -10,6 +11,8 @@ android {
 }
 
 dependencies {
+    api project(Modules.core)
+
     implementation(AndroidX.composeViewModel)
     implementation(AndroidX.composeNavigation)
     implementation(AndroidX.hiltNavigationCompose)
@@ -21,6 +24,17 @@ dependencies {
     implementation(Compose.composeUIGraphic)
     implementation(Compose.composeToolingPreview)
     implementation(Compose.material3)
+    implementation(Compose.materialWindowSizeClass)
+    implementation(Compose.constraintLayout)
+
+    implementation(Compose.coil)
+
+    implementation(Compose.pagingRuntime)
+    implementation(Compose.pagingCompose)
+
+    implementation(Accompanist.accompanistPager)
+    implementation(Accompanist.accompanistPagerIndicator)
+
 
     testImplementation(TestLibs.jUnit)
     androidTestImplementation(TestLibs.jUnitExt)

@@ -17,6 +17,12 @@ dependencies {
     implementation(AndroidX.composeNavigation)
     implementation(AndroidX.hiltNavigationCompose)
 
+    implementation(Accompanist.animatedNavigation)
+
+    implementation Compose.pagingRuntime
+    implementation Compose.pagingCompose
+
+    implementation Compose.coil
 
     implementation(Compose.activityCompose)
     implementation(platform(Compose.composeBOM))
@@ -24,4 +30,5 @@ dependencies {
     implementation(Compose.composeUIGraphic)
     implementation(Compose.composeToolingPreview)
     implementation(Compose.material3)
+
 }
