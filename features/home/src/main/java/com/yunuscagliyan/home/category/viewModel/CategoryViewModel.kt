@@ -2,6 +2,9 @@ package com.yunuscagliyan.home.category.viewModel
 
 import com.yunuscagliyan.core.data.enums.PhotoOrderBy
 import com.yunuscagliyan.core.data.remote.repository.PhotoRepository
+import com.yunuscagliyan.core_ui.event.Event
+import com.yunuscagliyan.core_ui.event.Routes
+import com.yunuscagliyan.core_ui.event.ScreenRoutes
 import com.yunuscagliyan.core_ui.viewmodel.CoreViewModel
 import com.yunuscagliyan.home.category.ui.CategoryEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -29,6 +32,20 @@ class CategoryViewModel @Inject constructor(
     }
 
     override fun onEvent(event: CategoryEvent) {
+        when (event) {
+            is CategoryEvent.OnCollectionClick -> {
+                sendEvent(
+                    Event.Navigation(
+                        Routes.NavigateToRoute(
+                            pageRoute = ScreenRoutes.PhotoListScreen.navigate(
+                                collectionId = event.collectionModel.id,
+                                collectionName = event.collectionModel.title
+                            )
+                        )
+                    )
+                )
+            }
+        }
 
     }
 

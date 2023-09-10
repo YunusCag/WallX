@@ -4,6 +4,7 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import com.yunuscagliyan.core.data.enums.PhotoOrderBy
 import com.yunuscagliyan.core.data.remote.service.UnsplashService
+import com.yunuscagliyan.core.data.remote.source.CollectionPhotoSource
 import com.yunuscagliyan.core.data.remote.source.CollectionSearchSource
 import com.yunuscagliyan.core.data.remote.source.PhotoSource
 import com.yunuscagliyan.core.util.Constant.PaginationUtil.PER_PAGE
@@ -35,6 +36,22 @@ class PhotoRepository @Inject constructor(
             CollectionSearchSource(
                 unsplashService = unsplashService,
                 query = query,
+                orderBy = orderBy
+            )
+        }
+    ).flow
+
+    fun getCollectionPhotos(
+        collectionId: String,
+        orderBy: PhotoOrderBy
+    ) = Pager(
+        config = PagingConfig(
+            pageSize = PER_PAGE
+        ),
+        pagingSourceFactory = {
+            CollectionPhotoSource(
+                unsplashService = unsplashService,
+                collectionId = collectionId,
                 orderBy = orderBy
             )
         }

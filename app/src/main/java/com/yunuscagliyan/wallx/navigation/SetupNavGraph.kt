@@ -9,6 +9,7 @@ import androidx.navigation.compose.NavHost
 import com.yunuscagliyan.core.util.Constant.DurationUtil.TRANSITION_DURATION
 import com.yunuscagliyan.core_ui.event.ScreenRoutes
 import com.yunuscagliyan.home.main.ui.MainScreen
+import com.yunuscagliyan.photo_list.ui.PhotoListScreen
 
 
 @Composable
@@ -44,6 +45,10 @@ fun SetupNavGraph(
         }
     ) {
         MainScreen.composable(
+            builder = this,
+            navHostController = navHostController
+        )
+        PhotoListScreen.composable(
             builder = this,
             navHostController = navHostController
         )

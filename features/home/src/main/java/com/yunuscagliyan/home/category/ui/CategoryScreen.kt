@@ -28,7 +28,10 @@ object CategoryScreen : CoreScreen<CategoryState, CategoryEvent>() {
         CollectionListView(
             modifier = Modifier
                 .fillMaxSize(),
-            collections = collections
+            collections = collections,
+            onClick = {
+                onEvent(CategoryEvent.OnCollectionClick(it))
+            }
         )
     }
 }

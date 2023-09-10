@@ -34,10 +34,11 @@ import timber.log.Timber
 
 @Composable
 fun CollectionCard(
+    modifier: Modifier = Modifier,
     collectionModel: CollectionModel?
 ) {
     Box(
-        modifier = Modifier
+        modifier = modifier
             .clip(WallXAppTheme.shapes.large)
             .fillMaxWidth()
             .height(WallXAppTheme.dimension.collectionItemHeight)

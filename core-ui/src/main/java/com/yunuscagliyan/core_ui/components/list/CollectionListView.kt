@@ -15,13 +15,15 @@ import androidx.paging.LoadState
 import androidx.paging.compose.LazyPagingItems
 import com.yunuscagliyan.core.data.remote.model.collection.CollectionModel
 import com.yunuscagliyan.core_ui.components.card.CollectionCard
+import com.yunuscagliyan.core_ui.extension.noRippleClickable
 import com.yunuscagliyan.core_ui.extension.shimmerEffect
 import com.yunuscagliyan.core_ui.theme.WallXAppTheme
 
 @Composable
 fun CollectionListView(
     modifier: Modifier = Modifier,
-    collections: LazyPagingItems<CollectionModel>
+    collections: LazyPagingItems<CollectionModel>,
+    onClick: (CollectionModel) -> Unit
 ) {
     when (collections.loadState.refresh) {
         is LoadState.Error -> {
@@ -55,6 +57,12 @@ fun CollectionListView(
                 items(collections.itemCount) { index ->
                     val collection = collections[index]
                     CollectionCard(
+                        modifier = Modifier
+                            .noRippleClickable {
+                                if (collection != null) {
+                                    onClick(collection)
+                                }
+                            },
                         collectionModel = collection
                     )
                 }
