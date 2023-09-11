@@ -127,11 +127,11 @@ object MainScreen : CoreScreen<MainState, MainEvent>() {
                 Text(
                     text = stringResource(id = R.string.app_name),
                     style = WallXAppTheme.typography.title1,
-                    color = WallXAppTheme.colors.textPrimary
+                    color = WallXAppTheme.colors.white
                 )
             },
             colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
-                containerColor = WallXAppTheme.colors.background
+                containerColor = WallXAppTheme.colors.primary
             )
         )
     }

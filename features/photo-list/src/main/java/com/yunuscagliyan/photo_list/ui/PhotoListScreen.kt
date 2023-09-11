@@ -7,6 +7,7 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
@@ -66,7 +67,7 @@ object PhotoListScreen : CoreScreen<PhotoListState, PhotoListEvent>() {
                             Icon(
                                 imageVector = Icons.Filled.ArrowBack,
                                 contentDescription = stringResource(id = R.string.common_back),
-                                tint = WallXAppTheme.colors.textPrimary
+                                tint = WallXAppTheme.colors.white
                             )
                         }
                     },
@@ -74,11 +75,14 @@ object PhotoListScreen : CoreScreen<PhotoListState, PhotoListEvent>() {
                         Text(
                             text = state.collectionName ?: EMPTY_STRING,
                             style = WallXAppTheme.typography.title1,
-                            color = WallXAppTheme.colors.textPrimary,
+                            color = WallXAppTheme.colors.white,
                             maxLines = 1,
                             overflow = TextOverflow.Ellipsis
                         )
-                    }
+                    },
+                    colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
+                        containerColor = WallXAppTheme.colors.primary
+                    )
                 )
             }
         ) {

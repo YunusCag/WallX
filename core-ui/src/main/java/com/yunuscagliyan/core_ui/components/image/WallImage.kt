@@ -27,6 +27,7 @@ fun WallImage(
         model = ImageRequest.Builder(LocalContext.current)
             .data(url)
             .size(Size.ORIGINAL)
+            .crossfade(true)
             .build()
     )
     when (painter.state) {

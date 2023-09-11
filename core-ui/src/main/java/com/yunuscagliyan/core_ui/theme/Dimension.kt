@@ -17,7 +17,7 @@ val compactDimensions = WallXDimen(
 
     borderWidth = 1.dp,
 
-    tabHeight = 30.dp,
+    tabHeight = 40.dp,
     collectionItemHeight = 150.dp,
     collectionProfileImage = 40.dp,
 
@@ -35,7 +35,7 @@ val mediumDimensions = WallXDimen(
     iconSizeSmall = 32.dp,
     iconSizeLarge = 72.dp,
 
-    tabHeight = 40.dp,
+    tabHeight = 50.dp,
     collectionItemHeight = 200.dp,
     collectionProfileImage = 50.dp,
 
@@ -53,7 +53,7 @@ val LargeDimensions = WallXDimen(
     iconSizeSmall = 40.dp,
     iconSizeLarge = 80.dp,
 
-    tabHeight = 50.dp,
+    tabHeight = 60.dp,
     collectionItemHeight = 250.dp,
     collectionProfileImage = 60.dp,
 

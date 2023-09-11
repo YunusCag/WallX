@@ -31,10 +31,10 @@ fun WallTapRow(
     modifier: Modifier = Modifier,
     titles: List<String>,
     initialPage: Int = 0,
-    tabHeight: Dp = 30.dp,
-    containerColor: Color = WallXAppTheme.colors.background,
+    tabHeight: Dp = WallXAppTheme.dimension.tabHeight,
+    containerColor: Color = WallXAppTheme.colors.primary,
     selectedColor: Color = WallXAppTheme.colors.secondary,
-    unSelectedColor: Color = WallXAppTheme.colors.textPrimary,
+    unSelectedColor: Color = WallXAppTheme.colors.white,
     tabTextStyle: TextStyle = WallXAppTheme.typography.normal1,
     pageContent: @Composable PagerScope.(page: Int) -> Unit
 ) {
