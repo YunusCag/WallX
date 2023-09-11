@@ -1,9 +1,12 @@
-package com.yunuscagliyan.core.data.remote.model.photo
+package com.yunuscagliyan.core.data.remote.model.sponsor
 
 
 import android.os.Parcelable
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
+import com.yunuscagliyan.core.data.remote.model.link.LinksX
+import com.yunuscagliyan.core.data.remote.model.profile.ProfileImage
+import com.yunuscagliyan.core.data.remote.model.social.Social
 import kotlinx.parcelize.Parcelize
 
 @Parcelize

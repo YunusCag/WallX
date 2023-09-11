@@ -4,7 +4,6 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 
 
-
 val compactDimensions = WallXDimen(
     paddingSmall1 = 4.dp,
     paddingSmall2 = 8.dp,
@@ -18,7 +17,10 @@ val compactDimensions = WallXDimen(
 
     borderWidth = 1.dp,
 
-    tabHeight = 30.dp,
+    tabHeight = 40.dp,
+    collectionItemHeight = 150.dp,
+    collectionProfileImage = 40.dp,
+
     screenType = ScreenType.COMPACT
 )
 val mediumDimensions = WallXDimen(
@@ -33,7 +35,9 @@ val mediumDimensions = WallXDimen(
     iconSizeSmall = 32.dp,
     iconSizeLarge = 72.dp,
 
-    tabHeight = 40.dp,
+    tabHeight = 50.dp,
+    collectionItemHeight = 200.dp,
+    collectionProfileImage = 50.dp,
 
     screenType = ScreenType.MEDIUM
 )
@@ -49,28 +53,34 @@ val LargeDimensions = WallXDimen(
     iconSizeSmall = 40.dp,
     iconSizeLarge = 80.dp,
 
-    tabHeight = 50.dp,
+    tabHeight = 60.dp,
+    collectionItemHeight = 250.dp,
+    collectionProfileImage = 60.dp,
+
     screenType = ScreenType.LARGE
 )
 
 data class WallXDimen(
-    val paddingSmall1:Dp = 0.dp,
-    val paddingSmall2:Dp = 0.dp,
-    val paddingSmall3:Dp = 0.dp,
+    val paddingSmall1: Dp = 0.dp,
+    val paddingSmall2: Dp = 0.dp,
+    val paddingSmall3: Dp = 0.dp,
 
-    val paddingMedium1:Dp = 0.dp,
-    val paddingMedium2:Dp = 0.dp,
-    val paddingMedium3:Dp = 0.dp,
+    val paddingMedium1: Dp = 0.dp,
+    val paddingMedium2: Dp = 0.dp,
+    val paddingMedium3: Dp = 0.dp,
 
-    val iconSizeSmall:Dp = 0.dp,
-    val iconSizeMedium:Dp = 0.dp,
-    val iconSizeLarge:Dp = 0.dp,
-    val large1:Dp = 0.dp,
-    val large2:Dp = 0.dp,
+    val iconSizeSmall: Dp = 0.dp,
+    val iconSizeMedium: Dp = 0.dp,
+    val iconSizeLarge: Dp = 0.dp,
+    val large1: Dp = 0.dp,
+    val large2: Dp = 0.dp,
 
     val borderWidth: Dp = 0.dp,
 
     val tabHeight: Dp = 0.dp,
+    val collectionItemHeight: Dp = 0.dp,
+    val collectionProfileImage: Dp = 0.dp,
+
     val screenType: ScreenType = ScreenType.LARGE
 )
 

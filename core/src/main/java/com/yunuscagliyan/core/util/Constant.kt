@@ -9,13 +9,18 @@ class Constant {
 
     object NetworkPathUtil{
         const val PHOTOS_PATH = "photos"
+        const val SEARCH_COLLECTION_PATH = "search/collections"
+        const val COLLECTION_PHOTOS = "collections/{collection_id}/photos"
     }
 
     object NetworkQueryParamKey {
+        const val QUERY= "query"
         const val PAGE= "page"
         const val PER_PAGE= "per_page"
         const val ORDER_BY= "order_by"
         const val CLIENT_ID= "client_id"
+        const val COLLECTION_ID = "collection_id"
+        const val ORIENTATION = "orientation"
     }
     object PaginationUtil{
         const val PER_PAGE = 20
@@ -26,6 +31,11 @@ class Constant {
         const val MAX_SIZE = 10L * 1024L * 1024L
         const val TIME_OUT_SECONDS = 60L
         const val MAX_AGE_DAY = 10
+    }
+
+    object NavigationArgumentKey {
+        const val COLLECTION_ID = "collection_id"
+        const val COLLECTION_NAME = "collection_name"
     }
 
     object DurationUtil {

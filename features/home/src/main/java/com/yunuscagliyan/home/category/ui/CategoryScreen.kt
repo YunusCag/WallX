@@ -1,12 +1,11 @@
 package com.yunuscagliyan.home.category.ui
 
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.paging.compose.collectAsLazyPagingItems
+import com.yunuscagliyan.core_ui.components.list.CollectionListView
 import com.yunuscagliyan.core_ui.event.ScreenRoutes
 import com.yunuscagliyan.core_ui.screen.CoreScreen
 import com.yunuscagliyan.home.category.viewModel.CategoryState
@@ -25,12 +24,14 @@ object CategoryScreen : CoreScreen<CategoryState, CategoryEvent>() {
         state: CategoryState,
         onEvent: (CategoryEvent) -> Unit
     ) {
-        Box(
+        val collections = state.colletions.collectAsLazyPagingItems()
+        CollectionListView(
             modifier = Modifier
-                .fillMaxSize()
-                .background(Color.Magenta)
-        ) {
-
-        }
+                .fillMaxSize(),
+            collections = collections,
+            onClick = {
+                onEvent(CategoryEvent.OnCollectionClick(it))
+            }
+        )
     }
 }
