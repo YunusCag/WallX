@@ -39,10 +39,11 @@ class Constant {
         const val COLLECTION_ID = "collection_id"
         const val COLLECTION_NAME = "collection_name"
         const val PHOTO_URL_KEY = "photo_url_key"
-        const val PHOTO_HEX_COLOR_KEY = "photo_hex_color_key"
+        const val PHOTO_HASH_KEY = "photo_hash_key"
     }
 
     object DurationUtil {
+        const val DEFAULT_ANIMATION_BUTTON_DURATION = 100
         const val DEFAULT_ANIMATION_DURATION = 300L
         const val TRANSITION_DURATION = 500
         const val SHIMMER_DURATION = 1000

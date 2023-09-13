@@ -2,4 +2,8 @@ apply from: "$rootDir/scripts/feature.gradle"
 
 android {
     namespace 'com.yunuscagliyan.photo_detail'
+
+    dependencies {
+        implementation 'com.github.dalafiarisamuel:composeblurhash:1.0.3'
+    }
 }

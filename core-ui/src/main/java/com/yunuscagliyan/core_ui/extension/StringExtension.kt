@@ -10,5 +10,4 @@ fun String.toColor(): Color? {
         Timber.e(e.localizedMessage)
         null
     }
-
 }

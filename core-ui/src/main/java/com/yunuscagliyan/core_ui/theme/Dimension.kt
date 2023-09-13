@@ -20,6 +20,7 @@ val compactDimensions = WallXDimen(
     tabHeight = 40.dp,
     collectionItemHeight = 150.dp,
     collectionProfileImage = 40.dp,
+    favouriteButtonSize = 36.dp,
 
     screenType = ScreenType.COMPACT
 )
@@ -38,6 +39,7 @@ val mediumDimensions = WallXDimen(
     tabHeight = 50.dp,
     collectionItemHeight = 200.dp,
     collectionProfileImage = 50.dp,
+    favouriteButtonSize = 48.dp,
 
     screenType = ScreenType.MEDIUM
 )
@@ -56,6 +58,7 @@ val LargeDimensions = WallXDimen(
     tabHeight = 60.dp,
     collectionItemHeight = 250.dp,
     collectionProfileImage = 60.dp,
+    favouriteButtonSize = 64.dp,
 
     screenType = ScreenType.LARGE
 )
@@ -80,6 +83,7 @@ data class WallXDimen(
     val tabHeight: Dp = 0.dp,
     val collectionItemHeight: Dp = 0.dp,
     val collectionProfileImage: Dp = 0.dp,
+    val favouriteButtonSize: Dp = 0.dp,
 
     val screenType: ScreenType = ScreenType.LARGE
 )

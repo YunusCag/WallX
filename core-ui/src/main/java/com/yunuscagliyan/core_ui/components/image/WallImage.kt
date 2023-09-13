@@ -21,12 +21,13 @@ fun WallImage(
     modifier: Modifier = Modifier,
     url: String?,
     hexColor: String? = null,
-    contentScale: ContentScale = ContentScale.FillWidth
+    contentScale: ContentScale = ContentScale.FillWidth,
+    size: Size = Size.ORIGINAL
 ) {
     val painter = rememberAsyncImagePainter(
         model = ImageRequest.Builder(LocalContext.current)
             .data(url)
-            .size(Size.ORIGINAL)
+            .size(size)
             .crossfade(true)
             .build()
     )

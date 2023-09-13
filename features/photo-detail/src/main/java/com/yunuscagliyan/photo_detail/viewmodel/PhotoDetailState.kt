@@ -5,5 +5,6 @@ import androidx.compose.runtime.Stable
 @Stable
 data class PhotoDetailState(
     val imageUrl: String? = null,
-    val hexColorString: String? = null
+    val blurHash: String? = null,
+    val isFavourite: Boolean = false
 )
