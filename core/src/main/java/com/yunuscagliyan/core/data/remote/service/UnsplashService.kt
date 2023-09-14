@@ -11,9 +11,12 @@ import com.yunuscagliyan.core.util.Constant.NetworkQueryParamKey.ORIENTATION
 import com.yunuscagliyan.core.util.Constant.NetworkQueryParamKey.PAGE
 import com.yunuscagliyan.core.util.Constant.NetworkQueryParamKey.PER_PAGE
 import com.yunuscagliyan.core.util.Constant.NetworkQueryParamKey.QUERY
+import okhttp3.ResponseBody
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
+import retrofit2.http.Streaming
+import retrofit2.http.Url
 
 interface UnsplashService {
 
@@ -40,4 +43,8 @@ interface UnsplashService {
         @Query(ORDER_BY) orderBy: String,
         @Query(ORIENTATION) orientation: String? = null,
     ): List<PhotoModel>
+
+    @GET
+    @Streaming
+    suspend fun downloadImage(@Url imageUrl: String): ResponseBody
 }

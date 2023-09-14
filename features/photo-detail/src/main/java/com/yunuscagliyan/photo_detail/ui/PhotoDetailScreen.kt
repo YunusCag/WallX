@@ -9,7 +9,16 @@ import androidx.compose.foundation.gestures.panBy
 import androidx.compose.foundation.gestures.rememberTransformableState
 import androidx.compose.foundation.gestures.zoomBy
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.IntrinsicSize
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.CenterAlignedTopAppBar
@@ -27,7 +36,9 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
@@ -39,6 +50,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.dp
 import androidx.core.view.WindowCompat
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NamedNavArgument
@@ -55,7 +67,12 @@ import com.yunuscagliyan.core.util.Constant.NavigationArgumentKey.PHOTO_HASH_KEY
 import com.yunuscagliyan.core.util.Constant.NavigationArgumentKey.PHOTO_URL_KEY
 import com.yunuscagliyan.core.util.Constant.StringParameter.EMPTY_STRING
 import com.yunuscagliyan.core_ui.R
+import com.yunuscagliyan.core_ui.components.anim.AnimationBox
 import com.yunuscagliyan.core_ui.components.button.FavouriteButton
+import com.yunuscagliyan.core_ui.components.button.FilledLoadingButton
+import com.yunuscagliyan.core_ui.components.button.FilledSecondaryTextButton
+import com.yunuscagliyan.core_ui.components.button.FilledWhiteTextButton
+import com.yunuscagliyan.core_ui.components.loading.WallDefaultLoading
 import com.yunuscagliyan.core_ui.components.main.MainUIFrame
 import com.yunuscagliyan.core_ui.event.ScreenRoutes
 import com.yunuscagliyan.core_ui.screen.CoreScreen
@@ -100,7 +117,7 @@ object PhotoDetailScreen : CoreScreen<PhotoDetailState, PhotoDetailEvent>() {
         val primaryDark = WallXAppTheme.colors.primaryDark
         val isDark = WallXAppTheme.colors.isDark
 
-        val onBackPressed = remember {
+        val onBackPressed: () -> Unit = remember {
             {
                 window.statusBarColor = primaryDark.toArgb()
                 window.navigationBarColor = barColor.toArgb()
@@ -115,6 +132,19 @@ object PhotoDetailScreen : CoreScreen<PhotoDetailState, PhotoDetailEvent>() {
                 onEvent(PhotoDetailEvent.OnFavouriteClick(isFavourite = it))
             }
         }
+
+        val onSaveClick: () -> Unit = remember {
+            {
+                onEvent(PhotoDetailEvent.OnSaveClick)
+            }
+        }
+
+        val onSetClick: () -> Unit = remember {
+            {
+                onEvent(PhotoDetailEvent.OnSetClick)
+            }
+        }
+
         LaunchedEffect(key1 = Unit) {
             coroutine.launch {
                 delay(TRANSITION_DURATION.toLong())
@@ -165,7 +195,53 @@ object PhotoDetailScreen : CoreScreen<PhotoDetailState, PhotoDetailEvent>() {
                     )
                 }
             ) {
+                Column(
+                    modifier = Modifier
+                        .fillMaxSize(),
+                ) {
+                    Spacer(modifier = Modifier.weight(1f))
 
+                    AnimationBox {
+                        Box(
+                            modifier = Modifier
+                                .background(
+                                    WallXAppTheme.colors.black.copy(
+                                        alpha = 0.05f
+                                    )
+                                )
+                                .padding(
+                                    vertical = WallXAppTheme.dimension.paddingMedium2,
+                                    horizontal = WallXAppTheme.dimension.paddingSmall2
+                                )
+
+                        ) {
+                            Row(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .height(intrinsicSize = IntrinsicSize.Min)
+                            ) {
+                                FilledLoadingButton(
+                                    modifier = Modifier.weight(1f),
+                                    initialText = "Save",
+                                    successText = "Saved",
+                                    errorText = "Failed",
+                                    type = state.saveButtonType,
+                                    onClick = onSaveClick
+                                )
+                                Spacer(modifier = Modifier.width(WallXAppTheme.dimension.paddingSmall3))
+                                FilledLoadingButton(
+                                    modifier = Modifier.weight(1f),
+                                    initialText = "Set",
+                                    successText = "Set",
+                                    errorText = "Failed",
+                                    type = state.setButtonType,
+                                    onClick = onSetClick
+                                )
+                            }
+                        }
+                    }
+
+                }
             }
         }
 

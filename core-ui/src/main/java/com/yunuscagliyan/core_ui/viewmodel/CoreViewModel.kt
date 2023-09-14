@@ -33,7 +33,9 @@ abstract class CoreViewModel<S,E>:ViewModel() {
 
 
     fun updateState(stateInvoke: S.() -> S) {
-        _state.update(stateInvoke)
+        viewModelScope.launch {
+            _state.update(stateInvoke)
+        }
     }
 
     abstract fun onEvent(event:E)

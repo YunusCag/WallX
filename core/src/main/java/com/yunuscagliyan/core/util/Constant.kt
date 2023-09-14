@@ -40,6 +40,7 @@ class Constant {
         const val COLLECTION_NAME = "collection_name"
         const val PHOTO_URL_KEY = "photo_url_key"
         const val PHOTO_HASH_KEY = "photo_hash_key"
+        const val PHOTO_DOWNLOAD_URL_KEY = "photo_download_url_key"
     }
 
     object DurationUtil {
@@ -47,5 +48,9 @@ class Constant {
         const val DEFAULT_ANIMATION_DURATION = 300L
         const val TRANSITION_DURATION = 500
         const val SHIMMER_DURATION = 1000
+    }
+
+    object FileUtil {
+        const val PUBLIC_FOLDER_NAME = "WallX"
     }
 }

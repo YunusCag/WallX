@@ -5,5 +5,6 @@ android {
 
     dependencies {
         implementation 'com.github.dalafiarisamuel:composeblurhash:1.0.3'
+        implementation 'com.google.accompanist:accompanist-permissions:0.33.1-alpha'
     }
 }

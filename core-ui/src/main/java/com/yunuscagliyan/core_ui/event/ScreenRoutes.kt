@@ -3,6 +3,7 @@ package com.yunuscagliyan.core_ui.event
 import com.yunuscagliyan.core.data.remote.model.photo.PhotoModel
 import com.yunuscagliyan.core.util.Constant.NavigationArgumentKey.COLLECTION_ID
 import com.yunuscagliyan.core.util.Constant.NavigationArgumentKey.COLLECTION_NAME
+import com.yunuscagliyan.core.util.Constant.NavigationArgumentKey.PHOTO_DOWNLOAD_URL_KEY
 import com.yunuscagliyan.core.util.Constant.NavigationArgumentKey.PHOTO_HASH_KEY
 import com.yunuscagliyan.core.util.Constant.NavigationArgumentKey.PHOTO_URL_KEY
 
@@ -19,8 +20,10 @@ sealed class ScreenRoutes(val route: String) {
     }
 
     object PhotoDetailScreen :
-        ScreenRoutes("photo_detail_screen?$PHOTO_URL_KEY={$PHOTO_URL_KEY}&$PHOTO_HASH_KEY={$PHOTO_HASH_KEY}") {
+        ScreenRoutes(
+            "photo_detail_screen?$PHOTO_URL_KEY={$PHOTO_URL_KEY}&$PHOTO_HASH_KEY={$PHOTO_HASH_KEY}&$PHOTO_DOWNLOAD_URL_KEY={$PHOTO_DOWNLOAD_URL_KEY}"
+        ) {
         fun navigate(photoModel: PhotoModel) =
-            "photo_detail_screen?$PHOTO_URL_KEY=${photoModel.urls?.raw}&$PHOTO_HASH_KEY=${photoModel.blurHash}"
+            "photo_detail_screen?$PHOTO_URL_KEY=${photoModel.urls?.raw}&$PHOTO_HASH_KEY=${photoModel.blurHash}&$PHOTO_DOWNLOAD_URL_KEY=${photoModel.links?.download}"
     }
 }
