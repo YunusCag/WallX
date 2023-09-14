@@ -17,7 +17,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
@@ -36,9 +35,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
@@ -50,7 +47,6 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.unit.dp
 import androidx.core.view.WindowCompat
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NamedNavArgument
@@ -70,9 +66,6 @@ import com.yunuscagliyan.core_ui.R
 import com.yunuscagliyan.core_ui.components.anim.AnimationBox
 import com.yunuscagliyan.core_ui.components.button.FavouriteButton
 import com.yunuscagliyan.core_ui.components.button.FilledLoadingButton
-import com.yunuscagliyan.core_ui.components.button.FilledSecondaryTextButton
-import com.yunuscagliyan.core_ui.components.button.FilledWhiteTextButton
-import com.yunuscagliyan.core_ui.components.loading.WallDefaultLoading
 import com.yunuscagliyan.core_ui.components.main.MainUIFrame
 import com.yunuscagliyan.core_ui.event.ScreenRoutes
 import com.yunuscagliyan.core_ui.screen.CoreScreen
@@ -113,7 +106,7 @@ object PhotoDetailScreen : CoreScreen<PhotoDetailState, PhotoDetailEvent>() {
         val detailBarColor = WallXAppTheme.colors.black.copy(
             alpha = 0.3f
         )
-        val barColor = WallXAppTheme.colors.background
+        val barColor = WallXAppTheme.colors.bottomBar
         val primaryDark = WallXAppTheme.colors.primaryDark
         val isDark = WallXAppTheme.colors.isDark
 
@@ -226,6 +219,7 @@ object PhotoDetailScreen : CoreScreen<PhotoDetailState, PhotoDetailEvent>() {
                                     successText = "Saved",
                                     errorText = "Failed",
                                     type = state.saveButtonType,
+                                    backgroundColor = WallXAppTheme.colors.accent,
                                     onClick = onSaveClick
                                 )
                                 Spacer(modifier = Modifier.width(WallXAppTheme.dimension.paddingSmall3))
@@ -235,6 +229,7 @@ object PhotoDetailScreen : CoreScreen<PhotoDetailState, PhotoDetailEvent>() {
                                     successText = "Set",
                                     errorText = "Failed",
                                     type = state.setButtonType,
+                                    backgroundColor = WallXAppTheme.colors.secondary,
                                     onClick = onSetClick
                                 )
                             }

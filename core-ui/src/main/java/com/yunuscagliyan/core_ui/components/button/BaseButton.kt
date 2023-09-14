@@ -154,7 +154,8 @@ fun FilledLoadingButton(
     textStyle: TextStyle = WallXAppTheme.typography.normal1.copy(
         fontWeight = FontWeight.Bold
     ),
-    textColor: Color = WallXAppTheme.colors.secondary,
+    textColor: Color = WallXAppTheme.colors.white,
+    backgroundColor:Color = WallXAppTheme.colors.secondary,
     type: LoadingButtonType = LoadingButtonType.INIT,
     onClick: () -> Unit,
 ) {
@@ -167,7 +168,7 @@ fun FilledLoadingButton(
             }
         },
         colors = ButtonDefaults.filledTonalButtonColors(
-            containerColor = WallXAppTheme.colors.white
+            containerColor = backgroundColor
         )
     ) {
         when (type) {
@@ -182,8 +183,7 @@ fun FilledLoadingButton(
             LoadingButtonType.LOADING -> {
                 WallDefaultLoading(
                     modifier = Modifier
-                        .size(WallXAppTheme.dimension.iconSizeSmall),
-                    color = WallXAppTheme.colors.secondary
+                        .size(WallXAppTheme.dimension.iconSizeSmall)
                 )
             }
 

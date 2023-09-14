@@ -68,24 +68,18 @@ class PhotoDetailViewModel @Inject constructor(
                                 when (downloadState) {
                                     is DownloadState.Error -> {
                                         copy(
-                                            isSaveLoading = false,
-                                            isSaveFinished = false,
                                             saveButtonType = LoadingButtonType.ERROR
                                         )
                                     }
 
                                     is DownloadState.Finished -> {
                                         copy(
-                                            isSaveFinished = true,
-                                            isSaveLoading = false,
                                             saveButtonType = LoadingButtonType.SUCCESS
                                         )
                                     }
 
                                     is DownloadState.Loading -> {
                                         copy(
-                                            isSaveFinished = false,
-                                            isSaveLoading = true,
                                             saveButtonType = LoadingButtonType.LOADING
                                         )
                                     }

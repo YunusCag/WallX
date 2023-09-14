@@ -4,7 +4,6 @@ import androidx.compose.animation.AnimatedContentTransitionScope
 import androidx.compose.animation.core.LinearEasing
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -16,10 +15,8 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -62,60 +59,74 @@ object MainScreen : CoreScreen<MainState, MainEvent>() {
                 TopBar()
             },
             bottomBar = {
-                NavigationBar(
-                    containerColor = WallXAppTheme.colors.background,
-                    contentColor = WallXAppTheme.colors.textPrimary
-                ) {
-                    state.bottomBarItems.forEachIndexed { index, item ->
-                        NavigationBarItem(
-                            selected = item.navRoute == currentRoute,
-                            onClick = {
-                                navHostController.navigate(item.navRoute) {
-                                    navHostController.graph.startDestinationRoute?.let { screenRoute ->
-                                        popUpTo(screenRoute) {
-                                            saveState = true
-                                        }
-                                        launchSingleTop = true
-                                        restoreState = true
-                                    }
-                                }
-                            },
-                            icon = {
-                                Icon(
-                                    painter = painterResource(id = item.icon),
-                                    contentDescription = stringResource(id = item.name),
-                                    modifier = Modifier
-                                        .size(24.dp)
-                                )
-                            },
-                            label = {
-                                Text(
-                                    stringResource(id = item.name),
-                                    style = WallXAppTheme.typography.small1.copy(
-                                        fontWeight = FontWeight.Bold
-                                    ),
-                                    color = WallXAppTheme.colors.textPrimary
-                                )
-                            },
-                            alwaysShowLabel = false,
-                            colors = NavigationBarItemDefaults.colors(
-                                selectedTextColor = WallXAppTheme.colors.textPrimary,
-                                selectedIconColor = WallXAppTheme.colors.white,
-                                indicatorColor = WallXAppTheme.colors.secondary,
-                                unselectedIconColor = WallXAppTheme.colors.textPrimary
-                            )
-                        )
-                    }
-                }
+                BottomBar(
+                    state = state,
+                    currentRoute = currentRoute,
+                    navHostController = navHostController
+                )
             }
         ) {
-            this.navController?.let {navController->
+            this.navController?.let { navController ->
                 SetupNavGraph(
                     mainHostController = navHostController,
                     rootNavController = navController
                 )
             }
 
+        }
+    }
+
+    @Composable
+    private fun BottomBar(
+        state: MainState,
+        currentRoute: String?,
+        navHostController: NavHostController
+    ) {
+        NavigationBar(
+            containerColor = WallXAppTheme.colors.bottomBar,
+            contentColor = Color.Transparent,
+            tonalElevation = 0.dp,
+        ) {
+            state.bottomBarItems.forEachIndexed { index, item ->
+                NavigationBarItem(
+                    selected = item.navRoute == currentRoute,
+                    onClick = {
+                        navHostController.navigate(item.navRoute) {
+                            navHostController.graph.startDestinationRoute?.let { screenRoute ->
+                                popUpTo(screenRoute) {
+                                    saveState = true
+                                }
+                                launchSingleTop = true
+                                restoreState = true
+                            }
+                        }
+                    },
+                    icon = {
+                        Icon(
+                            painter = painterResource(id = item.icon),
+                            contentDescription = stringResource(id = item.name),
+                            modifier = Modifier
+                                .size(24.dp)
+                        )
+                    },
+                    label = {
+                        Text(
+                            stringResource(id = item.name),
+                            style = WallXAppTheme.typography.small1.copy(
+                                fontWeight = FontWeight.Bold
+                            ),
+                            color = WallXAppTheme.colors.textPrimary
+                        )
+                    },
+                    alwaysShowLabel = true,
+                    colors = NavigationBarItemDefaults.colors(
+                        selectedTextColor = WallXAppTheme.colors.textPrimary,
+                        selectedIconColor = WallXAppTheme.colors.white,
+                        indicatorColor = WallXAppTheme.colors.secondary,
+                        unselectedIconColor = WallXAppTheme.colors.textPrimary
+                    )
+                )
+            }
         }
     }
 

@@ -74,7 +74,7 @@ fun WallXAppTheme(
         SideEffect {
             val window = activity.window
             window.statusBarColor = colors.primaryDark.toArgb()
-            window.navigationBarColor = colors.background.toArgb()
+            window.navigationBarColor = colors.bottomBar.toArgb()
             WindowCompat.getInsetsController(window, view).isAppearanceLightStatusBars = false
             WindowCompat.getInsetsController(window, view).isAppearanceLightNavigationBars = !darkTheme
         }

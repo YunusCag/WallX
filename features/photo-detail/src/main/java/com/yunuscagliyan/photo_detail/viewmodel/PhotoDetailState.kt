@@ -9,8 +9,6 @@ data class PhotoDetailState(
     val blurHash: String? = null,
     val isFavourite: Boolean = false,
     val downloadUrl: String? = null,
-    val isSaveLoading: Boolean = false,
-    val isSaveFinished: Boolean = false,
     val saveButtonType: LoadingButtonType = LoadingButtonType.INIT,
     val setButtonType: LoadingButtonType = LoadingButtonType.INIT,
 )
