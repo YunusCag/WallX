@@ -13,4 +13,6 @@ data class PhotoDetailState(
     val downloadUrl: String? = null,
     val saveButtonType: LoadingButtonType = LoadingButtonType.INIT,
     val setButtonType: LoadingButtonType = LoadingButtonType.INIT,
+    val showWallpaperSelectionSheet: Boolean = false,
+    val sheetSelectionIndex: Int = -1,
 )

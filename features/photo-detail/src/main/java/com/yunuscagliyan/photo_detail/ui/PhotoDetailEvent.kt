@@ -12,4 +12,7 @@ sealed class PhotoDetailEvent {
     data class OnFavouriteClick(val isFavourite: Boolean) : PhotoDetailEvent()
     object OnSaveClick : PhotoDetailEvent()
     object OnSetClick : PhotoDetailEvent()
+
+    data class BottomSheet(val isOpen: Boolean) : PhotoDetailEvent()
+    data class OnScreenSelection(val index: Int) : PhotoDetailEvent()
 }

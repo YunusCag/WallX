@@ -75,7 +75,28 @@ class PhotoDetailViewModel @Inject constructor(
             }
 
             is PhotoDetailEvent.OnSetClick -> {
-                // TODO open Choose Screen Bottom Sheet
+                updateState {
+                    copy(
+                        showWallpaperSelectionSheet = true,
+                        sheetSelectionIndex = -1
+                    )
+                }
+            }
+
+            is PhotoDetailEvent.BottomSheet -> {
+                updateState {
+                    copy(
+                        showWallpaperSelectionSheet = event.isOpen
+                    )
+                }
+            }
+
+            is PhotoDetailEvent.OnScreenSelection -> {
+                updateState {
+                    copy(
+                        sheetSelectionIndex = event.index
+                    )
+                }
             }
         }
     }
