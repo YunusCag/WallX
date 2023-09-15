@@ -1,5 +1,6 @@
 package com.yunuscagliyan.core_ui.components.button
 
+import androidx.annotation.DrawableRes
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.PaddingValues
@@ -25,6 +26,7 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.yunuscagliyan.core.util.Constant.StringParameter.EMPTY_STRING
 import com.yunuscagliyan.core_ui.R
 import com.yunuscagliyan.core_ui.components.loading.WallDefaultLoading
 import com.yunuscagliyan.core_ui.theme.WallXAppTheme
@@ -151,11 +153,12 @@ fun FilledLoadingButton(
     initialText: String,
     successText: String,
     errorText: String,
+    @DrawableRes iconId: Int? = null,
     textStyle: TextStyle = WallXAppTheme.typography.normal1.copy(
         fontWeight = FontWeight.Bold
     ),
     textColor: Color = WallXAppTheme.colors.white,
-    backgroundColor:Color = WallXAppTheme.colors.secondary,
+    backgroundColor: Color = WallXAppTheme.colors.secondary,
     type: LoadingButtonType = LoadingButtonType.INIT,
     onClick: () -> Unit,
 ) {
@@ -173,6 +176,14 @@ fun FilledLoadingButton(
     ) {
         when (type) {
             LoadingButtonType.INIT -> {
+                iconId?.let {
+                    Icon(
+                        painter = painterResource(id = it),
+                        contentDescription = initialText,
+                        tint = WallXAppTheme.colors.white
+                    )
+                    Spacer(modifier = Modifier.width(WallXAppTheme.dimension.paddingSmall1))
+                }
                 Text(
                     text = initialText,
                     style = textStyle,
@@ -189,7 +200,7 @@ fun FilledLoadingButton(
 
             LoadingButtonType.SUCCESS -> {
                 Icon(
-                   painterResource(id = R.drawable.ic_success),
+                    painterResource(id = R.drawable.ic_success),
                     contentDescription = "success",
                     tint = WallXAppTheme.colors.success,
                     modifier = Modifier

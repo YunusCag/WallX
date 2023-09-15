@@ -32,7 +32,9 @@ import com.yunuscagliyan.core_ui.components.main.MainUIFrame
 import com.yunuscagliyan.core_ui.event.ScreenRoutes
 import com.yunuscagliyan.core_ui.screen.CoreScreen
 import com.yunuscagliyan.core_ui.theme.WallXAppTheme
+import com.yunuscagliyan.core_ui.viewmodel.SharedViewModel
 import com.yunuscagliyan.home.category.ui.CategoryScreen
+import com.yunuscagliyan.home.category.ui.CategoryScreen.sharedViewModel
 import com.yunuscagliyan.home.favourite.ui.FavouriteScreen
 import com.yunuscagliyan.home.home.ui.HomeScreen
 import com.yunuscagliyan.home.main.viewModel.MainState
@@ -67,10 +69,14 @@ object MainScreen : CoreScreen<MainState, MainEvent>() {
             }
         ) {
             this.navController?.let { navController ->
-                SetupNavGraph(
-                    mainHostController = navHostController,
-                    rootNavController = navController
-                )
+                sharedViewModel?.let { sharedViewModel ->
+                    SetupNavGraph(
+                        mainHostController = navHostController,
+                        rootNavController = navController,
+                        sharedViewModel = sharedViewModel
+                    )
+                }
+
             }
 
         }
@@ -152,6 +158,7 @@ object MainScreen : CoreScreen<MainState, MainEvent>() {
         modifier: Modifier = Modifier,
         mainHostController: NavHostController,
         rootNavController: NavHostController,
+        sharedViewModel: SharedViewModel
     ) {
         NavHost(
             modifier = modifier
@@ -197,19 +204,23 @@ object MainScreen : CoreScreen<MainState, MainEvent>() {
         ) {
             HomeScreen.composable(
                 builder = this,
-                navHostController = rootNavController
+                navHostController = rootNavController,
+                sharedViewModel = sharedViewModel
             )
             CategoryScreen.composable(
                 builder = this,
-                navHostController = rootNavController
+                navHostController = rootNavController,
+                sharedViewModel = sharedViewModel
             )
             FavouriteScreen.composable(
                 builder = this,
-                navHostController = rootNavController
+                navHostController = rootNavController,
+                sharedViewModel = sharedViewModel
             )
             SettingScreen.composable(
                 builder = this,
-                navHostController = rootNavController
+                navHostController = rootNavController,
+                sharedViewModel = sharedViewModel
             )
         }
     }

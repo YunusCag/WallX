@@ -64,7 +64,8 @@ fun WallImage(
                     .fillMaxSize(),
                 painter = painter,
                 contentDescription = Constant.StringParameter.EMPTY_STRING,
-                contentScale = contentScale
+                contentScale = contentScale,
+
             )
         }
     }

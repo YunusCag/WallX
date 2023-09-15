@@ -49,18 +49,15 @@ import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.res.stringResource
 import androidx.core.view.WindowCompat
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.navigation.NamedNavArgument
-import androidx.navigation.NavType
-import androidx.navigation.navArgument
 import coil.compose.AsyncImagePainter
 import coil.compose.rememberAsyncImagePainter
 import coil.request.ImageRequest
 import coil.size.Size
 import com.devtamuno.composeblurhash.ExperimentalComposeBlurHash
 import com.devtamuno.composeblurhash.ext.rememberBlurHashPainter
+import com.yunuscagliyan.core.data.remote.model.photo.PhotoModel
 import com.yunuscagliyan.core.util.Constant.DurationUtil.TRANSITION_DURATION
-import com.yunuscagliyan.core.util.Constant.NavigationArgumentKey.PHOTO_HASH_KEY
-import com.yunuscagliyan.core.util.Constant.NavigationArgumentKey.PHOTO_URL_KEY
+import com.yunuscagliyan.core.util.Constant.NavigationArgumentKey.PHOTO_KEY
 import com.yunuscagliyan.core.util.Constant.StringParameter.EMPTY_STRING
 import com.yunuscagliyan.core_ui.R
 import com.yunuscagliyan.core_ui.components.anim.AnimationBox
@@ -79,16 +76,6 @@ object PhotoDetailScreen : CoreScreen<PhotoDetailState, PhotoDetailEvent>() {
     override val route: String
         get() = ScreenRoutes.PhotoDetailScreen.route
 
-    override fun getArguments(): List<NamedNavArgument> = listOf(
-        navArgument(name = PHOTO_URL_KEY) {
-            type = NavType.StringType
-            nullable = true
-        },
-        navArgument(name = PHOTO_HASH_KEY) {
-            type = NavType.StringType
-            nullable = true
-        }
-    )
 
     @Composable
     override fun viewModel(): PhotoDetailViewModel = hiltViewModel()
@@ -98,6 +85,13 @@ object PhotoDetailScreen : CoreScreen<PhotoDetailState, PhotoDetailEvent>() {
         state: PhotoDetailState,
         onEvent: (PhotoDetailEvent) -> Unit
     ) {
+        LaunchedEffect(key1 = Unit) {
+            val navArgument = getNavArgument(PHOTO_KEY)
+            if (navArgument is PhotoModel) {
+                onEvent(PhotoDetailEvent.InitPhotoModel(navArgument))
+            }
+        }
+
         val view = LocalView.current
         val activity = LocalContext.current as Activity
         val window = activity.window
@@ -173,11 +167,13 @@ object PhotoDetailScreen : CoreScreen<PhotoDetailState, PhotoDetailEvent>() {
                 },
             color = Color.Transparent
         ) {
-            PhotoImage(
-                state = state,
-                scale = scale,
-                offset = offset
-            )
+            state.photoModel?.let { photo->
+                PhotoImage(
+                    photo = photo,
+                    scale = scale,
+                    offset = offset
+                )
+            }
             MainUIFrame(
                 backgroundColor = Color.Transparent,
                 topBar = {
@@ -219,6 +215,7 @@ object PhotoDetailScreen : CoreScreen<PhotoDetailState, PhotoDetailEvent>() {
                                     successText = "Saved",
                                     errorText = "Failed",
                                     type = state.saveButtonType,
+                                    iconId = R.drawable.ic_save,
                                     backgroundColor = WallXAppTheme.colors.accent,
                                     onClick = onSaveClick
                                 )
@@ -245,7 +242,7 @@ object PhotoDetailScreen : CoreScreen<PhotoDetailState, PhotoDetailEvent>() {
     @Composable
     @OptIn(ExperimentalComposeBlurHash::class)
     private fun PhotoImage(
-        state: PhotoDetailState,
+        photo: PhotoModel,
         scale: Float,
         offset: Offset,
     ) {
@@ -260,14 +257,14 @@ object PhotoDetailScreen : CoreScreen<PhotoDetailState, PhotoDetailEvent>() {
 
 
         val placeHolder = rememberBlurHashPainter(
-            blurString = state.blurHash ?: EMPTY_STRING,
+            blurString = photo.blurHash ?: EMPTY_STRING,
             width = Int.MAX_VALUE,
             height = Int.MAX_VALUE,
         )
 
         val painter = rememberAsyncImagePainter(
             model = ImageRequest.Builder(LocalContext.current)
-                .data(state.imageUrl)
+                .data(photo.urls?.raw)
                 .size(Size(screenWidthPx, screenHeightPx))
                 .crossfade(true)
                 .build()
@@ -276,7 +273,7 @@ object PhotoDetailScreen : CoreScreen<PhotoDetailState, PhotoDetailEvent>() {
 
         when (painter.state) {
             is AsyncImagePainter.State.Loading -> {
-                if (state.blurHash != null) {
+                if (photo.blurHash != null) {
                     Image(
                         modifier = Modifier
                             .fillMaxSize(),

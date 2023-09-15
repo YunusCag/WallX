@@ -6,10 +6,13 @@ import androidx.compose.animation.core.tween
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import com.yunuscagliyan.core.util.Constant.DurationUtil.TRANSITION_DURATION
 import com.yunuscagliyan.core_ui.event.ScreenRoutes
+import com.yunuscagliyan.core_ui.viewmodel.SharedViewModel
 import com.yunuscagliyan.home.main.ui.MainScreen
 import com.yunuscagliyan.photo_detail.ui.PhotoDetailScreen
 import com.yunuscagliyan.photo_list.ui.PhotoListScreen
@@ -17,7 +20,8 @@ import com.yunuscagliyan.photo_list.ui.PhotoListScreen
 
 @Composable
 fun SetupNavGraph(
-    navHostController: NavHostController
+    navHostController: NavHostController,
+    sharedViewModel: SharedViewModel = hiltViewModel()
 ) {
     NavHost(
         modifier = Modifier
@@ -51,15 +55,18 @@ fun SetupNavGraph(
     ) {
         MainScreen.composable(
             builder = this,
-            navHostController = navHostController
+            navHostController = navHostController,
+            sharedViewModel = sharedViewModel
         )
         PhotoListScreen.composable(
             builder = this,
-            navHostController = navHostController
+            navHostController = navHostController,
+            sharedViewModel = sharedViewModel
         )
         PhotoDetailScreen.composable(
             builder = this,
-            navHostController = navHostController
+            navHostController = navHostController,
+            sharedViewModel = sharedViewModel
         )
     }
 }

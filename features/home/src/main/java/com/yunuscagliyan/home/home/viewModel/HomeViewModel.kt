@@ -4,7 +4,9 @@ import androidx.lifecycle.viewModelScope
 import androidx.paging.cachedIn
 import com.yunuscagliyan.core.data.enums.PhotoOrderBy
 import com.yunuscagliyan.core.data.remote.repository.PhotoRepository
+import com.yunuscagliyan.core.util.Constant.NavigationArgumentKey.PHOTO_KEY
 import com.yunuscagliyan.core_ui.event.Event
+import com.yunuscagliyan.core_ui.event.NavArgument
 import com.yunuscagliyan.core_ui.event.Routes
 import com.yunuscagliyan.core_ui.event.ScreenRoutes
 import com.yunuscagliyan.core_ui.viewmodel.CoreViewModel
@@ -41,7 +43,11 @@ class HomeViewModel @Inject constructor(
                 sendEvent(
                     Event.Navigation(
                         Routes.NavigateToRoute(
-                            ScreenRoutes.PhotoDetailScreen.navigate(photoModel = event.photoModel),
+                            ScreenRoutes.PhotoDetailScreen.route,
+                            navArgument = NavArgument(
+                                key = PHOTO_KEY,
+                                data = event.photoModel
+                            )
                         )
                     )
                 )

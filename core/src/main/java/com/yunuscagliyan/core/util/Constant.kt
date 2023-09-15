@@ -38,9 +38,7 @@ class Constant {
     object NavigationArgumentKey {
         const val COLLECTION_ID = "collection_id"
         const val COLLECTION_NAME = "collection_name"
-        const val PHOTO_URL_KEY = "photo_url_key"
-        const val PHOTO_HASH_KEY = "photo_hash_key"
-        const val PHOTO_DOWNLOAD_URL_KEY = "photo_download_url_key"
+        const val PHOTO_KEY = "photo_key"
     }
 
     object DurationUtil {
