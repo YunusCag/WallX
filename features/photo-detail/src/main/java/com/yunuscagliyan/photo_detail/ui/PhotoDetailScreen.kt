@@ -186,9 +186,6 @@ object PhotoDetailScreen : CoreScreen<PhotoDetailState, PhotoDetailEvent>() {
                     ),
                     SelectionModel(
                         title = stringResource(id = R.string.photo_detail_sheet_screen_selection_both)
-                    ),
-                    SelectionModel(
-                        title = stringResource(id = R.string.photo_detail_sheet_screen_selection_set_with)
                     )
                 ),
             ) { index, _ ->

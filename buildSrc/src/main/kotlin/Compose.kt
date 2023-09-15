@@ -6,6 +6,8 @@ object Compose {
     private const val pagingVersion= "3.1.1"
     private const val pagingComposeVersion= "3.2.0"
     private const val coilVersion = "2.4.0"
+    private const val blurHashVersion = "1.0.3"
+
     const val activityCompose = "androidx.activity:activity-compose:$activityComposeVersion"
     const val composeBOM = "androidx.compose:compose-bom:$composeBOMVersion"
     const val composeUI = "androidx.compose.ui:ui"
@@ -19,6 +21,8 @@ object Compose {
     const val pagingCompose = "androidx.paging:paging-compose:$pagingComposeVersion"
 
     const val coil = "io.coil-kt:coil-compose:$coilVersion"
+
+    const val blurHash = "com.github.dalafiarisamuel:composeblurhash:$blurHashVersion"
 
     // Test Dependencies
     const val composeUITestJUnit = "androidx.compose.ui:ui-test-junit4"

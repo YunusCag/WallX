@@ -1,5 +1,6 @@
 package com.yunuscagliyan.photo_detail.viewmodel
 
+import android.graphics.Bitmap
 import androidx.compose.runtime.Stable
 import com.yunuscagliyan.core.data.remote.model.photo.PhotoModel
 import com.yunuscagliyan.core_ui.components.button.LoadingButtonType
@@ -15,4 +16,5 @@ data class PhotoDetailState(
     val setButtonType: LoadingButtonType = LoadingButtonType.INIT,
     val showWallpaperSelectionSheet: Boolean = false,
     val sheetSelectionIndex: Int = -1,
+    val setBitmap: Bitmap? = null
 )

@@ -83,7 +83,7 @@ fun SingleSelectionBottomSheet(
                 .padding(
                     horizontal = WallXAppTheme.dimension.paddingMedium1
                 ),
-            textAlign = TextAlign.Center
+            textAlign = TextAlign.Center,
         )
         LazyColumn(
             modifier = Modifier

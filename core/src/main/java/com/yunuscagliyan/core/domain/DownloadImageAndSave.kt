@@ -14,7 +14,7 @@ import java.io.FileOutputStream
 import java.util.UUID
 import javax.inject.Inject
 
-class DownloadImage @Inject constructor(
+class DownloadImageAndSave @Inject constructor(
     private val unsplashService: UnsplashService
 ) {
     operator fun invoke(

@@ -4,6 +4,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.NamedNavArgument
 import androidx.navigation.NavDeepLink
 import androidx.navigation.NavGraphBuilder
@@ -51,6 +52,8 @@ abstract class CoreScreen<S, E> {
         ) {
             val viewModel = viewModel()
             val state by viewModel.state.collectAsState()
+            val context = LocalContext.current
+
             LaunchedEffect(key1 = Unit) {
                 viewModel.uiEvent.collectLatest { event ->
                     when (event) {
