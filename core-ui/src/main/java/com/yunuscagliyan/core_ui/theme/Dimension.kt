@@ -20,6 +20,8 @@ val compactDimensions = WallXDimen(
 
     tabHeight = 40.dp,
     collectionItemHeight = 150.dp,
+    favouritePhotoAspectRatio = 0.6f,
+
     collectionProfileImage = 40.dp,
     favouriteButtonSize = 36.dp,
 
@@ -41,6 +43,8 @@ val mediumDimensions = WallXDimen(
 
     tabHeight = 50.dp,
     collectionItemHeight = 200.dp,
+    favouritePhotoAspectRatio = 1f,
+
     collectionProfileImage = 50.dp,
     favouriteButtonSize = 48.dp,
 
@@ -62,6 +66,8 @@ val LargeDimensions = WallXDimen(
 
     tabHeight = 60.dp,
     collectionItemHeight = 250.dp,
+    favouritePhotoAspectRatio = 1.6f,
+
     collectionProfileImage = 60.dp,
     favouriteButtonSize = 64.dp,
 
@@ -88,6 +94,8 @@ data class WallXDimen(
 
     val tabHeight: Dp = 0.dp,
     val collectionItemHeight: Dp = 0.dp,
+    val favouritePhotoAspectRatio: Float = 1f,
+
     val collectionProfileImage: Dp = 0.dp,
     val favouriteButtonSize: Dp = 0.dp,
 
