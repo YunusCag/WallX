@@ -3,6 +3,7 @@ package com.yunuscagliyan.photo_detail.viewmodel
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
 import com.yunuscagliyan.core.data.enums.WallpaperScreenType
+import com.yunuscagliyan.core.data.repository.PhotoRepository
 import com.yunuscagliyan.core.domain.DownloadImageAndSave
 import com.yunuscagliyan.core.domain.DownloadImageAsBitmap
 import com.yunuscagliyan.core.domain.ChangeWallpaper
@@ -21,7 +22,8 @@ import javax.inject.Inject
 class PhotoDetailViewModel @Inject constructor(
     private val downloadImageAndSave: DownloadImageAndSave,
     private val downloadImageAsBitmap: DownloadImageAsBitmap,
-    private val changeWallpaper: ChangeWallpaper
+    private val changeWallpaper: ChangeWallpaper,
+    private val repository: PhotoRepository
 ) : CoreViewModel<PhotoDetailState, PhotoDetailEvent>() {
     override fun getInitialState(): PhotoDetailState = PhotoDetailState()
 
@@ -34,6 +36,11 @@ class PhotoDetailViewModel @Inject constructor(
                         photoModel = event.photoModel
                     )
                 }
+                event.photoModel.id?.let {
+                    checkPhotoLiked(
+                        photoId = it
+                    )
+                }
             }
 
             is PhotoDetailEvent.OnBackPress -> {
@@ -41,11 +48,21 @@ class PhotoDetailViewModel @Inject constructor(
             }
 
             is PhotoDetailEvent.OnFavouriteClick -> {
-                // TODO Insert / Delete row RoomDB
                 updateState {
                     copy(
                         isFavourite = event.isFavourite
                     )
+                }
+                state.value.photoModel?.let { photoModel ->
+                    viewModelScope.launch(Dispatchers.IO) {
+                        if (event.isFavourite) {
+                            repository.insertPhoto(photoModel = photoModel)
+                        } else {
+                            photoModel.id?.let { id ->
+                                repository.deletePhoto(photoId = id)
+                            }
+                        }
+                    }
                 }
             }
 
@@ -83,6 +100,22 @@ class PhotoDetailViewModel @Inject constructor(
                         sheetSelectionIndex = event.index,
                         showWallpaperSelectionSheet = false
                     )
+                }
+            }
+        }
+    }
+
+    private fun checkPhotoLiked(photoId: String) {
+        viewModelScope.launch(Dispatchers.IO) {
+            repository.getLocalPhotoById(
+                photoId = photoId
+            ).collectLatest { resource ->
+                if (resource is Resource.Success) {
+                    updateState {
+                        copy(
+                            isFavourite = resource.data != null
+                        )
+                    }
                 }
             }
         }

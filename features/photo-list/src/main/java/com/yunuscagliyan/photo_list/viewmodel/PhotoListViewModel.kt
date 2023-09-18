@@ -4,7 +4,7 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
 import androidx.paging.cachedIn
 import com.yunuscagliyan.core.data.enums.PhotoOrderBy
-import com.yunuscagliyan.core.data.remote.repository.PhotoRepository
+import com.yunuscagliyan.core.data.repository.PhotoRepository
 import com.yunuscagliyan.core.util.Constant
 import com.yunuscagliyan.core.util.Constant.NavigationArgumentKey.COLLECTION_ID
 import com.yunuscagliyan.core.util.Constant.NavigationArgumentKey.COLLECTION_NAME

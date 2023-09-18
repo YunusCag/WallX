@@ -10,11 +10,11 @@ import kotlinx.parcelize.Parcelize
 @JsonClass(generateAdapter = true)
 data class Links(
     @Json(name = "download")
-    var download: String?,
+    var download: String? = null,
     @Json(name = "download_location")
-    var downloadLocation: String?,
+    var downloadLocation: String? = null,
     @Json(name = "html")
-    var html: String?,
+    var html: String? = null,
     @Json(name = "self")
-    var self: String?
-):Parcelable
+    var self: String? = null,
+) : Parcelable

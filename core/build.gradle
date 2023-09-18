@@ -13,6 +13,10 @@ dependencies {
     implementation Retrofit.moshiConverter
     kapt Retrofit.moshiCodegen
 
+    implementation Room.runtime
+    kapt Room.compiler
+    implementation Room.ktx
+
     implementation Compose.pagingRuntime
     implementation Compose.pagingCompose
 }

@@ -35,6 +35,12 @@ class Constant {
         const val MAX_AGE_DAY = 10
     }
 
+    object DBUtil{
+        const val PHOTO_ENTITY_NAME = "photo_entity"
+        const val DB_VERSION = 1
+        const val DB_NAME ="photo_db"
+    }
+
     object NavigationArgumentKey {
         const val COLLECTION_ID = "collection_id"
         const val COLLECTION_NAME = "collection_name"

@@ -3,7 +3,7 @@ package com.yunuscagliyan.home.home.viewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.cachedIn
 import com.yunuscagliyan.core.data.enums.PhotoOrderBy
-import com.yunuscagliyan.core.data.remote.repository.PhotoRepository
+import com.yunuscagliyan.core.data.repository.PhotoRepository
 import com.yunuscagliyan.core.util.Constant.NavigationArgumentKey.PHOTO_KEY
 import com.yunuscagliyan.core_ui.event.Event
 import com.yunuscagliyan.core_ui.event.NavArgument

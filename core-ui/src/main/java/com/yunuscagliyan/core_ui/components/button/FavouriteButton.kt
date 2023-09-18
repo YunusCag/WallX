@@ -28,12 +28,9 @@ fun FavouriteButton(
     unSelectedColor: Color = WallXAppTheme.colors.white,
     onClick: (Boolean) -> Unit,
 ) {
-    val state = remember {
-        mutableStateOf(isFavourite)
-    }
 
     val colorAnim = animateColorAsState(
-        targetValue = if (state.value)
+        targetValue = if (isFavourite)
             selectedColor
         else
             unSelectedColor,
@@ -43,15 +40,14 @@ fun FavouriteButton(
 
 
     val scale = animateFloatAsState(
-        targetValue = if (state.value) 1f else 0.9f,
+        targetValue = if (isFavourite) 1f else 0.9f,
         animationSpec = tween(DEFAULT_ANIMATION_BUTTON_DURATION),
         label = "favourite_button_scale_anim"
     )
 
     IconToggleButton(
-        checked = state.value,
+        checked = isFavourite,
         onCheckedChange = {
-            state.value = !isFavourite
             onClick(!isFavourite)
         }
     ) {
@@ -60,7 +56,7 @@ fun FavouriteButton(
             modifier = modifier
                 .size(size)
                 .scale(scale.value),
-            imageVector = if (state.value) {
+            imageVector = if (isFavourite) {
                 Icons.Filled.Favorite
             } else {
                 Icons.Default.FavoriteBorder

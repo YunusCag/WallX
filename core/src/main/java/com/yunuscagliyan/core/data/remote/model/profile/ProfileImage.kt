@@ -10,9 +10,9 @@ import kotlinx.parcelize.Parcelize
 @JsonClass(generateAdapter = true)
 data class ProfileImage(
     @Json(name = "large")
-    var large: String?,
+    var large: String? = null,
     @Json(name = "medium")
-    var medium: String?,
+    var medium: String? = null,
     @Json(name = "small")
-    var small: String?
-):Parcelable
+    var small: String? = null,
+) : Parcelable
