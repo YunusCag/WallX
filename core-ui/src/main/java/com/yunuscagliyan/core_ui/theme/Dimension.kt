@@ -25,6 +25,8 @@ val compactDimensions = WallXDimen(
     collectionProfileImage = 40.dp,
     favouriteButtonSize = 36.dp,
 
+    large1 = 72.dp,
+
     screenType = ScreenType.COMPACT
 )
 val mediumDimensions = WallXDimen(
@@ -48,6 +50,8 @@ val mediumDimensions = WallXDimen(
     collectionProfileImage = 50.dp,
     favouriteButtonSize = 48.dp,
 
+    large1 = 96.dp,
+
     screenType = ScreenType.MEDIUM
 )
 val LargeDimensions = WallXDimen(
@@ -70,6 +74,8 @@ val LargeDimensions = WallXDimen(
 
     collectionProfileImage = 60.dp,
     favouriteButtonSize = 64.dp,
+
+    large1 = 128.dp,
 
     screenType = ScreenType.LARGE
 )
