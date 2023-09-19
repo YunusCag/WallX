@@ -14,37 +14,37 @@ import kotlinx.parcelize.Parcelize
 @JsonClass(generateAdapter = true)
 data class PhotoModel(
     @Json(name = "alt_description")
-    var altDescription: String?,
+    var altDescription: String? = null,
     @Json(name = "blur_hash")
-    var blurHash: String?,
+    var blurHash: String? = null,
     @Json(name = "color")
-    var color: String?,
+    var color: String? = null,
     @Json(name = "created_at")
-    var createdAt: String?,
+    var createdAt: String? = null,
     @Json(name = "description")
-    var description: String?,
+    var description: String? = null,
     @Json(name = "height")
-    var height: Int?,
+    var height: Int? = null,
     @Json(name = "id")
-    var id: String?,
+    var id: String? = null,
     @Json(name = "liked_by_user")
-    var likedByUser: Boolean?,
+    var likedByUser: Boolean? = null,
     @Json(name = "likes")
-    var likes: Int?,
+    var likes: Int? = null,
     @Json(name = "links")
-    var links: Links?,
+    var links: Links? = null,
     @Json(name = "promoted_at")
-    var promotedAt: String?,
+    var promotedAt: String? = null,
     @Json(name = "slug")
-    var slug: String?,
+    var slug: String? = null,
     @Json(name = "sponsorship")
-    var sponsorship: Sponsorship?,
+    var sponsorship: Sponsorship? = null,
     @Json(name = "updated_at")
-    var updatedAt: String?,
+    var updatedAt: String? = null,
     @Json(name = "urls")
-    var urls: Urls?,
+    var urls: Urls? = null,
     @Json(name = "user")
-    var user: User?,
+    var user: User? = null,
     @Json(name = "width")
-    var width: Int?
-): Parcelable
+    var width: Int? = null
+) : Parcelable

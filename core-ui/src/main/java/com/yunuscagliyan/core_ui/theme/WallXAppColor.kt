@@ -8,17 +8,17 @@ import androidx.compose.ui.graphics.Color
 
 
 val LightColor = WallXAppColor(
-    primary = Color(0xFF202020),
-    primaryDark = Color(0xFF202020),
-    secondary = Color(0xFF4A148C),
-    accent = Color(0xFFE65100),
-    background = Color(0xFFF5F5F5),
+    primary = Color(0xFF263238),
+    primaryDark = Color(0xFF263238),
+    secondary = Color(0xFFAB47BC),
+    accent = Color(0xFF1B5E20),
+    background = Color(0xFFFAFAFA),
     black = Color(0xFF000000),
     white = Color(0xFFFFFFFF),
     textPrimary = Color(0xFF000000),
     secondaryGray = Color(0xFF8294A8),
     card = Color(0xFF8294A8),
-    bottomBar = Color(0xFF673AB7),
+    bottomBar = Color(0xFFF5F5F5),
     dividerColor = Color(0xFF9e9e9e),
     error = Color(0xFFF44336),
     warning = Color(0xFFFFEB3B),
@@ -28,23 +28,23 @@ val LightColor = WallXAppColor(
 )
 
 val DarkColor = WallXAppColor(
-    primary = Color(0xFF202020),
-    primaryDark = Color(0xFF202020),
-    secondary = Color(0xFF4A148C),
-    accent = Color(0xFFE65100),
-    background = Color(0xFF000000),
+    primary = Color(0xFF263238),
+    primaryDark = Color(0xFF263238),
+    secondary = Color(0xFFAB47BC),
+    accent = Color(0xFF1B5E20),
+    background = Color(0xFF37474F),
     black = Color(0xFF000000),
     white = Color(0xFFFFFFFF),
     textPrimary = Color(0xFFFFFFFF),
     secondaryGray = Color(0xFF8294A8),
     card = Color(0xFF8294A8),
-    bottomBar = Color(0xFF673AB7),
+    bottomBar = Color(0xFF263238),
     dividerColor = Color(0xFF9e9e9e),
     error = Color(0xFFF44336),
     warning = Color(0xFFFFEB3B),
     success = Color(0xFF4CAF50),
     info = Color(0xFF03A9F4),
-    isDark = false
+    isDark = true
 )
 
 @Stable

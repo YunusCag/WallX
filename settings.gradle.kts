@@ -10,6 +10,7 @@ dependencyResolutionManagement {
     repositories {
         google()
         mavenCentral()
+        maven { setUrl("https://jitpack.io") }
     }
 }
 
@@ -20,3 +21,4 @@ include(":core")
 include(":core-ui")
 include(":features:home")
 include(":features:photo-list")
+include(":features:photo-detail")

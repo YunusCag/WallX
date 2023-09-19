@@ -5,6 +5,8 @@
     <string name="common_close">Close</string>
     <string name="common_okay">OKAY</string>
     <string name="common_back">Back</string>
+    <string name="common_no_favourites">You don\'t have any favourites yet.</string>
+    <string name="common_error">An unknown error occurred.</string>
 
     <string name="bottom_bar_home_title">Home</string>
     <string name="bottom_bar_category_title">Categories</string>
@@ -14,4 +16,18 @@
     <!--Home Page-->
     <string name="home_tab_latest">Latest</string>
     <string name="home_tab_popular">Popular</string>
+
+    <!--Photo Detail -->
+    <string name="photo_detail_save_button_initial">Save</string>
+    <string name="photo_detail_save_button_success">Saved</string>
+    <string name="photo_detail_save_button_failed">Failed</string>
+
+    <string name="photo_detail_set_button_initial">Set</string>
+    <string name="photo_detail_set_button_success">Set</string>
+    <string name="photo_detail_set_button_failed">Failed</string>
+
+    <string name="photo_detail_sheet_screen_selection_title">Select Wallpaper Screen</string>
+    <string name="photo_detail_sheet_screen_selection_home_screen">Home Screen</string>
+    <string name="photo_detail_sheet_screen_selection_lock">Lock Screen</string>
+    <string name="photo_detail_sheet_screen_selection_both">Home &amp; Lock Screen</string>
 </resources>

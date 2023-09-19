@@ -1,7 +1,7 @@
 package com.yunuscagliyan.home.category.viewModel
 
 import com.yunuscagliyan.core.data.enums.PhotoOrderBy
-import com.yunuscagliyan.core.data.remote.repository.PhotoRepository
+import com.yunuscagliyan.core.data.repository.PhotoRepository
 import com.yunuscagliyan.core_ui.event.Event
 import com.yunuscagliyan.core_ui.event.Routes
 import com.yunuscagliyan.core_ui.event.ScreenRoutes

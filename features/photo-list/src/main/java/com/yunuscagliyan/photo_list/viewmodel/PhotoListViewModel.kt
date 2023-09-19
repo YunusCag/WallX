@@ -4,10 +4,15 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
 import androidx.paging.cachedIn
 import com.yunuscagliyan.core.data.enums.PhotoOrderBy
-import com.yunuscagliyan.core.data.remote.repository.PhotoRepository
+import com.yunuscagliyan.core.data.repository.PhotoRepository
+import com.yunuscagliyan.core.util.Constant
 import com.yunuscagliyan.core.util.Constant.NavigationArgumentKey.COLLECTION_ID
 import com.yunuscagliyan.core.util.Constant.NavigationArgumentKey.COLLECTION_NAME
 import com.yunuscagliyan.core.util.Constant.StringParameter.EMPTY_STRING
+import com.yunuscagliyan.core_ui.event.Event
+import com.yunuscagliyan.core_ui.event.NavArgument
+import com.yunuscagliyan.core_ui.event.Routes
+import com.yunuscagliyan.core_ui.event.ScreenRoutes
 import com.yunuscagliyan.core_ui.viewmodel.CoreViewModel
 import com.yunuscagliyan.photo_list.ui.PhotoListEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -46,7 +51,17 @@ class PhotoListViewModel @Inject constructor(
             }
 
             is PhotoListEvent.OnPhotoClick -> {
-                // TODO Navigate Photo Detail
+                sendEvent(
+                    Event.Navigation(
+                        Routes.NavigateToRoute(
+                            ScreenRoutes.PhotoDetailScreen.route,
+                            navArgument = NavArgument(
+                                key = Constant.NavigationArgumentKey.PHOTO_KEY,
+                                data = event.photoModel
+                            )
+                        )
+                    )
+                )
             }
         }
     }

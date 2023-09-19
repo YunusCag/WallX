@@ -7,24 +7,26 @@ class Constant {
         const val EMPTY_STRING = ""
     }
 
-    object NetworkPathUtil{
+    object NetworkPathUtil {
         const val PHOTOS_PATH = "photos"
         const val SEARCH_COLLECTION_PATH = "search/collections"
         const val COLLECTION_PHOTOS = "collections/{collection_id}/photos"
     }
 
     object NetworkQueryParamKey {
-        const val QUERY= "query"
-        const val PAGE= "page"
-        const val PER_PAGE= "per_page"
-        const val ORDER_BY= "order_by"
-        const val CLIENT_ID= "client_id"
+        const val QUERY = "query"
+        const val PAGE = "page"
+        const val PER_PAGE = "per_page"
+        const val ORDER_BY = "order_by"
+        const val CLIENT_ID = "client_id"
         const val COLLECTION_ID = "collection_id"
         const val ORIENTATION = "orientation"
     }
-    object PaginationUtil{
+
+    object PaginationUtil {
         const val PER_PAGE = 20
     }
+
     object NetworkCacheUtil {
         const val CACHE_HEADER_KEY = "Cache-Control"
         const val CACHE_FILE_NAME = "offlineCache"
@@ -33,14 +35,26 @@ class Constant {
         const val MAX_AGE_DAY = 10
     }
 
+    object DBUtil{
+        const val PHOTO_ENTITY_NAME = "photo_entity"
+        const val DB_VERSION = 1
+        const val DB_NAME ="photo_db"
+    }
+
     object NavigationArgumentKey {
         const val COLLECTION_ID = "collection_id"
         const val COLLECTION_NAME = "collection_name"
+        const val PHOTO_KEY = "photo_key"
     }
 
     object DurationUtil {
+        const val DEFAULT_ANIMATION_BUTTON_DURATION = 100
         const val DEFAULT_ANIMATION_DURATION = 300L
         const val TRANSITION_DURATION = 500
         const val SHIMMER_DURATION = 1000
+    }
+
+    object FileUtil {
+        const val PUBLIC_FOLDER_NAME = "WallX"
     }
 }

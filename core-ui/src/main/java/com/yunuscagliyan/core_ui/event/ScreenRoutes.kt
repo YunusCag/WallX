@@ -14,4 +14,6 @@ sealed class ScreenRoutes(val route: String) {
         fun navigate(collectionId: String?, collectionName: String?) =
             "photo_list_screen/$collectionId/$collectionName"
     }
+
+    object PhotoDetailScreen : ScreenRoutes("photo_detail_screen")
 }

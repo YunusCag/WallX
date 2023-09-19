@@ -13,41 +13,41 @@ import kotlinx.parcelize.Parcelize
 @JsonClass(generateAdapter = true)
 data class User(
     @Json(name = "accepted_tos")
-    var acceptedTos: Boolean?,
+    var acceptedTos: Boolean? = null,
     @Json(name = "bio")
-    var bio: String?,
+    var bio: String? = null,
     @Json(name = "first_name")
-    var firstName: String?,
+    var firstName: String? = null,
     @Json(name = "for_hire")
-    var forHire: Boolean?,
+    var forHire: Boolean? = null,
     @Json(name = "id")
-    var id: String?,
+    var id: String? = null,
     @Json(name = "instagram_username")
-    var instagramUsername: String?,
+    var instagramUsername: String? = null,
     @Json(name = "last_name")
-    var lastName: String?,
+    var lastName: String? = null,
     @Json(name = "links")
-    var links: LinksX?,
+    var links: LinksX? = null,
     @Json(name = "location")
-    var location: String?,
+    var location: String? = null,
     @Json(name = "name")
-    var name: String?,
+    var name: String? = null,
     @Json(name = "portfolio_url")
-    var portfolioUrl: String?,
+    var portfolioUrl: String? = null,
     @Json(name = "profile_image")
-    var profileImage: ProfileImage?,
+    var profileImage: ProfileImage? = null,
     @Json(name = "social")
-    var social: Social?,
+    var social: Social? = null,
     @Json(name = "total_collections")
-    var totalCollections: Int?,
+    var totalCollections: Int? = null,
     @Json(name = "total_likes")
-    var totalLikes: Int?,
+    var totalLikes: Int? = null,
     @Json(name = "total_photos")
-    var totalPhotos: Int?,
+    var totalPhotos: Int? = null,
     @Json(name = "twitter_username")
-    var twitterUsername: String?,
+    var twitterUsername: String? = null,
     @Json(name = "updated_at")
-    var updatedAt: String?,
+    var updatedAt: String? = null,
     @Json(name = "username")
-    var username: String?
-):Parcelable
+    var username: String? = null
+) : Parcelable

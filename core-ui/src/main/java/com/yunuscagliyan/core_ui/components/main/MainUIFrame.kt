@@ -32,6 +32,7 @@ fun MainUIFrame(
         topBar = topBar,
         bottomBar = bottomBar,
         containerColor = backgroundColor,
+
         snackbarHost = {
             SnackbarHost(snackbarHostState) { data ->
                 Snackbar(

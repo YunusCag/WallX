@@ -56,6 +56,7 @@ dependencies {
     implementation(project(Modules.core_ui))
     implementation(project(Modules.home))
     implementation(project(Modules.photoList))
+    implementation(project(Modules.photoDetail))
 
     implementation(AndroidX.coreKtx)
     implementation(AndroidX.lifecycle)
