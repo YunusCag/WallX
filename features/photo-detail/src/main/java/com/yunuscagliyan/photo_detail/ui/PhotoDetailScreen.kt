@@ -74,11 +74,13 @@ import com.yunuscagliyan.core_ui.R
 import com.yunuscagliyan.core_ui.components.anim.AnimationBox
 import com.yunuscagliyan.core_ui.components.button.FavouriteButton
 import com.yunuscagliyan.core_ui.components.button.FilledLoadingButton
+import com.yunuscagliyan.core_ui.components.dialog.ErrorDialog
 import com.yunuscagliyan.core_ui.components.image.WallImage
 import com.yunuscagliyan.core_ui.components.main.MainUIFrame
 import com.yunuscagliyan.core_ui.components.sheet.BaseModalSheet
 import com.yunuscagliyan.core_ui.components.sheet.SingleSelectionBottomSheet
 import com.yunuscagliyan.core_ui.event.ScreenRoutes
+import com.yunuscagliyan.core_ui.extension.asString
 import com.yunuscagliyan.core_ui.model.SelectionModel
 import com.yunuscagliyan.core_ui.screen.CoreScreen
 import com.yunuscagliyan.core_ui.theme.WallXAppTheme
@@ -191,6 +193,21 @@ object PhotoDetailScreen : CoreScreen<PhotoDetailState, PhotoDetailEvent>() {
             ) { index, _ ->
                 onEvent(PhotoDetailEvent.OnScreenSelection(index = index))
             }
+        }
+
+        if(state.showErrorDialog){
+            ErrorDialog(
+                description = state.errorMessage?.asString(context = LocalContext.current)
+                    ?: stringResource(
+                        id = R.string.common_error
+                    ),
+                onDismissRequest = {
+                    onEvent(PhotoDetailEvent.OnOkayClickErrorDialog)
+                },
+                onOkayClicked = {
+                    onEvent(PhotoDetailEvent.OnOkayClickErrorDialog)
+                }
+            )
         }
         Surface(
             modifier = Modifier

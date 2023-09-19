@@ -82,6 +82,24 @@ class PhotoDetailViewModel @Inject constructor(
                 }
             }
 
+            is PhotoDetailEvent.OnDismissErrorDialog -> {
+                updateState {
+                    copy(
+                        showErrorDialog = false
+                    )
+                }
+            }
+
+            is PhotoDetailEvent.OnOkayClickErrorDialog -> {
+                updateState {
+                    copy(
+                        showErrorDialog = false,
+                        saveButtonType = if (saveButtonType == LoadingButtonType.ERROR) LoadingButtonType.INIT else saveButtonType,
+                        setButtonType = if (setButtonType == LoadingButtonType.ERROR) LoadingButtonType.INIT else setButtonType,
+                    )
+                }
+            }
+
             is PhotoDetailEvent.BottomSheet -> {
                 updateState {
                     copy(
@@ -134,7 +152,8 @@ class PhotoDetailViewModel @Inject constructor(
                             updateState {
                                 copy(
                                     setButtonType = LoadingButtonType.INIT,
-                                    showWallpaperSelectionSheet = false
+                                    showWallpaperSelectionSheet = false,
+                                    showErrorDialog = true,
                                 )
                             }
                         }
@@ -170,7 +189,8 @@ class PhotoDetailViewModel @Inject constructor(
                         when (downloadState) {
                             is DownloadState.Error -> {
                                 copy(
-                                    saveButtonType = LoadingButtonType.ERROR
+                                    saveButtonType = LoadingButtonType.ERROR,
+                                    showErrorDialog = true
                                 )
                             }
 
@@ -206,10 +226,10 @@ class PhotoDetailViewModel @Inject constructor(
                         }
 
                         is Resource.Error -> {
-                            // TODO show Error Text
                             updateState {
                                 copy(
-                                    setButtonType = LoadingButtonType.INIT
+                                    setButtonType = LoadingButtonType.ERROR,
+                                    showErrorDialog = true
                                 )
                             }
                         }
