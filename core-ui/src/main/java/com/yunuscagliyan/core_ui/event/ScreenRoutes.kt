@@ -16,4 +16,6 @@ sealed class ScreenRoutes(val route: String) {
     }
 
     object PhotoDetailScreen : ScreenRoutes("photo_detail_screen")
+
+    object SearchScreen : ScreenRoutes("search_screen")
 }

@@ -19,6 +19,7 @@
             <option value="$PROJECT_DIR$/features/home" />
             <option value="$PROJECT_DIR$/features/photo-detail" />
             <option value="$PROJECT_DIR$/features/photo-list" />
+            <option value="$PROJECT_DIR$/features/search" />
           </set>
         </option>
       </GradleProjectSettings>

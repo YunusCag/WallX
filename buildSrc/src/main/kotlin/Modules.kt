@@ -4,4 +4,5 @@ object Modules {
     const val home = ":features:home"
     const val photoList = ":features:photo-list"
     const val photoDetail = ":features:photo-detail"
+    const val search = ":features:search"
 }

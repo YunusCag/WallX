@@ -5,9 +5,12 @@ import androidx.compose.animation.core.LinearEasing
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.size
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.NavigationBarItemDefaults
@@ -58,7 +61,11 @@ object MainScreen : CoreScreen<MainState, MainEvent>() {
         val currentRoute = navBackStackEntry?.destination?.route
         MainUIFrame(
             topBar = {
-                TopBar()
+                TopBar(
+                    onSearchClick = {
+                        onEvent(MainEvent.OnSearchClick)
+                    }
+                )
             },
             bottomBar = {
                 BottomBar(
@@ -138,7 +145,9 @@ object MainScreen : CoreScreen<MainState, MainEvent>() {
 
     @Composable
     @OptIn(ExperimentalMaterial3Api::class)
-    private fun TopBar() {
+    private fun TopBar(
+        onSearchClick: () -> Unit
+    ) {
         CenterAlignedTopAppBar(
             title = {
                 Text(
@@ -149,7 +158,18 @@ object MainScreen : CoreScreen<MainState, MainEvent>() {
             },
             colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
                 containerColor = WallXAppTheme.colors.primary
-            )
+            ),
+            actions = {
+                IconButton(
+                    onClick = onSearchClick
+                ) {
+                    Icon(
+                        Icons.Filled.Search,
+                        contentDescription = stringResource(id = R.string.common_search),
+                        tint = WallXAppTheme.colors.white
+                    )
+                }
+            }
         )
     }
 
