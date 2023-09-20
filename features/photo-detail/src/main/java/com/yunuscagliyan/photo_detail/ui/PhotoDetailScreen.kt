@@ -1,6 +1,9 @@
 package com.yunuscagliyan.photo_detail.ui
 
 import android.app.Activity
+import android.content.Context
+import android.content.Intent
+import android.net.Uri
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -81,6 +84,7 @@ import com.yunuscagliyan.core_ui.components.sheet.BaseModalSheet
 import com.yunuscagliyan.core_ui.components.sheet.SingleSelectionBottomSheet
 import com.yunuscagliyan.core_ui.event.ScreenRoutes
 import com.yunuscagliyan.core_ui.extension.asString
+import com.yunuscagliyan.core_ui.extension.noRippleClickable
 import com.yunuscagliyan.core_ui.model.SelectionModel
 import com.yunuscagliyan.core_ui.screen.CoreScreen
 import com.yunuscagliyan.core_ui.theme.WallXAppTheme
@@ -88,6 +92,7 @@ import com.yunuscagliyan.photo_detail.viewmodel.PhotoDetailState
 import com.yunuscagliyan.photo_detail.viewmodel.PhotoDetailViewModel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import timber.log.Timber
 
 object PhotoDetailScreen : CoreScreen<PhotoDetailState, PhotoDetailEvent>() {
     override val route: String
@@ -195,7 +200,7 @@ object PhotoDetailScreen : CoreScreen<PhotoDetailState, PhotoDetailEvent>() {
             }
         }
 
-        if(state.showErrorDialog){
+        if (state.showErrorDialog) {
             ErrorDialog(
                 description = state.errorMessage?.asString(context = LocalContext.current)
                     ?: stringResource(
@@ -263,6 +268,9 @@ object PhotoDetailScreen : CoreScreen<PhotoDetailState, PhotoDetailEvent>() {
         onSaveClick: () -> Unit,
         onSetClick: () -> Unit
     ) {
+        val context = LocalContext.current
+        val appName = stringResource(id = R.string.app_name)
+
         AnimationBox {
             Box(
                 modifier = Modifier
@@ -284,6 +292,11 @@ object PhotoDetailScreen : CoreScreen<PhotoDetailState, PhotoDetailEvent>() {
                 ) {
                     Row(
                         modifier = Modifier
+                            .noRippleClickable {
+                                state.photoModel?.user?.links?.html.let { html ->
+                                    navigateBrowser(html, appName, context)
+                                }
+                            }
                             .fillMaxWidth()
                             .wrapContentHeight(),
                         verticalAlignment = Alignment.CenterVertically
@@ -303,13 +316,21 @@ object PhotoDetailScreen : CoreScreen<PhotoDetailState, PhotoDetailEvent>() {
                         }
 
                         Spacer(modifier = Modifier.width(WallXAppTheme.dimension.paddingSmall2))
-                        Text(
-                            "${state.photoModel?.user?.firstName ?: EMPTY_STRING} ${state.photoModel?.user?.lastName ?: EMPTY_STRING}",
-                            style = WallXAppTheme.typography.normal1,
-                            color = WallXAppTheme.colors.white,
-                            overflow = TextOverflow.Ellipsis,
-                            maxLines = 1
-                        )
+                        Column {
+                            Text(
+                                "${state.photoModel?.user?.firstName ?: EMPTY_STRING} ${state.photoModel?.user?.lastName ?: EMPTY_STRING}",
+                                style = WallXAppTheme.typography.normal1,
+                                color = WallXAppTheme.colors.white,
+                                overflow = TextOverflow.Ellipsis,
+                                maxLines = 1
+                            )
+                            Text(
+                                text = stringResource(id = R.string.common_unsplash),
+                                style = WallXAppTheme.typography.small1,
+                                color = WallXAppTheme.colors.secondaryGray
+                            )
+                        }
+
                     }
                     Spacer(modifier = Modifier.height(WallXAppTheme.dimension.paddingMedium1))
 
@@ -342,6 +363,22 @@ object PhotoDetailScreen : CoreScreen<PhotoDetailState, PhotoDetailEvent>() {
                     }
                 }
             }
+        }
+    }
+
+    private fun navigateBrowser(
+        html: String?,
+        appName: String,
+        context: Context
+    ) {
+        try {
+            val urlString =
+                "$html?utm_source=$appName&utm_medium=referral"
+            val intent =
+                Intent(Intent.ACTION_VIEW, Uri.parse(urlString))
+            context.startActivity(intent)
+        } catch (e: Exception) {
+            Timber.e(e.localizedMessage)
         }
     }
 
