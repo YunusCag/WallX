@@ -5,11 +5,13 @@ class Constant {
 
     object StringParameter {
         const val EMPTY_STRING = ""
+        const val DEFAULT_SEARCH_VALUE = "Wallpapers"
     }
 
     object NetworkPathUtil {
         const val PHOTOS_PATH = "photos"
         const val SEARCH_COLLECTION_PATH = "search/collections"
+        const val SEARCH_PHOTO_PATH = "search/photos"
         const val COLLECTION_PHOTOS = "collections/{collection_id}/photos"
     }
 
@@ -35,10 +37,10 @@ class Constant {
         const val MAX_AGE_DAY = 10
     }
 
-    object DBUtil{
+    object DBUtil {
         const val PHOTO_ENTITY_NAME = "photo_entity"
         const val DB_VERSION = 1
-        const val DB_NAME ="photo_db"
+        const val DB_NAME = "photo_db"
     }
 
     object NavigationArgumentKey {

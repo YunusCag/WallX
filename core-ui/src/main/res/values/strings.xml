@@ -31,4 +31,8 @@
     <string name="photo_detail_sheet_screen_selection_home_screen">Home Screen</string>
     <string name="photo_detail_sheet_screen_selection_lock">Lock Screen</string>
     <string name="photo_detail_sheet_screen_selection_both">Home &amp; Lock Screen</string>
+
+    <!--Search -->
+    <string name="search_tab_photo">PHOTOS</string>
+    <string name="search_tab_collections">COLLECTIONS</string>
 </resources>
