@@ -28,6 +28,7 @@ class ClientIDInterceptor: Interceptor {
             .build()
         return response.newBuilder()
             .header(CACHE_HEADER_KEY,cacheControl.toString())
+            .removeHeader("Pragma")
             .build()
     }
 }

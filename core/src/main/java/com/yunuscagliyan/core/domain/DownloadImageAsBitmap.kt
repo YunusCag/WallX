@@ -19,10 +19,11 @@ class DownloadImageAsBitmap @Inject constructor(
     private val unsplashService: UnsplashService,
     @ApplicationContext private val context: Context
 ) {
-    operator fun invoke(imageUrl: String): Flow<Resource<Bitmap?>> = flow {
+    operator fun invoke(imageUrl: String, triggerUrl: String?): Flow<Resource<Bitmap?>> = flow {
         try {
             emit(Resource.Loading())
             val response = unsplashService.downloadImage(imageUrl = imageUrl)
+            triggerUrl?.let { unsplashService.triggerDownload(url = it) }
             val inputStream = response.byteStream()
             val bitmap = BitmapFactory.decodeStream(inputStream)
             emit(Resource.Success(bitmap))

@@ -57,4 +57,7 @@ interface UnsplashService {
     @GET
     @Streaming
     suspend fun downloadImage(@Url imageUrl: String): ResponseBody
+
+    @GET
+    suspend fun triggerDownload(@Url url: String): ResponseBody
 }

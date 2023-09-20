@@ -184,7 +184,10 @@ class PhotoDetailViewModel @Inject constructor(
     private fun downloadAndSaveImage() {
         state.value.photoModel?.links?.download?.let {
             viewModelScope.launch(Dispatchers.IO) {
-                downloadImageAndSave.invoke(imageUrl = it).collectLatest { downloadState ->
+                downloadImageAndSave.invoke(
+                    imageUrl = it,
+                    triggerUrl = state.value.photoModel?.links?.downloadLocation
+                ).collectLatest { downloadState ->
                     updateState {
                         when (downloadState) {
                             is DownloadState.Error -> {
@@ -215,7 +218,10 @@ class PhotoDetailViewModel @Inject constructor(
     private fun downloadBitmap() {
         state.value.photoModel?.links?.download?.let {
             viewModelScope.launch(Dispatchers.IO) {
-                downloadImageAsBitmap.invoke(imageUrl = it).collectLatest { resource ->
+                downloadImageAsBitmap.invoke(
+                    imageUrl = it,
+                    triggerUrl = state.value.photoModel?.links?.downloadLocation
+                ).collectLatest { resource ->
                     when (resource) {
                         is Resource.Loading -> {
                             updateState {
