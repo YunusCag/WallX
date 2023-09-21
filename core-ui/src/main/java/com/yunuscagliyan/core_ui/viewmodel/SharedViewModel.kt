@@ -1,11 +1,30 @@
 package com.yunuscagliyan.core_ui.viewmodel
 
 import androidx.compose.runtime.mutableStateMapOf
+import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
+import com.yunuscagliyan.core.data.local.preference.Preferences
+import com.yunuscagliyan.core_ui.model.ThemeSelection
+import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
-
-class SharedViewModel @Inject constructor() : ViewModel() {
+@HiltViewModel
+class SharedViewModel @Inject constructor(
+    private val preferences: Preferences
+) : ViewModel() {
     private var navArguments = mutableStateMapOf<String, Any?>()
+
+    val sharedState = mutableStateOf(SharedState())
+
+    init {
+        initState()
+    }
+
+    private fun initState() {
+        val themeIndex = preferences.themeIndex
+        sharedState.value = sharedState.value.copy(
+            themeSelection = ThemeSelection.fromIndex(themeIndex) ?: ThemeSelection.SYSTEM
+        )
+    }
 
     fun setArgument(key: String, data: Any?) {
         navArguments[key] = data
@@ -13,5 +32,11 @@ class SharedViewModel @Inject constructor() : ViewModel() {
 
     fun getArgument(key: String): Any? {
         return navArguments[key]
+    }
+
+    fun changeTheme(selection: ThemeSelection) {
+        sharedState.value = sharedState.value.copy(
+            themeSelection = selection
+        )
     }
 }

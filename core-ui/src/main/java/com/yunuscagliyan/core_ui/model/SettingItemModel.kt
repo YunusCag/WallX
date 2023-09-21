@@ -20,8 +20,9 @@ enum class SettingItemAction {
 
 enum class ThemeSelection(val index: Int) {
     SYSTEM(0),
-    DARK(1),
-    LIGHT(2);
+    LIGHT(1),
+    DARK(2);
+
 
     companion object {
         fun fromIndex(index: Int) = values().getOrNull(index)

@@ -43,6 +43,10 @@ class Constant {
         const val DB_NAME = "photo_db"
     }
 
+    object PreferencesUtil {
+        const val PREFERENCE_NAME = "wall_preferences"
+    }
+
     object NavigationArgumentKey {
         const val COLLECTION_ID = "collection_id"
         const val COLLECTION_NAME = "collection_name"

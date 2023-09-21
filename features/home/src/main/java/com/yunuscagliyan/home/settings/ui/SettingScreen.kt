@@ -48,10 +48,10 @@ object SettingScreen : CoreScreen<SettingState, SettingEvent>() {
                         title = stringResource(id = R.string.settings_theme_system),
                     ),
                     SelectionModel(
-                        title = stringResource(id = R.string.settings_theme_dark),
+                        title = stringResource(id = R.string.settings_theme_light),
                     ),
                     SelectionModel(
-                        title = stringResource(id = R.string.settings_theme_light),
+                        title = stringResource(id = R.string.settings_theme_dark),
                     )
                 ),
                 onDismissRequest = {
@@ -59,12 +59,14 @@ object SettingScreen : CoreScreen<SettingState, SettingEvent>() {
                 },
                 selectedIndex = state.selectedTheme.index,
                 onSelect = { index, _ ->
+                    val selection = ThemeSelection.fromIndex(index)
+                        ?: ThemeSelection.SYSTEM
                     onEvent(
                         SettingEvent.OnThemeClicked(
-                            themeSelection = ThemeSelection.fromIndex(index)
-                                ?: ThemeSelection.SYSTEM
+                            themeSelection = selection
                         )
                     )
+                    sharedViewModel?.changeTheme(selection)
                 }
             )
         }

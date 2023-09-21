@@ -22,7 +22,7 @@ import com.yunuscagliyan.search.ui.SearchScreen
 @Composable
 fun SetupNavGraph(
     navHostController: NavHostController,
-    sharedViewModel: SharedViewModel = hiltViewModel()
+    sharedViewModel: SharedViewModel
 ) {
     NavHost(
         modifier = Modifier
