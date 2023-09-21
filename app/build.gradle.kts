@@ -72,6 +72,7 @@ dependencies {
     implementation(Compose.composeUIGraphic)
     implementation(Compose.composeToolingPreview)
     implementation(Compose.material3)
+    implementation(Compose.splash)
 
     implementation(Accompanist.animatedNavigation)
 
