@@ -13,6 +13,7 @@ val compactDimensions = WallXDimen(
     paddingMedium2 = 24.dp,
 
     iconSizeSmall = 24.dp,
+    iconSizeMedium = 32.dp,
     iconSizeLarge = 64.dp,
 
     borderWidth = 1.dp,
@@ -41,6 +42,7 @@ val mediumDimensions = WallXDimen(
     circularLoadingWidth = 3.dp,
 
     iconSizeSmall = 32.dp,
+    iconSizeMedium = 36.dp,
     iconSizeLarge = 72.dp,
 
     tabHeight = 50.dp,
@@ -65,7 +67,8 @@ val LargeDimensions = WallXDimen(
     borderWidth = 3.dp,
     circularLoadingWidth = 4.dp,
 
-    iconSizeSmall = 40.dp,
+    iconSizeSmall = 36.dp,
+    iconSizeMedium = 40.dp,
     iconSizeLarge = 80.dp,
 
     tabHeight = 60.dp,

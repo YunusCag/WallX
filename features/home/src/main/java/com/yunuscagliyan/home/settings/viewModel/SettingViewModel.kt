@@ -12,7 +12,23 @@ class SettingViewModel @Inject constructor(
     override fun getInitialState(): SettingState = SettingState()
 
     override fun onEvent(event: SettingEvent) {
+        when (event) {
+            is SettingEvent.OnThemeClicked -> {
+                updateState {
+                    copy(
+                        selectedTheme = event.themeSelection
+                    )
+                }
+            }
 
+            is SettingEvent.ThemeBottomSheet -> {
+                updateState {
+                    copy(
+                        showThemeBottomSheet = event.open
+                    )
+                }
+            }
+        }
     }
 
 }

@@ -17,9 +17,11 @@ val LightColor = WallXAppColor(
     white = Color(0xFFFFFFFF),
     textPrimary = Color(0xFF000000),
     secondaryGray = Color(0xFF8294A8),
-    card = Color(0xFF8294A8),
+    card = Color(0xFFFFFFFF),
     bottomBar = Color(0xFFF5F5F5),
-    dividerColor = Color(0xFF9e9e9e),
+    dividerColor = Color(0xFF9e9e9e).copy(
+        alpha = 0.3f
+    ),
     error = Color(0xFFF44336),
     warning = Color(0xFFFFEB3B),
     success = Color(0xFF4CAF50),
@@ -37,9 +39,11 @@ val DarkColor = WallXAppColor(
     white = Color(0xFFFFFFFF),
     textPrimary = Color(0xFFFFFFFF),
     secondaryGray = Color(0xFF8294A8),
-    card = Color(0xFF8294A8),
+    card = Color(0xFF546E7A),
     bottomBar = Color(0xFF263238),
-    dividerColor = Color(0xFF9e9e9e),
+    dividerColor = Color(0xFF9e9e9e).copy(
+        alpha = 0.3f
+    ),
     error = Color(0xFFF44336),
     warning = Color(0xFFFFEB3B),
     success = Color(0xFF4CAF50),
@@ -49,23 +53,23 @@ val DarkColor = WallXAppColor(
 
 @Stable
 class WallXAppColor(
-    white:Color,
-    black:Color,
-    primary:Color,
-    primaryDark:Color,
-    secondary:Color,
-    accent:Color,
-    background:Color,
-    textPrimary:Color,
-    secondaryGray:Color,
-    card:Color,
-    bottomBar:Color,
-    dividerColor:Color,
-    error:Color,
-    warning:Color,
-    success:Color,
-    info:Color,
-    isDark:Boolean
+    white: Color,
+    black: Color,
+    primary: Color,
+    primaryDark: Color,
+    secondary: Color,
+    accent: Color,
+    background: Color,
+    textPrimary: Color,
+    secondaryGray: Color,
+    card: Color,
+    bottomBar: Color,
+    dividerColor: Color,
+    error: Color,
+    warning: Color,
+    success: Color,
+    info: Color,
+    isDark: Boolean
 ) {
     var white by mutableStateOf(white)
         private set
@@ -113,7 +117,7 @@ class WallXAppColor(
         textPrimary = textPrimary,
         secondaryGray = secondaryGray,
         card = card,
-        bottomBar =bottomBar,
+        bottomBar = bottomBar,
         dividerColor = dividerColor,
         error = error,
         warning = warning,
@@ -122,7 +126,7 @@ class WallXAppColor(
         isDark = isDark
     )
 
-    fun update(other:WallXAppColor) {
+    fun update(other: WallXAppColor) {
         white = other.white
         black = other.black
         primary = other.primary
