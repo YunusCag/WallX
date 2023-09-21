@@ -18,6 +18,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.yunuscagliyan.core_ui.R
 import com.yunuscagliyan.core_ui.components.card.SettingCard
 import com.yunuscagliyan.core_ui.components.sheet.SingleSelectionBottomSheet
+import com.yunuscagliyan.core_ui.components.tile.SettingItemSwitchTile
 import com.yunuscagliyan.core_ui.components.tile.SettingItemTile
 import com.yunuscagliyan.core_ui.event.ScreenRoutes
 import com.yunuscagliyan.core_ui.extension.noRippleClickable
@@ -89,6 +90,20 @@ object SettingScreen : CoreScreen<SettingState, SettingEvent>() {
 
                         else -> Unit
                     }
+                },
+                onBottom = {
+                    SettingItemSwitchTile(
+                        modifier=Modifier
+                            .noRippleClickable {
+                                onEvent(SettingEvent.AutoChangeWallpaper(state.autoChangeWallpaper.not()))
+                            },
+                        title = stringResource(id = R.string.settings_auto_change_wallpaper),
+                        icon = R.drawable.ic_wallpaper,
+                        checked = state.autoChangeWallpaper,
+                        onCheckedChange = {
+                            onEvent(SettingEvent.AutoChangeWallpaper(it))
+                        }
+                    )
                 }
             )
             Spacer(modifier = Modifier.height(WallXAppTheme.dimension.paddingMedium1))
@@ -121,6 +136,7 @@ object SettingScreen : CoreScreen<SettingState, SettingEvent>() {
     private fun Section(
         title: String,
         settingItems: List<SettingItemModel>,
+        onBottom: (@Composable () -> Unit)? = null,
         onClick: (SettingItemAction) -> Unit
     ) {
         Column(
@@ -151,13 +167,14 @@ object SettingScreen : CoreScreen<SettingState, SettingEvent>() {
                         title = stringResource(id = item.title),
                         icon = item.icon
                     )
-                    if (settingItems.size - 1 != index) {
+                    if (settingItems.size - 1 != index || onBottom != null) {
                         Divider(
                             color = WallXAppTheme.colors.dividerColor,
                             thickness = WallXAppTheme.dimension.borderWidth
                         )
                     }
                 }
+                onBottom?.invoke()
             }
         }
     }

@@ -10,6 +10,7 @@ import com.yunuscagliyan.core_ui.model.ThemeSelection
 @Stable
 data class SettingState(
     val showThemeBottomSheet: Boolean = false,
+    val autoChangeWallpaper: Boolean = false,
     val selectedTheme: ThemeSelection = ThemeSelection.SYSTEM,
     val generalItems: List<SettingItemModel> = listOf(
         SettingItemModel(

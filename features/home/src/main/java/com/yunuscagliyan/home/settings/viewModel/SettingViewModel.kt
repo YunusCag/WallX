@@ -28,6 +28,13 @@ class SettingViewModel @Inject constructor(
 
     override fun onEvent(event: SettingEvent) {
         when (event) {
+            is SettingEvent.AutoChangeWallpaper->{
+                updateState {
+                    copy(
+                        autoChangeWallpaper = event.auto
+                    )
+                }
+            }
             is SettingEvent.OnThemeClicked -> {
                 updateState {
                     copy(
