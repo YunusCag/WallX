@@ -32,7 +32,7 @@ fun BaseModalSheet(
     scrimColor: Color = WallXAppTheme.colors.black.copy(
         alpha = 0.1f
     ),
-    backgroundColor: Color = WallXAppTheme.colors.background,
+    backgroundColor: Color = WallXAppTheme.colors.card,
     shape: Shape = WallXAppTheme.shapes.bottomSheetShape,
     onDismissRequest: () -> Unit,
     content: @Composable ColumnScope.() -> Unit,
