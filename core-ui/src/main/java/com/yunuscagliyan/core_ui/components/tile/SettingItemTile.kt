@@ -1,9 +1,11 @@
 package com.yunuscagliyan.core_ui.components.tile
 
 import androidx.annotation.DrawableRes
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
@@ -21,6 +23,7 @@ import com.yunuscagliyan.core_ui.theme.WallXAppTheme
 fun SettingItemTile(
     modifier: Modifier = Modifier,
     title: String,
+    description: String? = null,
     @DrawableRes icon: Int,
 ) {
     Row(
@@ -40,13 +43,29 @@ fun SettingItemTile(
                 .size(WallXAppTheme.dimension.iconSizeMedium)
         )
         Spacer(modifier = Modifier.width(WallXAppTheme.dimension.paddingSmall2))
-        Text(
-            text = title,
-            style = WallXAppTheme.typography.normal1,
-            color = WallXAppTheme.colors.textPrimary,
+        Column(
             modifier = Modifier
-                .weight(1f)
-        )
+                .weight(1f),
+            horizontalAlignment = Alignment.Start
+        ) {
+            Text(
+                text = title,
+                style = WallXAppTheme.typography.normal1,
+                color = WallXAppTheme.colors.textPrimary,
+                modifier = Modifier
+                    .fillMaxWidth()
+            )
+            description?.let {
+                Text(
+                    text = it,
+                    style = WallXAppTheme.typography.small1,
+                    color = WallXAppTheme.colors.secondaryGray,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                )
+            }
+        }
+
         Icon(
             Icons.Filled.KeyboardArrowRight,
             tint = WallXAppTheme.colors.secondaryGray,

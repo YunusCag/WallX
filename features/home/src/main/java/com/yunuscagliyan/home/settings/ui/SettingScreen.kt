@@ -16,6 +16,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.yunuscagliyan.core_ui.R
+import com.yunuscagliyan.core_ui.components.anim.AnimatedTransition
 import com.yunuscagliyan.core_ui.components.card.SettingCard
 import com.yunuscagliyan.core_ui.components.sheet.SingleSelectionBottomSheet
 import com.yunuscagliyan.core_ui.components.tile.SettingItemSwitchTile
@@ -26,6 +27,9 @@ import com.yunuscagliyan.core_ui.model.SelectionModel
 import com.yunuscagliyan.core_ui.model.SettingItemAction
 import com.yunuscagliyan.core_ui.model.SettingItemModel
 import com.yunuscagliyan.core_ui.model.ThemeSelection
+import com.yunuscagliyan.core_ui.model.enums.PeriodicTimeType
+import com.yunuscagliyan.core_ui.model.enums.ScreenType
+import com.yunuscagliyan.core_ui.model.enums.SourceType
 import com.yunuscagliyan.core_ui.screen.CoreScreen
 import com.yunuscagliyan.core_ui.theme.WallXAppTheme
 import com.yunuscagliyan.home.settings.viewModel.SettingState
@@ -38,40 +42,58 @@ object SettingScreen : CoreScreen<SettingState, SettingEvent>() {
     @Composable
     override fun viewModel(): SettingViewModel = hiltViewModel()
 
-    @OptIn(ExperimentalMaterial3Api::class)
     @Composable
     override fun Content(state: SettingState, onEvent: (SettingEvent) -> Unit) {
         if (state.showThemeBottomSheet) {
-            SingleSelectionBottomSheet(
-                title = stringResource(id = R.string.settings_theme),
-                selections = listOf(
-                    SelectionModel(
-                        title = stringResource(id = R.string.settings_theme_system),
-                    ),
-                    SelectionModel(
-                        title = stringResource(id = R.string.settings_theme_light),
-                    ),
-                    SelectionModel(
-                        title = stringResource(id = R.string.settings_theme_dark),
-                    )
-                ),
+            ThemeSheet(
+                selectedTheme = state.selectedTheme,
                 onDismissRequest = {
                     onEvent(SettingEvent.ThemeBottomSheet(false))
                 },
-                selectedIndex = state.selectedTheme.index,
-                onSelect = { index, _ ->
-                    val selection = ThemeSelection.fromIndex(index)
-                        ?: ThemeSelection.SYSTEM
+                onSelect = {
                     onEvent(
                         SettingEvent.OnThemeClicked(
-                            themeSelection = selection
+                            themeSelection = it
                         )
                     )
-                    sharedViewModel?.changeTheme(selection)
+                }
+            )
+        }
+        if (state.showPeriodicBottomSheet) {
+            PeriodicTimeTypeSheet(
+                selectedType = state.selectedPeriodicTimeType,
+                onSelect = {
+                    onEvent(SettingEvent.OnClickPeriodicType(it))
+                },
+                onDismissRequest = {
+                    onEvent(SettingEvent.PeriodicTimeBottomSheet(false))
                 }
             )
         }
 
+        if (state.showSourceBottomSheet) {
+            SourceTypeSheet(
+                selectedType = state.selectedSourceType,
+                onSelect = {
+                    onEvent(SettingEvent.OnClickSourceType(it))
+                },
+                onDismissRequest = {
+                    onEvent(SettingEvent.SourceTimeBottomSheet(false))
+                }
+            )
+        }
+
+        if (state.showScreenBottomSheet) {
+            ScreenTypeSheet(
+                selectedType = state.selectedScreenType,
+                onSelect = {
+                    onEvent(SettingEvent.OnClickScreenType(it))
+                },
+                onDismissRequest = {
+                    onEvent(SettingEvent.ScreenBottomSheet(false))
+                }
+            )
+        }
 
         Column(
             modifier = Modifier
@@ -93,7 +115,7 @@ object SettingScreen : CoreScreen<SettingState, SettingEvent>() {
                 },
                 onBottom = {
                     SettingItemSwitchTile(
-                        modifier=Modifier
+                        modifier = Modifier
                             .noRippleClickable {
                                 onEvent(SettingEvent.AutoChangeWallpaper(state.autoChangeWallpaper.not()))
                             },
@@ -107,6 +129,59 @@ object SettingScreen : CoreScreen<SettingState, SettingEvent>() {
                 }
             )
             Spacer(modifier = Modifier.height(WallXAppTheme.dimension.paddingMedium1))
+            AnimatedTransition(visible = state.autoChangeWallpaper) {
+                Column {
+                    Text(
+                        text = stringResource(id = R.string.settings_auto_change_title),
+                        style = WallXAppTheme.typography.title2,
+                        color = WallXAppTheme.colors.textPrimary,
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(
+                                horizontal = WallXAppTheme.dimension.paddingSmall3,
+                            )
+                    )
+                    Spacer(modifier = Modifier.height(WallXAppTheme.dimension.paddingSmall2))
+                    SettingCard {
+                        SettingItemTile(
+                            modifier = Modifier
+                                .noRippleClickable {
+                                    onEvent(SettingEvent.PeriodicTimeBottomSheet(true))
+                                },
+                            title = stringResource(id = R.string.settings_auto_periodic),
+                            icon = R.drawable.ic_alarm_clock,
+                            description = stringResource(id = state.selectedPeriodicTimeType.text)
+                        )
+                        Divider(
+                            color = WallXAppTheme.colors.dividerColor,
+                            thickness = WallXAppTheme.dimension.borderWidth
+                        )
+                        SettingItemTile(
+                            modifier = Modifier
+                                .noRippleClickable {
+                                    onEvent(SettingEvent.SourceTimeBottomSheet(true))
+                                },
+                            title = stringResource(id = R.string.settings_source),
+                            icon = R.drawable.ic_source_type,
+                            description = stringResource(id = state.selectedSourceType.text)
+                        )
+                        Divider(
+                            color = WallXAppTheme.colors.dividerColor,
+                            thickness = WallXAppTheme.dimension.borderWidth
+                        )
+                        SettingItemTile(
+                            modifier = Modifier
+                                .noRippleClickable {
+                                    onEvent(SettingEvent.ScreenBottomSheet(true))
+                                },
+                            title = stringResource(id = R.string.settings_screen_type),
+                            icon = R.drawable.ic_background,
+                            description = stringResource(id = state.selectedScreenType.text)
+                        )
+                    }
+                    Spacer(modifier = Modifier.height(WallXAppTheme.dimension.paddingMedium1))
+                }
+            }
             Section(
                 title = stringResource(id = R.string.settings_about),
                 settingItems = state.aboutItems,
@@ -130,6 +205,103 @@ object SettingScreen : CoreScreen<SettingState, SettingEvent>() {
             )
 
         }
+    }
+
+    @OptIn(ExperimentalMaterial3Api::class)
+    @Composable
+    private fun ThemeSheet(
+        onDismissRequest: () -> Unit,
+        selectedTheme: ThemeSelection,
+        onSelect: (ThemeSelection) -> Unit
+    ) {
+        SingleSelectionBottomSheet(
+            title = stringResource(id = R.string.settings_theme),
+            selections = listOf(
+                SelectionModel(
+                    title = stringResource(id = R.string.settings_theme_system),
+                ),
+                SelectionModel(
+                    title = stringResource(id = R.string.settings_theme_light),
+                ),
+                SelectionModel(
+                    title = stringResource(id = R.string.settings_theme_dark),
+                )
+            ),
+            onDismissRequest = onDismissRequest,
+            selectedIndex = selectedTheme.index,
+            onSelect = { index, _ ->
+                val selection = ThemeSelection.fromIndex(index)
+                    ?: ThemeSelection.SYSTEM
+                onSelect(selection)
+                sharedViewModel?.changeTheme(selection)
+            }
+        )
+    }
+
+    @OptIn(ExperimentalMaterial3Api::class)
+    @Composable
+    private fun PeriodicTimeTypeSheet(
+        selectedType: PeriodicTimeType,
+        onSelect: (PeriodicTimeType) -> Unit,
+        onDismissRequest: () -> Unit
+    ) {
+        SingleSelectionBottomSheet(
+            title = stringResource(id = R.string.settings_auto_periodic),
+            selections = PeriodicTimeType.values().map {
+                SelectionModel(
+                    title = stringResource(id = it.text)
+                )
+            }.toList(),
+            onDismissRequest = onDismissRequest,
+            selectedIndex = selectedType.ordinal,
+            onSelect = { index, _ ->
+                onSelect(PeriodicTimeType.fromIndex(index) ?: PeriodicTimeType.MINUTES_15)
+            }
+        )
+    }
+
+    @OptIn(ExperimentalMaterial3Api::class)
+    @Composable
+    private fun SourceTypeSheet(
+        selectedType: SourceType,
+        onSelect: (SourceType) -> Unit,
+        onDismissRequest: () -> Unit
+    ) {
+        SingleSelectionBottomSheet(
+            title = stringResource(id = R.string.settings_source),
+            selections = SourceType.values().map {
+                SelectionModel(
+                    title = stringResource(id = it.text)
+                )
+            }.toList(),
+            onDismissRequest = onDismissRequest,
+            selectedIndex = selectedType.ordinal,
+            onSelect = { index, _ ->
+                onSelect(SourceType.fromIndex(index) ?: SourceType.RANDOM)
+            }
+        )
+    }
+
+    @OptIn(ExperimentalMaterial3Api::class)
+    @Composable
+    private fun ScreenTypeSheet(
+        selectedType: ScreenType,
+        onSelect: (ScreenType) -> Unit,
+        onDismissRequest: () -> Unit
+    ) {
+        SingleSelectionBottomSheet(
+            title = stringResource(id = R.string.settings_screen_type),
+            selections = ScreenType.values().map {
+                SelectionModel(
+                    title = stringResource(id = it.text)
+                )
+            }.toList(),
+            onDismissRequest = onDismissRequest,
+            selectedIndex = selectedType.ordinal,
+            onSelect = { index, _ ->
+                onSelect(ScreenType.fromIndex(index) ?: ScreenType.HOME_AND_LOCK)
+            }
+        )
     }
 
     @Composable

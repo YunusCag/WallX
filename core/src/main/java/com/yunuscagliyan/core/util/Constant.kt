@@ -59,6 +59,7 @@ class Constant {
         const val TRANSITION_DURATION = 500
         const val SHIMMER_DURATION = 1000
         const val SPLASH_DURATION = 2000
+        const val DEFAULT_DELAY = 200L
     }
 
     object FileUtil {

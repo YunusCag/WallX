@@ -115,8 +115,7 @@ class PhotoDetailViewModel @Inject constructor(
 
                 updateState {
                     copy(
-                        sheetSelectionIndex = event.index,
-                        showWallpaperSelectionSheet = false
+                        sheetSelectionIndex = event.index
                     )
                 }
             }
