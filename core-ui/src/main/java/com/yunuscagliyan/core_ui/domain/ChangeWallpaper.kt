@@ -1,16 +1,14 @@
-package com.yunuscagliyan.core.domain
+package com.yunuscagliyan.core_ui.domain
 
 import android.annotation.SuppressLint
 import android.app.WallpaperManager
 import android.content.Context
 import android.graphics.Bitmap
-import com.yunuscagliyan.core.data.enums.WallpaperScreenType
 import com.yunuscagliyan.core.util.DownloadState
+import com.yunuscagliyan.core_ui.model.enums.WallpaperScreenType
 import dagger.hilt.android.qualifiers.ApplicationContext
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.flow.flowOn
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -27,7 +25,7 @@ class ChangeWallpaper @Inject constructor(
 
             val wallpaperManager = WallpaperManager.getInstance(context)
             when (wallpaperScreenType) {
-                WallpaperScreenType.Home -> {
+                WallpaperScreenType.HOME -> {
                     wallpaperManager.setBitmap(
                         bitmap,
                         null,
@@ -36,7 +34,7 @@ class ChangeWallpaper @Inject constructor(
                     )
                 }
 
-                WallpaperScreenType.Lock -> {
+                WallpaperScreenType.LOCK -> {
                     wallpaperManager.setBitmap(
                         bitmap,
                         null,
@@ -45,13 +43,7 @@ class ChangeWallpaper @Inject constructor(
                     )
                 }
 
-                WallpaperScreenType.Both -> {
-                    wallpaperManager.setBitmap(
-                        bitmap
-                    )
-                }
-
-                else -> {
+                WallpaperScreenType.HOME_AND_LOCK -> {
                     wallpaperManager.setBitmap(
                         bitmap
                     )

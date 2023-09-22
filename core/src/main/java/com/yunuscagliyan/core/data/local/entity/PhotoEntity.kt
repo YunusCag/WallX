@@ -33,6 +33,8 @@ data class PhotoEntity(
 
     @ColumnInfo(name = "download_link")
     var downloadLink: String? = null,
+    @ColumnInfo(name = "download_location")
+    var downloadLocation: String? = null,
 
     @Embedded
     var urls: Urls? = null,

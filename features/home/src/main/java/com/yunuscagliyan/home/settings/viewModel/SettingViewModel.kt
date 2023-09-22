@@ -3,7 +3,7 @@ package com.yunuscagliyan.home.settings.viewModel
 import com.yunuscagliyan.core.data.local.preference.Preferences
 import com.yunuscagliyan.core_ui.model.ThemeSelection
 import com.yunuscagliyan.core_ui.model.enums.PeriodicTimeType
-import com.yunuscagliyan.core_ui.model.enums.ScreenType
+import com.yunuscagliyan.core_ui.model.enums.WallpaperScreenType
 import com.yunuscagliyan.core_ui.model.enums.SourceType
 import com.yunuscagliyan.core_ui.viewmodel.CoreViewModel
 import com.yunuscagliyan.home.settings.ui.SettingEvent
@@ -30,8 +30,8 @@ class SettingViewModel @Inject constructor(
                     ?: PeriodicTimeType.MINUTES_15,
                 selectedSourceType = SourceType.fromIndex(preferences.sourceIndex)
                     ?: SourceType.RANDOM,
-                selectedScreenType = ScreenType.fromIndex(preferences.screenIndex)
-                    ?: ScreenType.HOME_AND_LOCK
+                selectedScreenType = WallpaperScreenType.fromIndex(preferences.screenIndex)
+                    ?: WallpaperScreenType.HOME_AND_LOCK
             )
         }
     }

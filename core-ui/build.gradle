@@ -35,6 +35,8 @@ dependencies {
     implementation(Accompanist.accompanistPager)
     implementation(Accompanist.accompanistPagerIndicator)
 
+    implementation(WorkManager.coroutineWork)
+    implementation(WorkManager.workHilt)
 
     testImplementation(TestLibs.jUnit)
     androidTestImplementation(TestLibs.jUnitExt)

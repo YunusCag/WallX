@@ -13,6 +13,7 @@ class Constant {
         const val SEARCH_COLLECTION_PATH = "search/collections"
         const val SEARCH_PHOTO_PATH = "search/photos"
         const val COLLECTION_PHOTOS = "collections/{collection_id}/photos"
+        const val RANDOM_PHOTO = "photos/random"
     }
 
     object NetworkQueryParamKey {
@@ -33,7 +34,7 @@ class Constant {
         const val CACHE_HEADER_KEY = "Cache-Control"
         const val CACHE_FILE_NAME = "offlineCache"
         const val MAX_SIZE = 10L * 1024L * 1024L
-        const val TIME_OUT_SECONDS = 60L
+        const val TIME_OUT_SECONDS = 120L
         const val MAX_AGE_DAY = 10
     }
 

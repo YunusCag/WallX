@@ -75,6 +75,9 @@ dependencies {
     implementation(Compose.splash)
 
     implementation(Accompanist.animatedNavigation)
+    implementation(WorkManager.coroutineWork)
+    implementation(WorkManager.workHilt)
+
 
     implementation(DaggerHilt.hiltAndroid)
     kapt(DaggerHilt.hiltCompiler)

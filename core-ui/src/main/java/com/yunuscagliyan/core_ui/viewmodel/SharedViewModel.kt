@@ -5,8 +5,10 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import com.yunuscagliyan.core.data.local.preference.Preferences
 import com.yunuscagliyan.core_ui.model.ThemeSelection
+import com.yunuscagliyan.core_ui.model.enums.PeriodicTimeType
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
+
 @HiltViewModel
 class SharedViewModel @Inject constructor(
     private val preferences: Preferences
@@ -21,8 +23,11 @@ class SharedViewModel @Inject constructor(
 
     private fun initState() {
         val themeIndex = preferences.themeIndex
+        val periodicIndex = preferences.periodIndex
         sharedState.value = sharedState.value.copy(
-            themeSelection = ThemeSelection.fromIndex(themeIndex) ?: ThemeSelection.SYSTEM
+            themeSelection = ThemeSelection.fromIndex(themeIndex) ?: ThemeSelection.SYSTEM,
+            periodicTimeType = PeriodicTimeType.fromIndex(periodicIndex)
+                ?: PeriodicTimeType.MINUTES_15
         )
     }
 

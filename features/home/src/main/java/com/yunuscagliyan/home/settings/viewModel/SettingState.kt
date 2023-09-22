@@ -6,7 +6,7 @@ import com.yunuscagliyan.core_ui.R
 import com.yunuscagliyan.core_ui.model.SettingItemAction
 import com.yunuscagliyan.core_ui.model.ThemeSelection
 import com.yunuscagliyan.core_ui.model.enums.PeriodicTimeType
-import com.yunuscagliyan.core_ui.model.enums.ScreenType
+import com.yunuscagliyan.core_ui.model.enums.WallpaperScreenType
 import com.yunuscagliyan.core_ui.model.enums.SourceType
 
 
@@ -18,7 +18,7 @@ data class SettingState(
 
     val selectedPeriodicTimeType: PeriodicTimeType = PeriodicTimeType.MINUTES_15,
     val selectedSourceType: SourceType = SourceType.RANDOM,
-    val selectedScreenType: ScreenType = ScreenType.HOME_AND_LOCK,
+    val selectedScreenType: WallpaperScreenType = WallpaperScreenType.HOME_AND_LOCK,
 
     val showPeriodicBottomSheet: Boolean = false,
     val showSourceBottomSheet: Boolean = false,

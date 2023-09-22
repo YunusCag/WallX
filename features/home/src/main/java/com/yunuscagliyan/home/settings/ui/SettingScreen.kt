@@ -28,7 +28,7 @@ import com.yunuscagliyan.core_ui.model.SettingItemAction
 import com.yunuscagliyan.core_ui.model.SettingItemModel
 import com.yunuscagliyan.core_ui.model.ThemeSelection
 import com.yunuscagliyan.core_ui.model.enums.PeriodicTimeType
-import com.yunuscagliyan.core_ui.model.enums.ScreenType
+import com.yunuscagliyan.core_ui.model.enums.WallpaperScreenType
 import com.yunuscagliyan.core_ui.model.enums.SourceType
 import com.yunuscagliyan.core_ui.screen.CoreScreen
 import com.yunuscagliyan.core_ui.theme.WallXAppTheme
@@ -285,13 +285,13 @@ object SettingScreen : CoreScreen<SettingState, SettingEvent>() {
     @OptIn(ExperimentalMaterial3Api::class)
     @Composable
     private fun ScreenTypeSheet(
-        selectedType: ScreenType,
-        onSelect: (ScreenType) -> Unit,
+        selectedType: WallpaperScreenType,
+        onSelect: (WallpaperScreenType) -> Unit,
         onDismissRequest: () -> Unit
     ) {
         SingleSelectionBottomSheet(
             title = stringResource(id = R.string.settings_screen_type),
-            selections = ScreenType.values().map {
+            selections = WallpaperScreenType.values().map {
                 SelectionModel(
                     title = stringResource(id = it.text)
                 )
@@ -299,7 +299,7 @@ object SettingScreen : CoreScreen<SettingState, SettingEvent>() {
             onDismissRequest = onDismissRequest,
             selectedIndex = selectedType.ordinal,
             onSelect = { index, _ ->
-                onSelect(ScreenType.fromIndex(index) ?: ScreenType.HOME_AND_LOCK)
+                onSelect(WallpaperScreenType.fromIndex(index) ?: WallpaperScreenType.HOME_AND_LOCK)
             }
         )
     }

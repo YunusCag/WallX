@@ -2,7 +2,7 @@ package com.yunuscagliyan.home.settings.ui
 
 import com.yunuscagliyan.core_ui.model.ThemeSelection
 import com.yunuscagliyan.core_ui.model.enums.PeriodicTimeType
-import com.yunuscagliyan.core_ui.model.enums.ScreenType
+import com.yunuscagliyan.core_ui.model.enums.WallpaperScreenType
 import com.yunuscagliyan.core_ui.model.enums.SourceType
 
 sealed class SettingEvent {
@@ -16,5 +16,5 @@ sealed class SettingEvent {
     data class ScreenBottomSheet(val open: Boolean):SettingEvent()
     data class OnClickPeriodicType(val type: PeriodicTimeType) : SettingEvent()
     data class OnClickSourceType(val type: SourceType) : SettingEvent()
-    data class OnClickScreenType(val type: ScreenType) : SettingEvent()
+    data class OnClickScreenType(val type: WallpaperScreenType) : SettingEvent()
 }

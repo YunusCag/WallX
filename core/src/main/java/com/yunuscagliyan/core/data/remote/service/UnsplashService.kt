@@ -5,6 +5,7 @@ import com.yunuscagliyan.core.data.remote.response.CollectionResponse
 import com.yunuscagliyan.core.data.remote.response.PhotoResponse
 import com.yunuscagliyan.core.util.Constant.NetworkPathUtil.COLLECTION_PHOTOS
 import com.yunuscagliyan.core.util.Constant.NetworkPathUtil.PHOTOS_PATH
+import com.yunuscagliyan.core.util.Constant.NetworkPathUtil.RANDOM_PHOTO
 import com.yunuscagliyan.core.util.Constant.NetworkPathUtil.SEARCH_COLLECTION_PATH
 import com.yunuscagliyan.core.util.Constant.NetworkPathUtil.SEARCH_PHOTO_PATH
 import com.yunuscagliyan.core.util.Constant.NetworkQueryParamKey.COLLECTION_ID
@@ -53,6 +54,9 @@ interface UnsplashService {
         @Query(ORDER_BY) orderBy: String,
         @Query(ORIENTATION) orientation: String? = null,
     ): List<PhotoModel>
+
+    @GET(RANDOM_PHOTO)
+    suspend fun getRandomPhoto(): PhotoModel
 
     @GET
     @Streaming

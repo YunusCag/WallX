@@ -3,7 +3,7 @@ package com.yunuscagliyan.core_ui.model.enums
 import androidx.annotation.StringRes
 import com.yunuscagliyan.core_ui.R
 
-enum class ScreenType(
+enum class WallpaperScreenType(
     @StringRes val text: Int
 ) {
     HOME(

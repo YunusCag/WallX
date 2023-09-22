@@ -1,12 +1,11 @@
 package com.yunuscagliyan.photo_detail.viewmodel
 
-import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
-import com.yunuscagliyan.core.data.enums.WallpaperScreenType
+import com.yunuscagliyan.core_ui.model.enums.WallpaperScreenType
 import com.yunuscagliyan.core.data.repository.PhotoRepository
+import com.yunuscagliyan.core_ui.domain.ChangeWallpaper
 import com.yunuscagliyan.core.domain.DownloadImageAndSave
 import com.yunuscagliyan.core.domain.DownloadImageAsBitmap
-import com.yunuscagliyan.core.domain.ChangeWallpaper
 import com.yunuscagliyan.core.util.DownloadState
 import com.yunuscagliyan.core.util.Resource
 import com.yunuscagliyan.core_ui.components.button.LoadingButtonType
@@ -144,7 +143,7 @@ class PhotoDetailViewModel @Inject constructor(
             viewModelScope.launch(Dispatchers.IO) {
                 changeWallpaper.invoke(
                     bitmap = bitmap,
-                    wallpaperScreenType = type ?: WallpaperScreenType.Both
+                    wallpaperScreenType = type ?: WallpaperScreenType.HOME_AND_LOCK
                 ).collectLatest { downloadState ->
                     when (downloadState) {
                         is DownloadState.Error -> {
