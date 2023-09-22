@@ -66,4 +66,8 @@ class Constant {
     object FileUtil {
         const val PUBLIC_FOLDER_NAME = "WallX"
     }
+
+    object WorkManagerUtil {
+        const val AUTO_WALLPAPER_MANAGER_NAME = "auto_wallpaper_manager"
+    }
 }

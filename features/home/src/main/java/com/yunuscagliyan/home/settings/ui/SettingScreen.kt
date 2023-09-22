@@ -12,7 +12,10 @@ import androidx.compose.material3.Divider
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.yunuscagliyan.core_ui.R
@@ -22,7 +25,9 @@ import com.yunuscagliyan.core_ui.components.sheet.SingleSelectionBottomSheet
 import com.yunuscagliyan.core_ui.components.tile.SettingItemSwitchTile
 import com.yunuscagliyan.core_ui.components.tile.SettingItemTile
 import com.yunuscagliyan.core_ui.event.ScreenRoutes
+import com.yunuscagliyan.core_ui.extension.cancelAllWorkManager
 import com.yunuscagliyan.core_ui.extension.noRippleClickable
+import com.yunuscagliyan.core_ui.extension.startWorkManager
 import com.yunuscagliyan.core_ui.model.SelectionModel
 import com.yunuscagliyan.core_ui.model.SettingItemAction
 import com.yunuscagliyan.core_ui.model.SettingItemModel
@@ -44,6 +49,19 @@ object SettingScreen : CoreScreen<SettingState, SettingEvent>() {
 
     @Composable
     override fun Content(state: SettingState, onEvent: (SettingEvent) -> Unit) {
+        val context = LocalContext.current
+
+        LaunchedEffect(
+            key1 = state.autoChangeWallpaper,
+            key2 = state.selectedPeriodicTimeType
+        ) {
+            if (state.autoChangeWallpaper) {
+                context.startWorkManager(state.selectedPeriodicTimeType)
+            } else {
+                context.cancelAllWorkManager()
+            }
+        }
+
         if (state.showThemeBottomSheet) {
             ThemeSheet(
                 selectedTheme = state.selectedTheme,
@@ -117,7 +135,8 @@ object SettingScreen : CoreScreen<SettingState, SettingEvent>() {
                     SettingItemSwitchTile(
                         modifier = Modifier
                             .noRippleClickable {
-                                onEvent(SettingEvent.AutoChangeWallpaper(state.autoChangeWallpaper.not()))
+                                val value = state.autoChangeWallpaper.not()
+                                onEvent(SettingEvent.AutoChangeWallpaper(value))
                             },
                         title = stringResource(id = R.string.settings_auto_change_wallpaper),
                         icon = R.drawable.ic_wallpaper,

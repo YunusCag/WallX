@@ -14,7 +14,7 @@ import com.yunuscagliyan.core.data.local.preference.Preferences
 import com.yunuscagliyan.core.data.mapper.toPhotoModel
 import com.yunuscagliyan.core.data.remote.model.photo.PhotoModel
 import com.yunuscagliyan.core.data.remote.service.UnsplashService
-import com.yunuscagliyan.core.extension.getDeviceWidthAndHeight
+import com.yunuscagliyan.core_ui.extension.getDeviceWidthAndHeight
 import com.yunuscagliyan.core_ui.model.enums.SourceType
 import com.yunuscagliyan.core_ui.model.enums.WallpaperScreenType
 import dagger.assisted.Assisted

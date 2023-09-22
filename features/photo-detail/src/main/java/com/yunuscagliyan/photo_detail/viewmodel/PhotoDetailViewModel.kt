@@ -5,7 +5,7 @@ import com.yunuscagliyan.core_ui.model.enums.WallpaperScreenType
 import com.yunuscagliyan.core.data.repository.PhotoRepository
 import com.yunuscagliyan.core_ui.domain.ChangeWallpaper
 import com.yunuscagliyan.core.domain.DownloadImageAndSave
-import com.yunuscagliyan.core.domain.DownloadImageAsBitmap
+import com.yunuscagliyan.core_ui.domain.DownloadImageAsBitmap
 import com.yunuscagliyan.core.util.DownloadState
 import com.yunuscagliyan.core.util.Resource
 import com.yunuscagliyan.core_ui.components.button.LoadingButtonType

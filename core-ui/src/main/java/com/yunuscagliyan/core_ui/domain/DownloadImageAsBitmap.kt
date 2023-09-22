@@ -1,10 +1,10 @@
-package com.yunuscagliyan.core.domain
+package com.yunuscagliyan.core_ui.domain
 
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import com.yunuscagliyan.core.data.remote.service.UnsplashService
-import com.yunuscagliyan.core.extension.getDeviceWidthAndHeight
+import com.yunuscagliyan.core_ui.extension.getDeviceWidthAndHeight
 import com.yunuscagliyan.core.util.Constant.StringParameter.EMPTY_STRING
 import com.yunuscagliyan.core.util.Resource
 import com.yunuscagliyan.core.util.UIText
