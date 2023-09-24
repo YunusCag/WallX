@@ -109,7 +109,13 @@ object FavouriteScreen : CoreScreen<FavouriteState, FavouriteEvent>() {
             horizontalArrangement = Arrangement.spacedBy(WallXAppTheme.dimension.paddingMedium1),
             verticalArrangement = Arrangement.spacedBy(WallXAppTheme.dimension.paddingMedium1)
         ) {
-            items(photoList.size) { index ->
+            items(
+                photoList.size,
+                key = { index ->
+                    val photo = photoList[index]
+                    photo.hashCode()
+                }
+            ) { index ->
                 val photoModel = photoList[index]
                 FavouritePhotoCard(
                     modifier = Modifier

@@ -8,8 +8,11 @@ import com.yunuscagliyan.core.domain.DownloadImageAndSave
 import com.yunuscagliyan.core_ui.domain.DownloadImageAsBitmap
 import com.yunuscagliyan.core.util.DownloadState
 import com.yunuscagliyan.core.util.Resource
+import com.yunuscagliyan.core.util.UIText
 import com.yunuscagliyan.core_ui.components.button.LoadingButtonType
+import com.yunuscagliyan.core_ui.event.Event
 import com.yunuscagliyan.core_ui.viewmodel.CoreViewModel
+import com.yunuscagliyan.core_ui.R
 import com.yunuscagliyan.photo_detail.ui.PhotoDetailEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -196,6 +199,13 @@ class PhotoDetailViewModel @Inject constructor(
                             }
 
                             is DownloadState.Finished -> {
+                                sendEvent(
+                                    Event.ShowSnackBar(
+                                        message = UIText.StringResource(
+                                            resId = R.string.photo_detail_save_success_message
+                                        )
+                                    )
+                                )
                                 copy(
                                     saveButtonType = LoadingButtonType.SUCCESS
                                 )

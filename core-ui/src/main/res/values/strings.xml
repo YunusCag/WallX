@@ -23,6 +23,10 @@
     <string name="home_tab_latest">Latest</string>
     <string name="home_tab_popular">Popular</string>
 
+    <!-- Favourite Page-->
+    <string name="favourite_remove_message">Removed from your favourites.</string>
+    <string name="favourite_revoke">Revoke</string>
+
     <!--Photo Detail -->
     <string name="photo_detail_save_button_initial">Save</string>
     <string name="photo_detail_save_button_success">Saved</string>
@@ -36,6 +40,8 @@
     <string name="photo_detail_sheet_screen_selection_home_screen">Home Screen</string>
     <string name="photo_detail_sheet_screen_selection_lock">Lock Screen</string>
     <string name="photo_detail_sheet_screen_selection_both">Home &amp; Lock Screen</string>
+    <string name="photo_detail_save_success_message">Photo saved to your gallery.</string>
+
 
     <!--Search -->
     <string name="search_tab_photo">PHOTOS</string>

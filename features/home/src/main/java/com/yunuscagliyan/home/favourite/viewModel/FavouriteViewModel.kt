@@ -1,14 +1,17 @@
 package com.yunuscagliyan.home.favourite.viewModel
 
 import androidx.lifecycle.viewModelScope
+import com.yunuscagliyan.core.data.remote.model.photo.PhotoModel
 import com.yunuscagliyan.core.data.repository.PhotoRepository
 import com.yunuscagliyan.core.util.Constant.NavigationArgumentKey.PHOTO_KEY
 import com.yunuscagliyan.core.util.Resource
+import com.yunuscagliyan.core.util.UIText
 import com.yunuscagliyan.core_ui.event.Event
 import com.yunuscagliyan.core_ui.event.NavArgument
 import com.yunuscagliyan.core_ui.event.Routes
 import com.yunuscagliyan.core_ui.event.ScreenRoutes
 import com.yunuscagliyan.core_ui.viewmodel.CoreViewModel
+import com.yunuscagliyan.core_ui.R
 import com.yunuscagliyan.home.favourite.ui.FavouriteEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -46,7 +49,6 @@ class FavouriteViewModel @Inject constructor(
             is FavouriteEvent.OnFavouriteClick -> {
                 updateState {
                     val filteredList = photoList.filter { it.id != event.photoModel.id }
-
                     copy(
                         photoList = filteredList
                     )
@@ -55,7 +57,35 @@ class FavouriteViewModel @Inject constructor(
                     event.photoModel.id?.let { id ->
                         repository.deletePhoto(photoId = id)
                     }
+                    sendEvent(
+                        Event.ShowSnackBar(
+                            message = UIText.StringResource(
+                                resId = R.string.favourite_remove_message
+                            ),
+                            actionLabel = UIText.StringResource(
+                                resId = R.string.favourite_revoke
+                            ),
+                            onClick = {
+                                onRevokeClicked(event.index, event.photoModel)
+                            }
+                        )
+                    )
                 }
+            }
+        }
+    }
+
+    private fun onRevokeClicked(index: Int, photoModel: PhotoModel) {
+        viewModelScope.launch {
+            repository.insertPhoto(
+                photoModel = photoModel
+            )
+            updateState {
+                val tempList = photoList.toMutableList()
+                tempList.add(index, photoModel)
+                copy(
+                    photoList = tempList
+                )
             }
         }
     }
