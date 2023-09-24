@@ -3,6 +3,7 @@ package com.yunuscagliyan.core_ui.components.grid
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.lazy.staggeredgrid.LazyVerticalStaggeredGrid
@@ -33,7 +34,8 @@ fun PhotoStaggeredGrid(
 
         is LoadState.Loading -> {
             LazyVerticalStaggeredGrid(
-                modifier = modifier,
+                modifier = modifier
+                    .fillMaxSize(),
                 columns = StaggeredGridCells.Fixed(2),
                 contentPadding = PaddingValues(WallXAppTheme.dimension.paddingMedium1),
                 horizontalArrangement = Arrangement.spacedBy(WallXAppTheme.dimension.paddingMedium1),
@@ -53,7 +55,8 @@ fun PhotoStaggeredGrid(
 
         is LoadState.NotLoading -> {
             LazyVerticalStaggeredGrid(
-                modifier = modifier,
+                modifier = modifier
+                    .fillMaxSize(),
                 columns = StaggeredGridCells.Fixed(2),
                 contentPadding = PaddingValues(WallXAppTheme.dimension.paddingMedium1),
                 horizontalArrangement = Arrangement.spacedBy(WallXAppTheme.dimension.paddingMedium1),
