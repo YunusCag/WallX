@@ -17,6 +17,7 @@ dependencies {
     kapt Room.compiler
     implementation Room.ktx
 
+
     implementation Compose.pagingRuntime
     implementation Compose.pagingCompose
 }

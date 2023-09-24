@@ -15,14 +15,18 @@ import androidx.compose.material3.SheetState
 import androidx.compose.material3.Text
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
+import com.yunuscagliyan.core.util.Constant
 import com.yunuscagliyan.core_ui.components.radio.RadioListItem
 import com.yunuscagliyan.core_ui.model.SelectionModel
 import com.yunuscagliyan.core_ui.theme.WallXAppTheme
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -32,7 +36,7 @@ fun BaseModalSheet(
     scrimColor: Color = WallXAppTheme.colors.black.copy(
         alpha = 0.1f
     ),
-    backgroundColor: Color = WallXAppTheme.colors.background,
+    backgroundColor: Color = WallXAppTheme.colors.card,
     shape: Shape = WallXAppTheme.shapes.bottomSheetShape,
     onDismissRequest: () -> Unit,
     content: @Composable ColumnScope.() -> Unit,
@@ -69,6 +73,8 @@ fun SingleSelectionBottomSheet(
     onDismissRequest: () -> Unit,
     onSelect: (Int, SelectionModel) -> Unit,
 ) {
+    val coroutineScope = rememberCoroutineScope()
+
     BaseModalSheet(
         modifier = modifier,
         sheetState = sheetState,
@@ -99,7 +105,11 @@ fun SingleSelectionBottomSheet(
                     title = selection.title,
                     selected = selectedIndex == index
                 ) {
-                    onSelect(index, selection)
+                    coroutineScope.launch {
+                        onSelect(index, selection)
+                        delay(Constant.DurationUtil.DEFAULT_DELAY)
+                        onDismissRequest()
+                    }
                 }
             }
         }

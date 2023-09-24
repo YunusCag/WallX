@@ -57,6 +57,7 @@ dependencies {
     implementation(project(Modules.home))
     implementation(project(Modules.photoList))
     implementation(project(Modules.photoDetail))
+    implementation(project(Modules.search))
 
     implementation(AndroidX.coreKtx)
     implementation(AndroidX.lifecycle)
@@ -71,8 +72,12 @@ dependencies {
     implementation(Compose.composeUIGraphic)
     implementation(Compose.composeToolingPreview)
     implementation(Compose.material3)
+    implementation(Compose.splash)
 
     implementation(Accompanist.animatedNavigation)
+    implementation(WorkManager.coroutineWork)
+    implementation(WorkManager.workHilt)
+
 
     implementation(DaggerHilt.hiltAndroid)
     kapt(DaggerHilt.hiltCompiler)

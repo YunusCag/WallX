@@ -19,6 +19,7 @@ fun PhotoModel.toPhotoEntity(): PhotoEntity = PhotoEntity(
     width = this.width,
     likes = this.likes,
     downloadLink = this.links?.download,
+    downloadLocation = this.links?.downloadLocation,
     urls = this.urls,
     profileImage = this.user?.profileImage?.medium,
     firstName = this.user?.firstName,
@@ -36,7 +37,8 @@ fun PhotoEntity.toPhotoModel(): PhotoModel = PhotoModel(
     width = this.width,
     likes = this.likes,
     links = Links(
-        download = this.downloadLink
+        download = this.downloadLink,
+        downloadLocation = this.downloadLocation
     ),
     urls = this.urls,
     user = User(

@@ -18,13 +18,15 @@ class DownloadImageAndSave @Inject constructor(
     private val unsplashService: UnsplashService
 ) {
     operator fun invoke(
-        imageUrl: String
+        imageUrl: String,
+        triggerUrl:String?
     ): Flow<DownloadState> = flow {
         try {
             emit(DownloadState.Loading)
             val response = unsplashService.downloadImage(
                 imageUrl = imageUrl
             )
+            triggerUrl?.let { unsplashService.triggerDownload(url = it) }
             val inputStream = response.byteStream()
             val filesDir =
                 File(

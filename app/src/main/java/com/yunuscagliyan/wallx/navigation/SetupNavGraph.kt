@@ -16,12 +16,13 @@ import com.yunuscagliyan.core_ui.viewmodel.SharedViewModel
 import com.yunuscagliyan.home.main.ui.MainScreen
 import com.yunuscagliyan.photo_detail.ui.PhotoDetailScreen
 import com.yunuscagliyan.photo_list.ui.PhotoListScreen
+import com.yunuscagliyan.search.ui.SearchScreen
 
 
 @Composable
 fun SetupNavGraph(
     navHostController: NavHostController,
-    sharedViewModel: SharedViewModel = hiltViewModel()
+    sharedViewModel: SharedViewModel
 ) {
     NavHost(
         modifier = Modifier
@@ -64,6 +65,11 @@ fun SetupNavGraph(
             sharedViewModel = sharedViewModel
         )
         PhotoDetailScreen.composable(
+            builder = this,
+            navHostController = navHostController,
+            sharedViewModel = sharedViewModel
+        )
+        SearchScreen.composable(
             builder = this,
             navHostController = navHostController,
             sharedViewModel = sharedViewModel

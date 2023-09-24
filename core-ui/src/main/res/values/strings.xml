@@ -7,6 +7,12 @@
     <string name="common_back">Back</string>
     <string name="common_no_favourites">You don\'t have any favourites yet.</string>
     <string name="common_error">An unknown error occurred.</string>
+    <string name="common_search">Search</string>
+    <string name="common_unsplash">unsplash.com</string>
+    <string name="common_refresh">Refresh</string>
+
+    <string name="common_http_error">An unexpected error occurred</string>
+    <string name="common_empty_text">There is no content about the searching.</string>
 
     <string name="bottom_bar_home_title">Home</string>
     <string name="bottom_bar_category_title">Categories</string>
@@ -16,6 +22,10 @@
     <!--Home Page-->
     <string name="home_tab_latest">Latest</string>
     <string name="home_tab_popular">Popular</string>
+
+    <!-- Favourite Page-->
+    <string name="favourite_remove_message">Removed from your favourites.</string>
+    <string name="favourite_revoke">Revoke</string>
 
     <!--Photo Detail -->
     <string name="photo_detail_save_button_initial">Save</string>
@@ -30,4 +40,46 @@
     <string name="photo_detail_sheet_screen_selection_home_screen">Home Screen</string>
     <string name="photo_detail_sheet_screen_selection_lock">Lock Screen</string>
     <string name="photo_detail_sheet_screen_selection_both">Home &amp; Lock Screen</string>
+    <string name="photo_detail_save_success_message">Photo saved to your gallery.</string>
+
+
+    <!--Search -->
+    <string name="search_tab_photo">PHOTOS</string>
+    <string name="search_tab_collections">COLLECTIONS</string>
+
+    <!--Settings -->
+    <string name="settings_title">Settings</string>
+
+    <string name="settings_general">General</string>
+    <string name="settings_theme">Theme</string>
+    <string name="settings_theme_system">System Theme</string>
+    <string name="settings_theme_light">Light Theme</string>
+    <string name="settings_theme_dark">Dark Theme</string>
+
+
+    <string name="settings_auto_change_wallpaper">Auto Change Wallpaper</string>
+    <string name="settings_auto_change_title">Options</string>
+    <string name="settings_auto_periodic">Period</string>
+    <string name="settings_period_1">15 Minutes</string>
+    <string name="settings_period_2">30 Minutes</string>
+    <string name="settings_period_3">1 Hour</string>
+    <string name="settings_period_4">3 Hours</string>
+    <string name="settings_period_5">6 Hours</string>
+    <string name="settings_period_6">12 Hours</string>
+    <string name="settings_period_7">24 Hours</string>
+    <string name="settings_period_8">48 Hours</string>
+
+    <string name="settings_source">Source Type</string>
+    <string name="settings_source_random">Random</string>
+    <string name="settings_source_Favourite">Favourite</string>
+
+    <string name="settings_screen_type">Screen Type</string>
+    <string name="settings_screen_home">Home Screen</string>
+    <string name="settings_screen_lock">Lock Screen</string>
+    <string name="settings_screen_home_and_lock">Home &amp; Lock Screen</string>
+
+    <string name="settings_about">About</string>
+    <string name="settings_rate_us">Rate Our App</string>
+    <string name="settings_send_feedback">Send Us Feedback</string>
+    <string name="settings_share_app">Share this app with friends</string>
 </resources>

@@ -1,16 +1,18 @@
 package com.yunuscagliyan.photo_detail.viewmodel
 
-import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
-import com.yunuscagliyan.core.data.enums.WallpaperScreenType
+import com.yunuscagliyan.core_ui.model.enums.WallpaperScreenType
 import com.yunuscagliyan.core.data.repository.PhotoRepository
+import com.yunuscagliyan.core_ui.domain.ChangeWallpaper
 import com.yunuscagliyan.core.domain.DownloadImageAndSave
-import com.yunuscagliyan.core.domain.DownloadImageAsBitmap
-import com.yunuscagliyan.core.domain.ChangeWallpaper
+import com.yunuscagliyan.core_ui.domain.DownloadImageAsBitmap
 import com.yunuscagliyan.core.util.DownloadState
 import com.yunuscagliyan.core.util.Resource
+import com.yunuscagliyan.core.util.UIText
 import com.yunuscagliyan.core_ui.components.button.LoadingButtonType
+import com.yunuscagliyan.core_ui.event.Event
 import com.yunuscagliyan.core_ui.viewmodel.CoreViewModel
+import com.yunuscagliyan.core_ui.R
 import com.yunuscagliyan.photo_detail.ui.PhotoDetailEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -115,8 +117,7 @@ class PhotoDetailViewModel @Inject constructor(
 
                 updateState {
                     copy(
-                        sheetSelectionIndex = event.index,
-                        showWallpaperSelectionSheet = false
+                        sheetSelectionIndex = event.index
                     )
                 }
             }
@@ -145,7 +146,7 @@ class PhotoDetailViewModel @Inject constructor(
             viewModelScope.launch(Dispatchers.IO) {
                 changeWallpaper.invoke(
                     bitmap = bitmap,
-                    wallpaperScreenType = type ?: WallpaperScreenType.Both
+                    wallpaperScreenType = type ?: WallpaperScreenType.HOME_AND_LOCK
                 ).collectLatest { downloadState ->
                     when (downloadState) {
                         is DownloadState.Error -> {
@@ -184,7 +185,10 @@ class PhotoDetailViewModel @Inject constructor(
     private fun downloadAndSaveImage() {
         state.value.photoModel?.links?.download?.let {
             viewModelScope.launch(Dispatchers.IO) {
-                downloadImageAndSave.invoke(imageUrl = it).collectLatest { downloadState ->
+                downloadImageAndSave.invoke(
+                    imageUrl = it,
+                    triggerUrl = state.value.photoModel?.links?.downloadLocation
+                ).collectLatest { downloadState ->
                     updateState {
                         when (downloadState) {
                             is DownloadState.Error -> {
@@ -195,6 +199,13 @@ class PhotoDetailViewModel @Inject constructor(
                             }
 
                             is DownloadState.Finished -> {
+                                sendEvent(
+                                    Event.ShowSnackBar(
+                                        message = UIText.StringResource(
+                                            resId = R.string.photo_detail_save_success_message
+                                        )
+                                    )
+                                )
                                 copy(
                                     saveButtonType = LoadingButtonType.SUCCESS
                                 )
@@ -215,7 +226,10 @@ class PhotoDetailViewModel @Inject constructor(
     private fun downloadBitmap() {
         state.value.photoModel?.links?.download?.let {
             viewModelScope.launch(Dispatchers.IO) {
-                downloadImageAsBitmap.invoke(imageUrl = it).collectLatest { resource ->
+                downloadImageAsBitmap.invoke(
+                    imageUrl = it,
+                    triggerUrl = state.value.photoModel?.links?.downloadLocation
+                ).collectLatest { resource ->
                     when (resource) {
                         is Resource.Loading -> {
                             updateState {

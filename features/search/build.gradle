@@ -1,0 +1,6 @@
+apply from: "$rootDir/scripts/feature.gradle"
+
+
+android {
+    namespace 'com.yunuscagliyan.search'
+}

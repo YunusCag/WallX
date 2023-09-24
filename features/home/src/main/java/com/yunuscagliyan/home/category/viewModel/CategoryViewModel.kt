@@ -1,7 +1,11 @@
 package com.yunuscagliyan.home.category.viewModel
 
+import androidx.lifecycle.viewModelScope
+import androidx.paging.cachedIn
 import com.yunuscagliyan.core.data.enums.PhotoOrderBy
 import com.yunuscagliyan.core.data.repository.PhotoRepository
+import com.yunuscagliyan.core.util.Constant
+import com.yunuscagliyan.core.util.Constant.StringParameter.DEFAULT_SEARCH_VALUE
 import com.yunuscagliyan.core_ui.event.Event
 import com.yunuscagliyan.core_ui.event.Routes
 import com.yunuscagliyan.core_ui.event.ScreenRoutes
@@ -24,9 +28,9 @@ class CategoryViewModel @Inject constructor(
         updateState {
             copy(
                 colletions = photoRepository.getSearchCollections(
-                    query = "Wallpapers",
+                    query = DEFAULT_SEARCH_VALUE,
                     orderBy = PhotoOrderBy.Popular
-                )
+                ).cachedIn(viewModelScope)
             )
         }
     }

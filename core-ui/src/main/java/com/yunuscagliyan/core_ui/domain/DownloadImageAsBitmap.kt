@@ -1,9 +1,10 @@
-package com.yunuscagliyan.core.domain
+package com.yunuscagliyan.core_ui.domain
 
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import com.yunuscagliyan.core.data.remote.service.UnsplashService
+import com.yunuscagliyan.core_ui.extension.getDeviceWidthAndHeight
 import com.yunuscagliyan.core.util.Constant.StringParameter.EMPTY_STRING
 import com.yunuscagliyan.core.util.Resource
 import com.yunuscagliyan.core.util.UIText
@@ -19,13 +20,18 @@ class DownloadImageAsBitmap @Inject constructor(
     private val unsplashService: UnsplashService,
     @ApplicationContext private val context: Context
 ) {
-    operator fun invoke(imageUrl: String): Flow<Resource<Bitmap?>> = flow {
+    operator fun invoke(imageUrl: String, triggerUrl: String?): Flow<Resource<Bitmap>> = flow {
         try {
             emit(Resource.Loading())
             val response = unsplashService.downloadImage(imageUrl = imageUrl)
+            triggerUrl?.let { unsplashService.triggerDownload(url = it) }
             val inputStream = response.byteStream()
             val bitmap = BitmapFactory.decodeStream(inputStream)
-            emit(Resource.Success(bitmap))
+            val screenSize = context.getDeviceWidthAndHeight()
+            val width = screenSize.first
+            val height = screenSize.first
+            val sizedBitmap = Bitmap.createScaledBitmap(bitmap, width, height, true)
+            emit(Resource.Success(sizedBitmap))
         } catch (e: Exception) {
             Timber.e(e.localizedMessage)
             emit(

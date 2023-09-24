@@ -11,6 +11,7 @@ import com.yunuscagliyan.core.data.remote.model.photo.PhotoModel
 import com.yunuscagliyan.core.data.remote.service.UnsplashService
 import com.yunuscagliyan.core.data.remote.source.CollectionPhotoSource
 import com.yunuscagliyan.core.data.remote.source.CollectionSearchSource
+import com.yunuscagliyan.core.data.remote.source.PhotoSearchSource
 import com.yunuscagliyan.core.data.remote.source.PhotoSource
 import com.yunuscagliyan.core.util.Constant.PaginationUtil.PER_PAGE
 import com.yunuscagliyan.core.util.Resource
@@ -45,6 +46,21 @@ class PhotoRepository @Inject constructor(
         ),
         pagingSourceFactory = {
             CollectionSearchSource(
+                unsplashService = unsplashService,
+                query = query,
+                orderBy = orderBy
+            )
+        }
+    ).flow
+    fun getSearchPhotos(
+        query: String,
+        orderBy: PhotoOrderBy
+    ) = Pager(
+        config = PagingConfig(
+            pageSize = PER_PAGE
+        ),
+        pagingSourceFactory = {
+            PhotoSearchSource(
                 unsplashService = unsplashService,
                 query = query,
                 orderBy = orderBy
