@@ -16,6 +16,8 @@ import androidx.paging.LoadState
 import androidx.paging.compose.LazyPagingItems
 import com.yunuscagliyan.core.data.remote.model.photo.PhotoModel
 import com.yunuscagliyan.core_ui.components.card.PhotoImageCard
+import com.yunuscagliyan.core_ui.components.empty.NetworkEmptyView
+import com.yunuscagliyan.core_ui.components.error.NetworkErrorView
 import com.yunuscagliyan.core_ui.extension.noRippleClickable
 import com.yunuscagliyan.core_ui.extension.shimmerEffect
 import com.yunuscagliyan.core_ui.theme.WallXAppTheme
@@ -29,7 +31,13 @@ fun PhotoStaggeredGrid(
 
     when (photosLazyItems.loadState.refresh) {
         is LoadState.Error -> {
-            // TODO add Network Error Message
+            NetworkErrorView(
+                modifier = modifier
+                    .fillMaxSize(),
+                onRefreshClick = {
+                    photosLazyItems.refresh()
+                }
+            )
         }
 
         is LoadState.Loading -> {
@@ -54,28 +62,36 @@ fun PhotoStaggeredGrid(
         }
 
         is LoadState.NotLoading -> {
-            LazyVerticalStaggeredGrid(
-                modifier = modifier
-                    .fillMaxSize(),
-                columns = StaggeredGridCells.Fixed(2),
-                contentPadding = PaddingValues(WallXAppTheme.dimension.paddingMedium1),
-                horizontalArrangement = Arrangement.spacedBy(WallXAppTheme.dimension.paddingMedium1),
-                verticalItemSpacing = WallXAppTheme.dimension.paddingMedium1
-            ) {
-                items(photosLazyItems.itemCount) { index ->
-                    val photoModel = photosLazyItems[index]
-                    PhotoImageCard(
-                        modifier = Modifier
-                            .noRippleClickable {
-                                if (photoModel != null) {
-                                    onClick(photoModel)
-                                }
-                            },
-                        imageUrl = photoModel?.urls?.small,
-                        hexColor = photoModel?.color
-                    )
+            if (photosLazyItems.itemCount > 0) {
+                LazyVerticalStaggeredGrid(
+                    modifier = modifier
+                        .fillMaxSize(),
+                    columns = StaggeredGridCells.Fixed(2),
+                    contentPadding = PaddingValues(WallXAppTheme.dimension.paddingMedium1),
+                    horizontalArrangement = Arrangement.spacedBy(WallXAppTheme.dimension.paddingMedium1),
+                    verticalItemSpacing = WallXAppTheme.dimension.paddingMedium1
+                ) {
+                    items(photosLazyItems.itemCount) { index ->
+                        val photoModel = photosLazyItems[index]
+                        PhotoImageCard(
+                            modifier = Modifier
+                                .noRippleClickable {
+                                    if (photoModel != null) {
+                                        onClick(photoModel)
+                                    }
+                                },
+                            imageUrl = photoModel?.urls?.small,
+                            hexColor = photoModel?.color
+                        )
+                    }
                 }
+            } else {
+                NetworkEmptyView(
+                    modifier = modifier
+                        .fillMaxSize()
+                )
             }
+
         }
     }
 

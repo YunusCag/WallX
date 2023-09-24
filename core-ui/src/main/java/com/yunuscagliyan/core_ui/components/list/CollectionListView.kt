@@ -15,6 +15,8 @@ import androidx.paging.LoadState
 import androidx.paging.compose.LazyPagingItems
 import com.yunuscagliyan.core.data.remote.model.collection.CollectionModel
 import com.yunuscagliyan.core_ui.components.card.CollectionCard
+import com.yunuscagliyan.core_ui.components.empty.NetworkEmptyView
+import com.yunuscagliyan.core_ui.components.error.NetworkErrorView
 import com.yunuscagliyan.core_ui.extension.noRippleClickable
 import com.yunuscagliyan.core_ui.extension.shimmerEffect
 import com.yunuscagliyan.core_ui.theme.WallXAppTheme
@@ -27,7 +29,13 @@ fun CollectionListView(
 ) {
     when (collections.loadState.refresh) {
         is LoadState.Error -> {
-            // TODO Add Network Error View
+            NetworkErrorView(
+                modifier = modifier
+                    .fillMaxSize(),
+                onRefreshClick = {
+                    collections.refresh()
+                }
+            )
         }
 
         is LoadState.Loading -> {
@@ -49,25 +57,33 @@ fun CollectionListView(
         }
 
         is LoadState.NotLoading -> {
-            LazyColumn(
-                modifier = modifier,
-                contentPadding = PaddingValues(WallXAppTheme.dimension.paddingMedium1),
-                verticalArrangement = Arrangement.spacedBy(WallXAppTheme.dimension.paddingMedium1)
-            ) {
-                items(collections.itemCount) { index ->
-                    val collection = collections[index]
-                    CollectionCard(
-                        modifier = Modifier
-                            .noRippleClickable {
-                                if (collection != null) {
-                                    onClick(collection)
-                                }
-                            },
-                        collectionModel = collection
-                    )
-                }
+            if (collections.itemCount > 0) {
+                LazyColumn(
+                    modifier = modifier,
+                    contentPadding = PaddingValues(WallXAppTheme.dimension.paddingMedium1),
+                    verticalArrangement = Arrangement.spacedBy(WallXAppTheme.dimension.paddingMedium1)
+                ) {
+                    items(collections.itemCount) { index ->
+                        val collection = collections[index]
+                        CollectionCard(
+                            modifier = Modifier
+                                .noRippleClickable {
+                                    if (collection != null) {
+                                        onClick(collection)
+                                    }
+                                },
+                            collectionModel = collection
+                        )
+                    }
 
+                }
+            } else {
+                NetworkEmptyView(
+                    modifier = modifier
+                        .fillMaxSize()
+                )
             }
+
         }
     }
 }

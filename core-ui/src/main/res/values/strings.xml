@@ -9,6 +9,10 @@
     <string name="common_error">An unknown error occurred.</string>
     <string name="common_search">Search</string>
     <string name="common_unsplash">unsplash.com</string>
+    <string name="common_refresh">Refresh</string>
+
+    <string name="common_http_error">An unexpected error occurred</string>
+    <string name="common_empty_text">There is no content about the searching.</string>
 
     <string name="bottom_bar_home_title">Home</string>
     <string name="bottom_bar_category_title">Categories</string>
