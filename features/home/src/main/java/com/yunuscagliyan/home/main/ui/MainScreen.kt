@@ -49,7 +49,7 @@ object MainScreen : CoreScreen<MainState, MainEvent>() {
         get() = ScreenRoutes.MainScreen.route
 
     @Composable
-    override fun viewModel(): MainViewModel = hiltViewModel<MainViewModel>()
+    override fun viewModel(): MainViewModel = hiltViewModel()
 
     @Composable
     override fun Content(

@@ -38,6 +38,8 @@ dependencies {
     implementation(WorkManager.coroutineWork)
     implementation(WorkManager.workHilt)
 
+    implementation(Admob.admob)
+
     testImplementation(TestLibs.jUnit)
     androidTestImplementation(TestLibs.jUnitExt)
     androidTestImplementation(TestLibs.espressoCore)

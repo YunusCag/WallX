@@ -24,6 +24,8 @@ dependencies {
 
     implementation Compose.coil
 
+    implementation Admob.admob
+
     implementation(Compose.activityCompose)
     implementation(platform(Compose.composeBOM))
     implementation(Compose.composeUI)
