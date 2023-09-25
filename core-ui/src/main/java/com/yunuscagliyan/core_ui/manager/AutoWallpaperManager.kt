@@ -35,12 +35,15 @@ class AutoWallpaperManager @AssistedInject constructor(
             try {
                 val sourceType = SourceType.fromIndex(preferences.sourceIndex) ?: SourceType.RANDOM
                 val screenType =
-                    WallpaperScreenType.fromIndex(preferences.screenIndex) ?: WallpaperScreenType.HOME_AND_LOCK
+                    WallpaperScreenType.fromIndex(preferences.screenIndex)
+                        ?: WallpaperScreenType.HOME_AND_LOCK
                 if (sourceType == com.yunuscagliyan.core_ui.model.enums.SourceType.FAVOURITE) {
                     val photos = photoDao.getPhotos()
-                    val randomPhoto = photos.random()
-                    Log.d("AutoWallpaper", "Favourite Photo:$randomPhoto")
-                    downloadImageAndSetWallpaper(randomPhoto.toPhotoModel(), screenType)
+                    if (photos.isNotEmpty()) {
+                        val randomPhoto = photos.random()
+                        Log.d("AutoWallpaper", "Favourite Photo:$randomPhoto")
+                        downloadImageAndSetWallpaper(randomPhoto.toPhotoModel(), screenType)
+                    }
                 } else {
                     val photo = unsplashService.getRandomPhoto()
                     Log.d("AutoWallpaper", "Random Photo:$photo")
@@ -73,7 +76,7 @@ class AutoWallpaperManager @AssistedInject constructor(
     }
 
     private suspend fun downloadImage(imageUrl: String, triggerUrl: String?): Bitmap? {
-        return try{
+        return try {
             triggerUrl?.let { unsplashService.triggerDownload(url = it) }
             val response = unsplashService.downloadImage(imageUrl = imageUrl)
             val inputStream = response.byteStream()
@@ -81,8 +84,8 @@ class AutoWallpaperManager @AssistedInject constructor(
             val screenSize = this.context.getDeviceWidthAndHeight()
             val width = screenSize.first
             val height = screenSize.first
-            Bitmap.createScaledBitmap(bitmap,width,height,true)
-        }catch (e:Exception){
+            Bitmap.createScaledBitmap(bitmap, width, height, true)
+        } catch (e: Exception) {
             Log.e("AutoWallpaper", "downloadImage Error setWallpaper Message:${e.localizedMessage}")
             null
         }
@@ -90,7 +93,7 @@ class AutoWallpaperManager @AssistedInject constructor(
 
     @SuppressLint("MissingPermission")
     private fun setWallpaper(bitmap: Bitmap, screenType: WallpaperScreenType) {
-        try{
+        try {
             val wallpaperManager = WallpaperManager.getInstance(context)
             when (screenType) {
                 WallpaperScreenType.HOME -> {
@@ -117,7 +120,7 @@ class AutoWallpaperManager @AssistedInject constructor(
                     )
                 }
             }
-        }catch (e:Exception){
+        } catch (e: Exception) {
             Log.e("AutoWallpaper", "Error setWallpaper Message:${e.localizedMessage}")
         }
 
