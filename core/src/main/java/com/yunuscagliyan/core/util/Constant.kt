@@ -70,4 +70,8 @@ class Constant {
     object WorkManagerUtil {
         const val AUTO_WALLPAPER_MANAGER_NAME = "auto_wallpaper_manager"
     }
+
+    object AdMobUtil {
+        const val INTERSTITIAL_SHOWING_COUNTER = 8
+    }
 }

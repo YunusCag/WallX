@@ -12,6 +12,8 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.compose.rememberNavController
 import com.google.android.gms.ads.MobileAds
 import com.yunuscagliyan.core.util.Constant.DurationUtil.SPLASH_DURATION
+import com.yunuscagliyan.core_ui.extension.loadInterstitial
+import com.yunuscagliyan.core_ui.helper.AdmobHelper
 import com.yunuscagliyan.core_ui.model.ThemeSelection
 import com.yunuscagliyan.core_ui.theme.WallXAppTheme
 import com.yunuscagliyan.core_ui.viewmodel.SharedViewModel
@@ -28,6 +30,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         WindowCompat.setDecorFitsSystemWindows(window, false)
         MobileAds.initialize(this)
+        this.loadInterstitial()
         val splash = installSplashScreen()
         splash.setKeepOnScreenCondition {
             keepScreen
@@ -57,5 +60,10 @@ class MainActivity : ComponentActivity() {
                 )
             }
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        AdmobHelper.clearInterstitialAd()
     }
 }

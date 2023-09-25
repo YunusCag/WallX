@@ -27,6 +27,7 @@ import androidx.navigation.compose.composable
 import com.yunuscagliyan.core_ui.event.Event
 import com.yunuscagliyan.core_ui.event.Routes
 import com.yunuscagliyan.core_ui.extension.asString
+import com.yunuscagliyan.core_ui.extension.showInterstitial
 import com.yunuscagliyan.core_ui.theme.WallXAppTheme
 import com.yunuscagliyan.core_ui.viewmodel.CoreViewModel
 import com.yunuscagliyan.core_ui.viewmodel.SharedViewModel
@@ -77,11 +78,13 @@ abstract class CoreScreen<S, E> {
                 viewModel.uiEvent.collectLatest { event ->
                     when (event) {
                         is Event.Navigation -> {
-                            handleNavigation(
-                                navHostController = navHostController,
-                                routes = event.state,
-                                sharedViewModel = sharedViewModel
-                            )
+                            context.showInterstitial {
+                                handleNavigation(
+                                    navHostController = navHostController,
+                                    routes = event.state,
+                                    sharedViewModel = sharedViewModel
+                                )
+                            }
                         }
 
                         is Event.ShowSnackBar -> {
