@@ -119,7 +119,7 @@ object MainScreen : CoreScreen<MainState, MainEvent>() {
                             painter = painterResource(id = item.icon),
                             contentDescription = stringResource(id = item.name),
                             modifier = Modifier
-                                .size(24.dp)
+                                .size(WallXAppTheme.dimension.iconSizeSmall)
                         )
                     },
                     label = {
@@ -128,15 +128,16 @@ object MainScreen : CoreScreen<MainState, MainEvent>() {
                             style = WallXAppTheme.typography.small1.copy(
                                 fontWeight = FontWeight.Bold
                             ),
-                            color = WallXAppTheme.colors.textPrimary
+                            //color = WallXAppTheme.colors.textPrimary
                         )
                     },
                     alwaysShowLabel = true,
                     colors = NavigationBarItemDefaults.colors(
-                        selectedTextColor = WallXAppTheme.colors.textPrimary,
+                        selectedTextColor = WallXAppTheme.colors.secondary,
                         selectedIconColor = WallXAppTheme.colors.white,
                         indicatorColor = WallXAppTheme.colors.secondary,
-                        unselectedIconColor = WallXAppTheme.colors.textPrimary
+                        unselectedIconColor = WallXAppTheme.colors.textPrimary,
+                        unselectedTextColor = WallXAppTheme.colors.textPrimary
                     )
                 )
             }

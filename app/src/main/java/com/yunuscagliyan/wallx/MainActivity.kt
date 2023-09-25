@@ -10,6 +10,7 @@ import androidx.core.view.WindowCompat
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.compose.rememberNavController
+import com.google.android.gms.ads.MobileAds
 import com.yunuscagliyan.core.util.Constant.DurationUtil.SPLASH_DURATION
 import com.yunuscagliyan.core_ui.model.ThemeSelection
 import com.yunuscagliyan.core_ui.theme.WallXAppTheme
@@ -26,7 +27,7 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         WindowCompat.setDecorFitsSystemWindows(window, false)
-
+        MobileAds.initialize(this)
         val splash = installSplashScreen()
         splash.setKeepOnScreenCondition {
             keepScreen

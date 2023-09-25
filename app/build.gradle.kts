@@ -90,6 +90,8 @@ dependencies {
     implementation(Firebase.analystic)
     implementation(Firebase.crashlytics)
 
+    implementation(Admob.admob)
+
     testImplementation(TestLibs.jUnit)
     androidTestImplementation(TestLibs.espressoCore)
     androidTestImplementation(platform(Compose.composeBOM))
