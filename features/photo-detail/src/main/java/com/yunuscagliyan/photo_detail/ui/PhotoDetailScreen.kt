@@ -148,15 +148,14 @@ object PhotoDetailScreen : CoreScreen<PhotoDetailState, PhotoDetailEvent>() {
             }
         }
 
-        val onSaveClick: () -> Unit = remember {
-            {
-                if (state.shouldShowRewarded) {
-                    onEvent(PhotoDetailEvent.ShowAdBottomSheet(true))
-                } else {
-                    onEvent(PhotoDetailEvent.OnSaveClick)
-                }
+        val onSaveClick: () -> Unit = {
+            if (state.shouldShowRewarded) {
+                onEvent(PhotoDetailEvent.ShowAdBottomSheet(true))
+            } else {
+                onEvent(PhotoDetailEvent.OnSaveClick)
             }
         }
+
 
         val onSetClick: () -> Unit = remember {
             {
@@ -241,6 +240,7 @@ object PhotoDetailScreen : CoreScreen<PhotoDetailState, PhotoDetailEvent>() {
                     onEvent(PhotoDetailEvent.ShowAdBottomSheet(false))
                 },
                 onWatchAdClick = {
+                    onEvent(PhotoDetailEvent.ShowAdBottomSheet(false))
                     if (rewardAd != null) {
                         rewardAd?.show(
                             activity
@@ -251,7 +251,6 @@ object PhotoDetailScreen : CoreScreen<PhotoDetailState, PhotoDetailEvent>() {
                         loadAd()
                         onEvent(PhotoDetailEvent.ShowRewardAdError)
                     }
-                    onEvent(PhotoDetailEvent.ShowAdBottomSheet(false))
                 },
                 onProClick = {
                     onEvent(PhotoDetailEvent.ShowAdBottomSheet(false))
