@@ -4,7 +4,9 @@ import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.material3.Snackbar
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
@@ -58,7 +60,8 @@ abstract class CoreScreen<S, E> {
     fun composable(
         builder: NavGraphBuilder,
         navHostController: NavHostController,
-        sharedViewModel: SharedViewModel
+        sharedViewModel: SharedViewModel,
+        isNestedScreen: Boolean = false
     ) {
         this.navController = navHostController
         this.sharedViewModel = sharedViewModel
@@ -127,8 +130,12 @@ abstract class CoreScreen<S, E> {
                     hostState = snackState,
                     modifier = Modifier
                         .align(Alignment.BottomCenter)
-                        .padding(
-                            bottom = WallXAppTheme.dimension.paddingMedium2
+                        .then(
+                            if (isNestedScreen) {
+                                Modifier.imePadding()
+                            } else {
+                                Modifier.systemBarsPadding()
+                            }
                         ),
                     snackbar = {
                         Snackbar(

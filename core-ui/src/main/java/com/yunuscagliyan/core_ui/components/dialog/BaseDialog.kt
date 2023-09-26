@@ -1,14 +1,6 @@
 package com.yunuscagliyan.core_ui.components.dialog
 
 import androidx.annotation.DrawableRes
-import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.animation.AnimatedVisibilityScope
-import androidx.compose.animation.EnterTransition
-import androidx.compose.animation.ExitTransition
-import androidx.compose.animation.expandVertically
-import androidx.compose.animation.fadeIn
-import androidx.compose.animation.fadeOut
-import androidx.compose.animation.shrinkVertically
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -49,13 +41,11 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
 import androidx.constraintlayout.compose.ConstraintLayout
-import com.yunuscagliyan.core.util.Constant
 import com.yunuscagliyan.core.util.Constant.DurationUtil.DEFAULT_ANIMATION_DURATION
 import com.yunuscagliyan.core.util.Constant.StringParameter.EMPTY_STRING
 import com.yunuscagliyan.core_ui.R
 import com.yunuscagliyan.core_ui.components.anim.AnimatedTransition
-import com.yunuscagliyan.core_ui.components.anim.AnimationBox
-import com.yunuscagliyan.core_ui.components.button.FilledSecondaryTextButton
+import com.yunuscagliyan.core_ui.components.button.FilledSecondaryButton
 import com.yunuscagliyan.core_ui.extension.noRippleClickable
 import com.yunuscagliyan.core_ui.theme.WallXAppTheme
 import kotlinx.coroutines.delay
@@ -259,7 +249,7 @@ fun InfoDialog(
         description = description,
         onDismissRequest = onDismissRequest
     ) {
-        FilledSecondaryTextButton(
+        FilledSecondaryButton(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(
@@ -285,7 +275,7 @@ fun WarningDialog(
         description = description,
         onDismissRequest = onDismissRequest
     ) {
-        FilledSecondaryTextButton(
+        FilledSecondaryButton(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(
@@ -311,7 +301,7 @@ fun ErrorDialog(
         description = description,
         onDismissRequest = onDismissRequest
     ) {
-        FilledSecondaryTextButton(
+        FilledSecondaryButton(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(
@@ -337,7 +327,7 @@ fun SuccessDialog(
         description = description,
         onDismissRequest = onDismissRequest
     ) {
-        FilledSecondaryTextButton(
+        FilledSecondaryButton(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(

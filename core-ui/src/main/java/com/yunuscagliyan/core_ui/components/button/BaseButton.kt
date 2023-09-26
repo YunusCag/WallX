@@ -26,7 +26,6 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.yunuscagliyan.core.util.Constant.StringParameter.EMPTY_STRING
 import com.yunuscagliyan.core_ui.R
 import com.yunuscagliyan.core_ui.components.loading.WallDefaultLoading
 import com.yunuscagliyan.core_ui.theme.WallXAppTheme
@@ -98,17 +97,31 @@ fun OutlinedBaseButton(
 }
 
 @Composable
-fun FilledSecondaryTextButton(
+fun FilledSecondaryButton(
     modifier: Modifier = Modifier,
     text: String,
     textStyle: TextStyle = WallXAppTheme.typography.normal1,
     textColor: Color = WallXAppTheme.colors.white,
+    icon: (@Composable () -> Unit)? = null,
+    contentPadding: PaddingValues = PaddingValues(
+        horizontal = WallXAppTheme.dimension.paddingMedium2,
+        vertical = WallXAppTheme.dimension.paddingSmall2
+    ),
     onClick: () -> Unit,
 ) {
     FilledBaseButton(
         modifier = modifier,
+        contentPadding = contentPadding,
         onClick = onClick
     ) {
+        icon?.let {
+            it()
+            Spacer(
+                modifier = Modifier
+                    .width(WallXAppTheme.dimension.paddingSmall2)
+            )
+        }
+
         Text(
             text = text,
             style = textStyle,
@@ -235,11 +248,16 @@ fun FilledLoadingButton(
 }
 
 @Composable
-fun OutlinedSecondaryTextButton(
+fun OutlinedSecondaryButton(
     modifier: Modifier = Modifier,
     text: String,
     textStyle: TextStyle = WallXAppTheme.typography.normal1,
     textColor: Color = WallXAppTheme.colors.secondary,
+    icon: (@Composable () -> Unit)? = null,
+    contentPadding: PaddingValues = PaddingValues(
+        horizontal = WallXAppTheme.dimension.paddingMedium2,
+        vertical = WallXAppTheme.dimension.paddingSmall2
+    ),
     onClick: () -> Unit,
 ) {
     OutlinedBaseButton(
@@ -248,8 +266,16 @@ fun OutlinedSecondaryTextButton(
         border = BorderStroke(
             width = WallXAppTheme.dimension.borderWidth,
             color = WallXAppTheme.colors.secondary
-        )
+        ),
+        contentPadding = contentPadding,
     ) {
+        icon?.let {
+            it()
+            Spacer(
+                modifier = Modifier
+                    .width(WallXAppTheme.dimension.paddingSmall2)
+            )
+        }
         Text(
             text = text,
             style = textStyle,
@@ -261,7 +287,7 @@ fun OutlinedSecondaryTextButton(
 @Preview
 @Composable
 fun PreviewFilledTextButton() {
-    FilledSecondaryTextButton(text = "OKAY") {
+    FilledSecondaryButton(text = "OKAY") {
 
     }
 }
@@ -269,7 +295,7 @@ fun PreviewFilledTextButton() {
 @Preview
 @Composable
 fun PreviewOutlinedTextButton() {
-    OutlinedSecondaryTextButton(text = "CANCEL") {
+    OutlinedSecondaryButton(text = "CANCEL") {
 
     }
 }

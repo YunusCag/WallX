@@ -226,22 +226,26 @@ object MainScreen : CoreScreen<MainState, MainEvent>() {
             HomeScreen.composable(
                 builder = this,
                 navHostController = rootNavController,
-                sharedViewModel = sharedViewModel
+                sharedViewModel = sharedViewModel,
+                isNestedScreen = true
             )
             CategoryScreen.composable(
                 builder = this,
                 navHostController = rootNavController,
-                sharedViewModel = sharedViewModel
+                sharedViewModel = sharedViewModel,
+                isNestedScreen = true
             )
             FavouriteScreen.composable(
                 builder = this,
                 navHostController = rootNavController,
-                sharedViewModel = sharedViewModel
+                sharedViewModel = sharedViewModel,
+                isNestedScreen = true
             )
             SettingScreen.composable(
                 builder = this,
                 navHostController = rootNavController,
-                sharedViewModel = sharedViewModel
+                sharedViewModel = sharedViewModel,
+                isNestedScreen = true
             )
         }
     }

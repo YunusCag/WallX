@@ -31,6 +31,7 @@ android {
             resValue("string", "admob_app_id", localProperties["ADMOB_APP_TEST_ID"])
             buildConfigField("String", "ADMOB_BANNER_ID", localProperties["ADMOB_BANNER_TEST_ID"])
             buildConfigField("String", "ADMOB_INTERSTITIAL_ID", localProperties["ADMOB_INTERSTITIAL_TEST_ID"])
+            buildConfigField("String", "ADMOB_REWARD_AD_ID", localProperties["ADMOB_REWARD_AD_TEST_ID"])
         }
 
         release {
@@ -43,6 +44,7 @@ android {
             resValue("string", "admob_app_id", localProperties["ADMOB_APP_PROD_ID"])
             buildConfigField("String", "ADMOB_BANNER_ID", localProperties["ADMOB_BANNER_PROD_ID"])
             buildConfigField("String", "ADMOB_INTERSTITIAL_ID", localProperties["ADMOB_INTERSTITIAL_PROD_ID"])
+            buildConfigField("String", "ADMOB_REWARD_AD_ID", localProperties["ADMOB_REWARD_A_PROD_ID"])
         }
     }
 
