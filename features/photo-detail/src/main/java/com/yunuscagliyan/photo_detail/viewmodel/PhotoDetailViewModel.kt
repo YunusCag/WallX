@@ -69,6 +69,11 @@ class PhotoDetailViewModel @Inject constructor(
             }
 
             is PhotoDetailEvent.OnSaveClick -> {
+                updateState {
+                    copy(
+                        shouldShowRewarded = false
+                    )
+                }
                 downloadAndSaveImage()
             }
 
@@ -108,6 +113,24 @@ class PhotoDetailViewModel @Inject constructor(
                         showWallpaperSelectionSheet = event.isOpen
                     )
                 }
+            }
+
+            is PhotoDetailEvent.ShowAdBottomSheet -> {
+                updateState {
+                    copy(
+                        showWatchAdSheet = event.open
+                    )
+                }
+            }
+
+            is PhotoDetailEvent.ShowRewardAdError -> {
+                sendEvent(
+                    Event.Toast(
+                        message = UIText.StringResource(
+                            resId = R.string.photo_detail_reward_ad_error
+                        )
+                    )
+                )
             }
 
             is PhotoDetailEvent.OnScreenSelection -> {

@@ -3,6 +3,8 @@ plugins {
     id(Plugins.androidKotlin)
     id(Plugins.kotlinKapt)
     id(Plugins.hilt)
+    id(Plugins.googleServices)
+    id(Plugins.crashlytics)
 }
 
 android {
@@ -83,6 +85,13 @@ dependencies {
     kapt(DaggerHilt.hiltCompiler)
 
     implementation(Timber.timber)
+
+    implementation(platform(Firebase.bom))
+    implementation(Firebase.analystic)
+    implementation(Firebase.crashlytics)
+
+    implementation(Admob.admob)
+
     testImplementation(TestLibs.jUnit)
     androidTestImplementation(TestLibs.espressoCore)
     androidTestImplementation(platform(Compose.composeBOM))

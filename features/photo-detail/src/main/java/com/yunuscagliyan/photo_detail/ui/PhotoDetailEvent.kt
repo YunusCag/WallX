@@ -13,9 +13,11 @@ sealed class PhotoDetailEvent {
     object OnSaveClick : PhotoDetailEvent()
     object OnSetClick : PhotoDetailEvent()
 
-    object OnDismissErrorDialog:PhotoDetailEvent()
-    object OnOkayClickErrorDialog:PhotoDetailEvent()
+    object OnDismissErrorDialog : PhotoDetailEvent()
+    object OnOkayClickErrorDialog : PhotoDetailEvent()
     data class BottomSheet(val isOpen: Boolean) : PhotoDetailEvent()
     data class OnScreenSelection(val index: Int) : PhotoDetailEvent()
+    data class ShowAdBottomSheet(val open: Boolean) : PhotoDetailEvent()
+    object ShowRewardAdError : PhotoDetailEvent()
 
 }

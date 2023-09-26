@@ -19,5 +19,7 @@ data class PhotoDetailState(
     val sheetSelectionIndex: Int = -1,
     val setBitmap: Bitmap? = null,
     val showErrorDialog: Boolean = false,
-    val errorMessage: UIText? = null
+    val errorMessage: UIText? = null,
+    val shouldShowRewarded: Boolean = true,
+    val showWatchAdSheet: Boolean = false
 )

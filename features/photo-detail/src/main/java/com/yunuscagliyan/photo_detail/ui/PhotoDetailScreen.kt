@@ -37,6 +37,7 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableFloatStateOf
@@ -66,11 +67,16 @@ import coil.request.ImageRequest
 import coil.size.Size
 import com.devtamuno.composeblurhash.ExperimentalComposeBlurHash
 import com.devtamuno.composeblurhash.ext.rememberBlurHashPainter
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.LoadAdError
+import com.google.android.gms.ads.rewarded.RewardedAd
+import com.google.android.gms.ads.rewarded.RewardedAdLoadCallback
 import com.yunuscagliyan.core_ui.model.enums.WallpaperScreenType
 import com.yunuscagliyan.core.data.remote.model.photo.PhotoModel
 import com.yunuscagliyan.core.util.Constant.DurationUtil.TRANSITION_DURATION
 import com.yunuscagliyan.core.util.Constant.NavigationArgumentKey.PHOTO_KEY
 import com.yunuscagliyan.core.util.Constant.StringParameter.EMPTY_STRING
+import com.yunuscagliyan.core_ui.BuildConfig
 import com.yunuscagliyan.core_ui.R
 import com.yunuscagliyan.core_ui.components.anim.AnimationBox
 import com.yunuscagliyan.core_ui.components.button.FavouriteButton
@@ -79,6 +85,7 @@ import com.yunuscagliyan.core_ui.components.dialog.ErrorDialog
 import com.yunuscagliyan.core_ui.components.image.WallImage
 import com.yunuscagliyan.core_ui.components.main.MainUIFrame
 import com.yunuscagliyan.core_ui.components.sheet.SingleSelectionBottomSheet
+import com.yunuscagliyan.core_ui.components.sheet.WatchAdSheet
 import com.yunuscagliyan.core_ui.event.ScreenRoutes
 import com.yunuscagliyan.core_ui.extension.asString
 import com.yunuscagliyan.core_ui.extension.noRippleClickable
@@ -112,6 +119,7 @@ object PhotoDetailScreen : CoreScreen<PhotoDetailState, PhotoDetailEvent>() {
             }
         }
 
+        val context = LocalContext.current
         val view = LocalView.current
         val activity = LocalContext.current as Activity
         val window = activity.window
@@ -140,11 +148,14 @@ object PhotoDetailScreen : CoreScreen<PhotoDetailState, PhotoDetailEvent>() {
             }
         }
 
-        val onSaveClick: () -> Unit = remember {
-            {
+        val onSaveClick: () -> Unit = {
+            if (state.shouldShowRewarded) {
+                onEvent(PhotoDetailEvent.ShowAdBottomSheet(true))
+            } else {
                 onEvent(PhotoDetailEvent.OnSaveClick)
             }
         }
+
 
         val onSetClick: () -> Unit = remember {
             {
@@ -173,6 +184,38 @@ object PhotoDetailScreen : CoreScreen<PhotoDetailState, PhotoDetailEvent>() {
         BackHandler {
             onBackPressed()
         }
+        var rewardAd by remember { mutableStateOf<RewardedAd?>(null) }
+
+        val loadAd = remember {
+            {
+                val adRequest = AdRequest.Builder().build()
+                RewardedAd.load(context,
+                    BuildConfig.ADMOB_REWARD_AD_ID,
+                    adRequest,
+                    object : RewardedAdLoadCallback() {
+                        override fun onAdFailedToLoad(error: LoadAdError) {
+                            super.onAdFailedToLoad(error)
+                            Timber.e(error.message)
+                            rewardAd = null
+                        }
+
+                        override fun onAdLoaded(reward: RewardedAd) {
+                            super.onAdLoaded(reward)
+                            Timber.d("Ad Loaded")
+                            rewardAd = reward
+                        }
+                    }
+                )
+            }
+        }
+
+        DisposableEffect(key1 = Unit) {
+            loadAd()
+            onDispose {
+                rewardAd = null
+            }
+        }
+
 
         if (state.showWallpaperSelectionSheet) {
             SingleSelectionBottomSheet(
@@ -189,6 +232,30 @@ object PhotoDetailScreen : CoreScreen<PhotoDetailState, PhotoDetailEvent>() {
             ) { index, _ ->
                 onEvent(PhotoDetailEvent.OnScreenSelection(index = index))
             }
+        }
+
+        if (state.showWatchAdSheet) {
+            WatchAdSheet(
+                onDismissRequest = {
+                    onEvent(PhotoDetailEvent.ShowAdBottomSheet(false))
+                },
+                onWatchAdClick = {
+                    onEvent(PhotoDetailEvent.ShowAdBottomSheet(false))
+                    if (rewardAd != null) {
+                        rewardAd?.show(
+                            activity
+                        ) {
+                            onEvent(PhotoDetailEvent.OnSaveClick)
+                        }
+                    } else {
+                        loadAd()
+                        onEvent(PhotoDetailEvent.ShowRewardAdError)
+                    }
+                },
+                onProClick = {
+                    onEvent(PhotoDetailEvent.ShowAdBottomSheet(false))
+                }
+            )
         }
 
         if (state.showErrorDialog) {

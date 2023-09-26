@@ -14,6 +14,10 @@
     <string name="common_http_error">An unexpected error occurred</string>
     <string name="common_empty_text">There is no content about the searching.</string>
 
+    <string name="watch_ad_sheet_title">Save Photo</string>
+    <string name="watch_ad_sheet_button_watch_video">Watch Ad</string>
+    <string name="watch_ad_sheet_button_pro">Upgrade to Pro</string>
+
     <string name="bottom_bar_home_title">Home</string>
     <string name="bottom_bar_category_title">Categories</string>
     <string name="bottom_bar_favourites_title">Favourites</string>
@@ -41,6 +45,7 @@
     <string name="photo_detail_sheet_screen_selection_lock">Lock Screen</string>
     <string name="photo_detail_sheet_screen_selection_both">Home &amp; Lock Screen</string>
     <string name="photo_detail_save_success_message">Photo saved to your gallery.</string>
+    <string name="photo_detail_reward_ad_error">The reward Ad isn\'t ready yet.</string>
 
 
     <!--Search -->

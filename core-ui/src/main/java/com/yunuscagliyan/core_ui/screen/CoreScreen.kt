@@ -4,7 +4,9 @@ import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.material3.Snackbar
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
@@ -27,6 +29,7 @@ import androidx.navigation.compose.composable
 import com.yunuscagliyan.core_ui.event.Event
 import com.yunuscagliyan.core_ui.event.Routes
 import com.yunuscagliyan.core_ui.extension.asString
+import com.yunuscagliyan.core_ui.extension.showInterstitial
 import com.yunuscagliyan.core_ui.theme.WallXAppTheme
 import com.yunuscagliyan.core_ui.viewmodel.CoreViewModel
 import com.yunuscagliyan.core_ui.viewmodel.SharedViewModel
@@ -57,7 +60,8 @@ abstract class CoreScreen<S, E> {
     fun composable(
         builder: NavGraphBuilder,
         navHostController: NavHostController,
-        sharedViewModel: SharedViewModel
+        sharedViewModel: SharedViewModel,
+        isNestedScreen: Boolean = false
     ) {
         this.navController = navHostController
         this.sharedViewModel = sharedViewModel
@@ -77,11 +81,13 @@ abstract class CoreScreen<S, E> {
                 viewModel.uiEvent.collectLatest { event ->
                     when (event) {
                         is Event.Navigation -> {
-                            handleNavigation(
-                                navHostController = navHostController,
-                                routes = event.state,
-                                sharedViewModel = sharedViewModel
-                            )
+                            context.showInterstitial {
+                                handleNavigation(
+                                    navHostController = navHostController,
+                                    routes = event.state,
+                                    sharedViewModel = sharedViewModel
+                                )
+                            }
                         }
 
                         is Event.ShowSnackBar -> {
@@ -124,8 +130,12 @@ abstract class CoreScreen<S, E> {
                     hostState = snackState,
                     modifier = Modifier
                         .align(Alignment.BottomCenter)
-                        .padding(
-                            bottom = WallXAppTheme.dimension.paddingMedium2
+                        .then(
+                            if (isNestedScreen) {
+                                Modifier.imePadding()
+                            } else {
+                                Modifier.systemBarsPadding()
+                            }
                         ),
                     snackbar = {
                         Snackbar(

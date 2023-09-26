@@ -108,6 +108,8 @@ data class WallXDimen(
     val collectionProfileImage: Dp = 0.dp,
     val favouriteButtonSize: Dp = 0.dp,
 
+    val defaultBannerHeight: Dp = 50.dp,
+
     val screenType: ScreenType = ScreenType.LARGE
 )
 

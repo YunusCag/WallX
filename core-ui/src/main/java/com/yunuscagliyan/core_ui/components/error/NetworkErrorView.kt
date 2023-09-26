@@ -17,7 +17,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.yunuscagliyan.core_ui.R
-import com.yunuscagliyan.core_ui.components.button.FilledSecondaryTextButton
+import com.yunuscagliyan.core_ui.components.button.FilledSecondaryButton
 import com.yunuscagliyan.core_ui.theme.WallXAppTheme
 
 @Composable
@@ -48,7 +48,7 @@ fun NetworkErrorView(
         )
         Spacer(modifier = Modifier.height(WallXAppTheme.dimension.paddingSmall2))
         onRefreshClick?.let { onClick ->
-            FilledSecondaryTextButton(
+            FilledSecondaryButton(
                 modifier = Modifier
                     .width(160.dp),
                 text = stringResource(id = R.string.common_refresh),
