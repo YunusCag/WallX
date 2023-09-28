@@ -193,6 +193,13 @@ class PhotoDetailViewModel @Inject constructor(
                         }
 
                         is DownloadState.Finished -> {
+                            sendEvent(
+                                Event.ShowSnackBar(
+                                    message = UIText.StringResource(
+                                        resId = R.string.photo_detail_set_wall_paper_success
+                                    )
+                                )
+                            )
                             updateState {
                                 copy(
                                     setButtonType = LoadingButtonType.INIT,

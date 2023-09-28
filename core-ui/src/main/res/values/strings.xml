@@ -46,6 +46,7 @@
     <string name="photo_detail_sheet_screen_selection_both">Home &amp; Lock Screen</string>
     <string name="photo_detail_save_success_message">Photo saved to your gallery.</string>
     <string name="photo_detail_reward_ad_error">The reward Ad isn\'t ready yet.</string>
+    <string name="photo_detail_set_wall_paper_success">Wallpaper is set</string>
 
 
     <!--Search -->
