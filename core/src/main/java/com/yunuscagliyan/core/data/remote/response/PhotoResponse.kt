@@ -11,8 +11,8 @@ import kotlinx.parcelize.Parcelize
 data class PhotoResponse(
     @Json(name = "total")
     var total: Int? = null,
-    @Json(name = "total_pages")
-    var totalPages: Int? = null,
-    @Json(name = "results")
+    @Json(name = "totalHits")
+    var totalHits: Int? = null,
+    @Json(name = "hits")
     var results: List<PhotoModel>? = null
 ):Parcelable

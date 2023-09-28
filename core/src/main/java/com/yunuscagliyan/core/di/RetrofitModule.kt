@@ -5,7 +5,7 @@ import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import com.yunuscagliyan.core.BuildConfig
 import com.yunuscagliyan.core.data.remote.interceptors.ClientIDInterceptor
-import com.yunuscagliyan.core.data.remote.service.UnsplashService
+import com.yunuscagliyan.core.data.remote.service.PixabayService
 import com.yunuscagliyan.core.util.Constant.NetworkCacheUtil.CACHE_FILE_NAME
 import com.yunuscagliyan.core.util.Constant.NetworkCacheUtil.MAX_SIZE
 import com.yunuscagliyan.core.util.Constant.NetworkCacheUtil.TIME_OUT_SECONDS
@@ -70,5 +70,5 @@ object RetrofitModule {
     @Singleton
     fun provideUnsplashService(
         retrofit: Retrofit
-    ): UnsplashService = retrofit.create()
+    ): PixabayService = retrofit.create()
 }

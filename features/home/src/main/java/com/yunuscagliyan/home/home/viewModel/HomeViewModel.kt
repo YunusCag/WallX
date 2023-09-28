@@ -31,10 +31,10 @@ class HomeViewModel @Inject constructor(
     private fun getPhotos() {
         updateState {
             copy(
-                newPhotos = photoRepository.getPhotos(
+                newPhotos = photoRepository.getSearchPhotos(
                     orderBy = PhotoOrderBy.Latest
                 ).cachedIn(viewModelScope),
-                popularPhotos = photoRepository.getPhotos(
+                popularPhotos = photoRepository.getSearchPhotos(
                     orderBy = PhotoOrderBy.Popular
                 ).cachedIn(viewModelScope)
             )

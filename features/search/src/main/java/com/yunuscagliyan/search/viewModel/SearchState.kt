@@ -11,6 +11,5 @@ import kotlinx.coroutines.flow.emptyFlow
 @Stable
 data class SearchState(
     val search: String = EMPTY_STRING,
-    val collections: Flow<PagingData<CollectionModel>> = emptyFlow(),
     val photos: Flow<PagingData<PhotoModel>> = emptyFlow(),
 )

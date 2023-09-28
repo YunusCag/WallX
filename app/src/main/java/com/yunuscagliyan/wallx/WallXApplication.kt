@@ -10,7 +10,7 @@ import androidx.work.WorkerParameters
 import com.yunuscagliyan.core.BuildConfig
 import com.yunuscagliyan.core.data.local.dao.PhotoDao
 import com.yunuscagliyan.core.data.local.preference.Preferences
-import com.yunuscagliyan.core.data.remote.service.UnsplashService
+import com.yunuscagliyan.core.data.remote.service.PixabayService
 import com.yunuscagliyan.core_ui.manager.AutoWallpaperManager
 import dagger.hilt.android.HiltAndroidApp
 import timber.log.Timber
@@ -38,7 +38,7 @@ class WallXApplication : Application(), Configuration.Provider {
 
 class WallXWorkerFactory @Inject constructor(
     private val photoDao: PhotoDao,
-    private val unsplashService: UnsplashService,
+    private val pixabayService: PixabayService,
     private val preferences: Preferences,
 ) : WorkerFactory() {
     override fun createWorker(
@@ -49,7 +49,7 @@ class WallXWorkerFactory @Inject constructor(
         context = appContext,
         params = workerParameters,
         photoDao = photoDao,
-        unsplashService = unsplashService,
+        pixabayService = pixabayService,
         preferences = preferences
     )
 

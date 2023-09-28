@@ -4,11 +4,10 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import com.yunuscagliyan.core.data.enums.PhotoOrderBy
 import com.yunuscagliyan.core.data.local.dao.PhotoDao
-import com.yunuscagliyan.core.data.mapper.toPhotoEntity
+import com.yunuscagliyan.core.data.local.entity.PhotoEntity
 import com.yunuscagliyan.core.data.mapper.toPhotoModel
-import com.yunuscagliyan.core.data.mapper.toPhotoModelList
 import com.yunuscagliyan.core.data.remote.model.photo.PhotoModel
-import com.yunuscagliyan.core.data.remote.service.UnsplashService
+import com.yunuscagliyan.core.data.remote.service.PixabayService
 import com.yunuscagliyan.core.data.remote.source.CollectionPhotoSource
 import com.yunuscagliyan.core.data.remote.source.CollectionSearchSource
 import com.yunuscagliyan.core.data.remote.source.PhotoSearchSource
@@ -22,7 +21,7 @@ import timber.log.Timber
 import javax.inject.Inject
 
 class PhotoRepository @Inject constructor(
-    private val unsplashService: UnsplashService,
+    private val pixabayService: PixabayService,
     private val photoDao: PhotoDao
 ) {
     fun getPhotos(orderBy: PhotoOrderBy) = Pager(
@@ -31,7 +30,7 @@ class PhotoRepository @Inject constructor(
         ),
         pagingSourceFactory = {
             PhotoSource(
-                unsplashService = unsplashService,
+                pixabayService = pixabayService,
                 orderBy = orderBy
             )
         }
@@ -46,14 +45,14 @@ class PhotoRepository @Inject constructor(
         ),
         pagingSourceFactory = {
             CollectionSearchSource(
-                unsplashService = unsplashService,
+                pixabayService = pixabayService,
                 query = query,
                 orderBy = orderBy
             )
         }
     ).flow
     fun getSearchPhotos(
-        query: String,
+        query: String?=null,
         orderBy: PhotoOrderBy
     ) = Pager(
         config = PagingConfig(
@@ -61,7 +60,7 @@ class PhotoRepository @Inject constructor(
         ),
         pagingSourceFactory = {
             PhotoSearchSource(
-                unsplashService = unsplashService,
+                pixabayService = pixabayService,
                 query = query,
                 orderBy = orderBy
             )
@@ -77,25 +76,25 @@ class PhotoRepository @Inject constructor(
         ),
         pagingSourceFactory = {
             CollectionPhotoSource(
-                unsplashService = unsplashService,
+                pixabayService = pixabayService,
                 collectionId = collectionId,
                 orderBy = orderBy
             )
         }
     ).flow
 
-    fun getLocalPhotos(): Flow<Resource<List<PhotoModel>>> = flow {
+    fun getLocalPhotos(): Flow<Resource<List<PhotoEntity>>> = flow {
         try {
             emit(Resource.Loading())
             val entities = photoDao.getPhotos()
-            emit(Resource.Success(entities.toPhotoModelList()))
+            emit(Resource.Success(entities))
         } catch (e: Exception) {
             emit(Resource.Error(UIText.DynamicString(e.localizedMessage)))
         }
     }
 
 
-    fun getLocalPhotoById(photoId: String):Flow<Resource<PhotoModel?>> = flow {
+    fun getLocalPhotoById(photoId: Long):Flow<Resource<PhotoModel?>> = flow {
         try {
             emit(Resource.Loading())
             val entity = photoDao.getPhotoById(photoId = photoId)
@@ -104,15 +103,15 @@ class PhotoRepository @Inject constructor(
             emit(Resource.Error(UIText.DynamicString(e.localizedMessage)))
         }
     }
-    suspend fun insertPhoto(photoModel: PhotoModel) {
+    suspend fun insertPhoto(photoEntity: PhotoEntity) {
         try {
-            photoDao.insertPhoto(photoEntity = photoModel.toPhotoEntity())
+            photoDao.insertPhoto(photoEntity = photoEntity)
         } catch (e: Exception) {
             Timber.e(e.localizedMessage)
         }
     }
 
-    suspend fun deletePhoto(photoId: String) {
+    suspend fun deletePhoto(photoId: Long) {
         try {
             photoDao.deletePhoto(photoId = photoId)
         } catch (e: Exception) {

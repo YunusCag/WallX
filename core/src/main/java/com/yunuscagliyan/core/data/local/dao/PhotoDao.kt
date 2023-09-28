@@ -15,8 +15,8 @@ interface PhotoDao {
     fun getPhotos(): List<PhotoEntity>
 
     @Query("SELECT * FROM photo_entity WHERE photoId=:photoId")
-    fun getPhotoById(photoId: String): PhotoEntity?
+    fun getPhotoById(photoId: Long): PhotoEntity?
 
     @Query("DELETE FROM photo_entity WHERE photoId =:photoId")
-    suspend fun deletePhoto(photoId: String)
+    suspend fun deletePhoto(photoId: Long)
 }

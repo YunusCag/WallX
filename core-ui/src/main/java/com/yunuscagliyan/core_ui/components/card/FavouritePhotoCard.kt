@@ -18,7 +18,7 @@ import com.yunuscagliyan.core_ui.theme.WallXAppTheme
 fun FavouritePhotoCard(
     modifier: Modifier = Modifier,
     imageUrl: String?,
-    hexColor: String?,
+    hexColor: String?=null,
     onFavouriteClick: () -> Unit,
 ) {
     Card(

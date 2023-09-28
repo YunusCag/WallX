@@ -65,13 +65,10 @@ import coil.compose.AsyncImagePainter
 import coil.compose.rememberAsyncImagePainter
 import coil.request.ImageRequest
 import coil.size.Size
-import com.devtamuno.composeblurhash.ExperimentalComposeBlurHash
-import com.devtamuno.composeblurhash.ext.rememberBlurHashPainter
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.LoadAdError
 import com.google.android.gms.ads.rewarded.RewardedAd
 import com.google.android.gms.ads.rewarded.RewardedAdLoadCallback
-import com.yunuscagliyan.core_ui.model.enums.WallpaperScreenType
 import com.yunuscagliyan.core.data.remote.model.photo.PhotoModel
 import com.yunuscagliyan.core.util.Constant.DurationUtil.TRANSITION_DURATION
 import com.yunuscagliyan.core.util.Constant.NavigationArgumentKey.PHOTO_KEY
@@ -90,6 +87,7 @@ import com.yunuscagliyan.core_ui.event.ScreenRoutes
 import com.yunuscagliyan.core_ui.extension.asString
 import com.yunuscagliyan.core_ui.extension.noRippleClickable
 import com.yunuscagliyan.core_ui.model.SelectionModel
+import com.yunuscagliyan.core_ui.model.enums.WallpaperScreenType
 import com.yunuscagliyan.core_ui.screen.CoreScreen
 import com.yunuscagliyan.core_ui.theme.WallXAppTheme
 import com.yunuscagliyan.photo_detail.viewmodel.PhotoDetailState
@@ -351,7 +349,7 @@ object PhotoDetailScreen : CoreScreen<PhotoDetailState, PhotoDetailEvent>() {
                     Row(
                         modifier = Modifier
                             .noRippleClickable {
-                                state.photoModel?.user?.links?.html.let { html ->
+                                state.photoModel?.pageURL?.let { html ->
                                     navigateBrowser(html, appName, context)
                                 }
                             }
@@ -368,7 +366,7 @@ object PhotoDetailScreen : CoreScreen<PhotoDetailState, PhotoDetailEvent>() {
                             )
                         ) {
                             WallImage(
-                                url = state.photoModel?.user?.profileImage?.medium,
+                                url = state.photoModel?.userImageURL,
                                 contentScale = ContentScale.Fit
                             )
                         }
@@ -376,7 +374,7 @@ object PhotoDetailScreen : CoreScreen<PhotoDetailState, PhotoDetailEvent>() {
                         Spacer(modifier = Modifier.width(WallXAppTheme.dimension.paddingSmall2))
                         Column {
                             Text(
-                                "${state.photoModel?.user?.firstName ?: EMPTY_STRING} ${state.photoModel?.user?.lastName ?: EMPTY_STRING}",
+                                state.photoModel?.user ?: EMPTY_STRING,
                                 style = WallXAppTheme.typography.normal1,
                                 color = WallXAppTheme.colors.white,
                                 overflow = TextOverflow.Ellipsis,
@@ -441,7 +439,6 @@ object PhotoDetailScreen : CoreScreen<PhotoDetailState, PhotoDetailEvent>() {
     }
 
     @Composable
-    @OptIn(ExperimentalComposeBlurHash::class)
     private fun PhotoImage(
         photo: PhotoModel,
         scale: Float,
@@ -457,15 +454,9 @@ object PhotoDetailScreen : CoreScreen<PhotoDetailState, PhotoDetailEvent>() {
         val screenHeightPx = (screenHeightDp * density).toInt()
 
 
-        val placeHolder = rememberBlurHashPainter(
-            blurString = photo.blurHash ?: EMPTY_STRING,
-            width = Int.MAX_VALUE,
-            height = Int.MAX_VALUE,
-        )
-
         val painter = rememberAsyncImagePainter(
             model = ImageRequest.Builder(LocalContext.current)
-                .data(photo.urls?.raw)
+                .data(photo.largeImageURL)
                 .size(Size(screenWidthPx, screenHeightPx))
                 .crossfade(true)
                 .build()
@@ -474,26 +465,17 @@ object PhotoDetailScreen : CoreScreen<PhotoDetailState, PhotoDetailEvent>() {
 
         when (painter.state) {
             is AsyncImagePainter.State.Loading -> {
-                if (photo.blurHash != null) {
-                    Image(
-                        modifier = Modifier
-                            .fillMaxSize(),
-                        painter = placeHolder,
-                        contentDescription = EMPTY_STRING,
-                        contentScale = ContentScale.FillHeight
+                Box(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .background(WallXAppTheme.colors.background),
+                    contentAlignment = Alignment.Center
+                ) {
+                    CircularProgressIndicator(
+                        color = WallXAppTheme.colors.background,
+                        trackColor = WallXAppTheme.colors.secondary,
+                        strokeWidth = WallXAppTheme.dimension.borderWidth
                     )
-                } else {
-                    Box(
-                        modifier = Modifier
-                            .fillMaxSize()
-                            .background(WallXAppTheme.colors.background)
-                    ) {
-                        CircularProgressIndicator(
-                            color = WallXAppTheme.colors.background,
-                            trackColor = WallXAppTheme.colors.secondary,
-                            strokeWidth = WallXAppTheme.dimension.borderWidth
-                        )
-                    }
                 }
             }
 

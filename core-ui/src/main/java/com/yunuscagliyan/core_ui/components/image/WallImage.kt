@@ -8,7 +8,9 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.layout.wrapContentSize
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
@@ -41,18 +43,32 @@ fun WallImage(
             Box(
                 modifier = modifier
                     .fillMaxWidth()
-                    .background(hexColor?.toColor() ?: WallXAppTheme.colors.secondary)
-                    .height(WallXAppTheme.dimension.collectionItemHeight)
-            )
+                    .background(hexColor?.toColor() ?: WallXAppTheme.colors.background)
+                    .height(WallXAppTheme.dimension.collectionItemHeight),
+                contentAlignment = Alignment.Center
+            ) {
+                CircularProgressIndicator(
+                    color = WallXAppTheme.colors.background,
+                    trackColor = WallXAppTheme.colors.secondary,
+                    strokeWidth = WallXAppTheme.dimension.borderWidth
+                )
+            }
         }
 
         is AsyncImagePainter.State.Loading -> {
             Box(
                 modifier = modifier
                     .fillMaxWidth()
-                    .background(hexColor?.toColor() ?: WallXAppTheme.colors.secondary)
-                    .height(WallXAppTheme.dimension.collectionItemHeight)
-            )
+                    .background(hexColor?.toColor() ?: WallXAppTheme.colors.background)
+                    .height(WallXAppTheme.dimension.collectionItemHeight),
+                contentAlignment = Alignment.Center
+            ) {
+                CircularProgressIndicator(
+                    color = WallXAppTheme.colors.background,
+                    trackColor = WallXAppTheme.colors.secondary,
+                    strokeWidth = WallXAppTheme.dimension.borderWidth
+                )
+            }
         }
 
         is AsyncImagePainter.State.Success -> {
@@ -73,7 +89,7 @@ fun WallImage(
                 contentDescription = Constant.StringParameter.EMPTY_STRING,
                 contentScale = contentScale,
 
-            )
+                )
         }
     }
 }

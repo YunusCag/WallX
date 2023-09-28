@@ -1,6 +1,7 @@
 package com.yunuscagliyan.photo_detail.viewmodel
 
 import androidx.lifecycle.viewModelScope
+import com.yunuscagliyan.core.data.mapper.toPhotoEntity
 import com.yunuscagliyan.core_ui.model.enums.WallpaperScreenType
 import com.yunuscagliyan.core.data.repository.PhotoRepository
 import com.yunuscagliyan.core_ui.domain.ChangeWallpaper
@@ -58,7 +59,7 @@ class PhotoDetailViewModel @Inject constructor(
                 state.value.photoModel?.let { photoModel ->
                     viewModelScope.launch(Dispatchers.IO) {
                         if (event.isFavourite) {
-                            repository.insertPhoto(photoModel = photoModel)
+                            repository.insertPhoto(photoEntity = photoModel.toPhotoEntity())
                         } else {
                             photoModel.id?.let { id ->
                                 repository.deletePhoto(photoId = id)
@@ -147,7 +148,7 @@ class PhotoDetailViewModel @Inject constructor(
         }
     }
 
-    private fun checkPhotoLiked(photoId: String) {
+    private fun checkPhotoLiked(photoId: Long) {
         viewModelScope.launch(Dispatchers.IO) {
             repository.getLocalPhotoById(
                 photoId = photoId
@@ -206,11 +207,11 @@ class PhotoDetailViewModel @Inject constructor(
     }
 
     private fun downloadAndSaveImage() {
-        state.value.photoModel?.links?.download?.let {
+        state.value.photoModel?.largeImageURL?.let {
             viewModelScope.launch(Dispatchers.IO) {
                 downloadImageAndSave.invoke(
                     imageUrl = it,
-                    triggerUrl = state.value.photoModel?.links?.downloadLocation
+                    triggerUrl = state.value.photoModel?.largeImageURL
                 ).collectLatest { downloadState ->
                     updateState {
                         when (downloadState) {
@@ -247,11 +248,10 @@ class PhotoDetailViewModel @Inject constructor(
     }
 
     private fun downloadBitmap() {
-        state.value.photoModel?.links?.download?.let {
+        state.value.photoModel?.largeImageURL?.let {
             viewModelScope.launch(Dispatchers.IO) {
                 downloadImageAsBitmap.invoke(
-                    imageUrl = it,
-                    triggerUrl = state.value.photoModel?.links?.downloadLocation
+                    imageUrl = it
                 ).collectLatest { resource ->
                     when (resource) {
                         is Resource.Loading -> {

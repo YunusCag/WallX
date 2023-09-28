@@ -21,7 +21,7 @@ import retrofit2.http.Query
 import retrofit2.http.Streaming
 import retrofit2.http.Url
 
-interface UnsplashService {
+interface PixabayService {
 
     @GET(PHOTOS_PATH)
     suspend fun getPhotos(
@@ -40,7 +40,7 @@ interface UnsplashService {
 
     @GET(SEARCH_PHOTO_PATH)
     suspend fun getSearchPhotos(
-        @Query(QUERY) query: String,
+        @Query(QUERY) query: String? = null,
         @Query(PAGE) page: Int,
         @Query(PER_PAGE) perPage: Int,
         @Query(ORDER_BY) orderBy: String
