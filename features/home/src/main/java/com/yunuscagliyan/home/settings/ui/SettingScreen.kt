@@ -175,6 +175,7 @@ object SettingScreen : CoreScreen<SettingState, SettingEvent>() {
                             color = WallXAppTheme.colors.dividerColor,
                             thickness = WallXAppTheme.dimension.borderWidth
                         )
+                        /*
                         SettingItemTile(
                             modifier = Modifier
                                 .noRippleClickable {
@@ -187,7 +188,7 @@ object SettingScreen : CoreScreen<SettingState, SettingEvent>() {
                         Divider(
                             color = WallXAppTheme.colors.dividerColor,
                             thickness = WallXAppTheme.dimension.borderWidth
-                        )
+                        )*/
                         SettingItemTile(
                             modifier = Modifier
                                 .noRippleClickable {
