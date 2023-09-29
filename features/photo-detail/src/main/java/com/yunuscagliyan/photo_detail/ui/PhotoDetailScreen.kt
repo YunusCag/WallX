@@ -250,7 +250,7 @@ object PhotoDetailScreen : CoreScreen<PhotoDetailState, PhotoDetailEvent>() {
                         onEvent(PhotoDetailEvent.ShowRewardAdError)
                     }
                 },
-                onProClick = {
+                onCancelClick = {
                     onEvent(PhotoDetailEvent.ShowAdBottomSheet(false))
                 }
             )

@@ -26,7 +26,7 @@ import com.yunuscagliyan.core_ui.theme.WallXAppTheme
 fun WatchAdSheet(
     onDismissRequest: () -> Unit,
     onWatchAdClick: () -> Unit,
-    onProClick: () -> Unit,
+    onCancelClick: () -> Unit,
 ) {
     BaseModalSheet(
         onDismissRequest = onDismissRequest
@@ -48,7 +48,7 @@ fun WatchAdSheet(
 
             )
             Spacer(modifier = Modifier.height(WallXAppTheme.dimension.paddingMedium1))
-            OutlinedSecondaryButton(
+            FilledSecondaryButton(
                 modifier = Modifier
                     .fillMaxWidth(),
                 text = stringResource(id = R.string.watch_ad_sheet_button_watch_video),
@@ -61,31 +61,22 @@ fun WatchAdSheet(
                     Icon(
                         painterResource(id = R.drawable.ic_ad_play),
                         contentDescription = stringResource(id = R.string.watch_ad_sheet_button_watch_video),
-                        tint = WallXAppTheme.colors.secondary,
+                        tint = WallXAppTheme.colors.white,
                         modifier = Modifier
                             .size(WallXAppTheme.dimension.iconSizeSmall)
                     )
                 }
             )
             Spacer(modifier = Modifier.height(WallXAppTheme.dimension.paddingSmall3))
-            FilledSecondaryButton(
+            OutlinedSecondaryButton(
                 modifier = Modifier
                     .fillMaxWidth(),
-                text = stringResource(id = R.string.watch_ad_sheet_button_pro),
-                icon = {
-                    Icon(
-                        painterResource(id = R.drawable.ic_crown),
-                        contentDescription = stringResource(id = R.string.watch_ad_sheet_button_pro),
-                        tint = WallXAppTheme.colors.white,
-                        modifier = Modifier
-                            .size(WallXAppTheme.dimension.iconSizeSmall)
-                    )
-                },
+                text = stringResource(id = R.string.common_cancel),
                 contentPadding= PaddingValues(
                     horizontal = WallXAppTheme.dimension.paddingMedium2,
                     vertical = WallXAppTheme.dimension.paddingMedium1
                 ),
-                onClick = onProClick
+                onClick = onCancelClick
             )
             Spacer(modifier = Modifier.height(WallXAppTheme.dimension.paddingMedium2))
         }
@@ -97,7 +88,7 @@ fun WatchAdSheet(
 private fun PreviewWatchAdSheet() {
     WatchAdSheet(
         onWatchAdClick = {},
-        onProClick = {},
+        onCancelClick = {},
         onDismissRequest = {}
     )
 }
