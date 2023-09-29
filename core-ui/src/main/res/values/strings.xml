@@ -18,6 +18,10 @@
     <string name="common_http_error">An unexpected error occurred</string>
     <string name="common_empty_text">There is no content about the searching.</string>
 
+
+    <string name="rate_dialog_title">Rate Our App</string>
+    <string name="rate_dialog_description">Please take a moment to rate our app.</string>
+
     <string name="watch_ad_sheet_title">Save Photo</string>
     <string name="watch_ad_sheet_button_watch_video">Watch Ad</string>
     <string name="watch_ad_sheet_button_pro">Upgrade to Pro</string>

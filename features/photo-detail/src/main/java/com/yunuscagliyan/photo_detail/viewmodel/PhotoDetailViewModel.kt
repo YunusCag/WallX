@@ -1,11 +1,13 @@
 package com.yunuscagliyan.photo_detail.viewmodel
 
 import androidx.lifecycle.viewModelScope
+import com.yunuscagliyan.core.data.local.preference.Preferences
 import com.yunuscagliyan.core.data.mapper.toPhotoEntity
 import com.yunuscagliyan.core_ui.model.enums.WallpaperScreenType
 import com.yunuscagliyan.core.data.repository.PhotoRepository
 import com.yunuscagliyan.core_ui.domain.ChangeWallpaper
 import com.yunuscagliyan.core.domain.DownloadImageAndSave
+import com.yunuscagliyan.core.util.Constant.PreferencesUtil.FEATURE_COUNTER
 import com.yunuscagliyan.core_ui.domain.DownloadImageAsBitmap
 import com.yunuscagliyan.core.util.DownloadState
 import com.yunuscagliyan.core.util.Resource
@@ -26,7 +28,8 @@ class PhotoDetailViewModel @Inject constructor(
     private val downloadImageAndSave: DownloadImageAndSave,
     private val downloadImageAsBitmap: DownloadImageAsBitmap,
     private val changeWallpaper: ChangeWallpaper,
-    private val repository: PhotoRepository
+    private val repository: PhotoRepository,
+    private val preferences: Preferences
 ) : CoreViewModel<PhotoDetailState, PhotoDetailEvent>() {
     override fun getInitialState(): PhotoDetailState = PhotoDetailState()
 
@@ -145,6 +148,32 @@ class PhotoDetailViewModel @Inject constructor(
                     )
                 }
             }
+
+            is PhotoDetailEvent.ShowRateDialog -> {
+                updateState {
+                    copy(
+                        showRateDialog = event.open
+                    )
+                }
+            }
+
+            is PhotoDetailEvent.OnRateCancelClick -> {
+                preferences.isAppRated = true
+                updateState {
+                    copy(
+                        showRateDialog = false
+                    )
+                }
+            }
+
+            is PhotoDetailEvent.OnRateConfirmClick -> {
+                preferences.isAppRated = true
+                updateState {
+                    copy(
+                        showRateDialog = false
+                    )
+                }
+            }
         }
     }
 
@@ -200,10 +229,13 @@ class PhotoDetailViewModel @Inject constructor(
                                     )
                                 )
                             )
+                            preferences.featureCounter = preferences.featureCounter + 1
                             updateState {
                                 copy(
                                     setButtonType = LoadingButtonType.INIT,
-                                    showWallpaperSelectionSheet = false
+                                    showWallpaperSelectionSheet = false,
+                                    showRateDialog = shouldShowRateApp(),
+                                    sheetSelectionIndex = -1
                                 )
                             }
                         }
@@ -211,6 +243,13 @@ class PhotoDetailViewModel @Inject constructor(
                 }
             }
         }
+    }
+
+    private fun shouldShowRateApp(): Boolean {
+        if (preferences.isAppRated) {
+            return false
+        }
+        return preferences.featureCounter != 0 && preferences.featureCounter % FEATURE_COUNTER == 0
     }
 
     private fun downloadAndSaveImage() {

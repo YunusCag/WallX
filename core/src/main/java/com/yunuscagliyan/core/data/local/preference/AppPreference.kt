@@ -2,6 +2,8 @@ package com.yunuscagliyan.core.data.local.preference
 
 import android.content.SharedPreferences
 import com.yunuscagliyan.core.data.local.preference.Preferences.Companion.AUTO_CHANGE_KEY
+import com.yunuscagliyan.core.data.local.preference.Preferences.Companion.FEATURE_COUNTER_KEY
+import com.yunuscagliyan.core.data.local.preference.Preferences.Companion.IS_APP_RATED
 import com.yunuscagliyan.core.data.local.preference.Preferences.Companion.PERIOD_INDEX_KEY
 import com.yunuscagliyan.core.data.local.preference.Preferences.Companion.SCREEN_INDEX_KEY
 import com.yunuscagliyan.core.data.local.preference.Preferences.Companion.SOURCE_INDEX_KEY
@@ -43,6 +45,20 @@ class AppPreference(
         set(value) {
             sharedPref.edit()
                 .putInt(SCREEN_INDEX_KEY, value)
+                .apply()
+        }
+    override var isAppRated: Boolean
+        get() = sharedPref.getBoolean(IS_APP_RATED, false)
+        set(value) {
+            sharedPref.edit()
+                .putBoolean(IS_APP_RATED, value)
+                .apply()
+        }
+    override var featureCounter: Int
+        get() = sharedPref.getInt(FEATURE_COUNTER_KEY, 0)
+        set(value) {
+            sharedPref.edit()
+                .putInt(FEATURE_COUNTER_KEY, value)
                 .apply()
         }
 }

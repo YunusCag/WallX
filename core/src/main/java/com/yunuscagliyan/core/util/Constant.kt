@@ -46,6 +46,7 @@ class Constant {
 
     object PreferencesUtil {
         const val PREFERENCE_NAME = "wall_preferences"
+        const val FEATURE_COUNTER = 5
     }
 
     object NavigationArgumentKey {

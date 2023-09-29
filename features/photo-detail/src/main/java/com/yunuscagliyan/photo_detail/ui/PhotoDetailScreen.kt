@@ -79,12 +79,14 @@ import com.yunuscagliyan.core_ui.components.anim.AnimationBox
 import com.yunuscagliyan.core_ui.components.button.FavouriteButton
 import com.yunuscagliyan.core_ui.components.button.FilledLoadingButton
 import com.yunuscagliyan.core_ui.components.dialog.ErrorDialog
+import com.yunuscagliyan.core_ui.components.dialog.RateAppDialog
 import com.yunuscagliyan.core_ui.components.image.WallImage
 import com.yunuscagliyan.core_ui.components.main.MainUIFrame
 import com.yunuscagliyan.core_ui.components.sheet.SingleSelectionBottomSheet
 import com.yunuscagliyan.core_ui.components.sheet.WatchAdSheet
 import com.yunuscagliyan.core_ui.event.ScreenRoutes
 import com.yunuscagliyan.core_ui.extension.asString
+import com.yunuscagliyan.core_ui.extension.navigateRateApp
 import com.yunuscagliyan.core_ui.extension.noRippleClickable
 import com.yunuscagliyan.core_ui.model.SelectionModel
 import com.yunuscagliyan.core_ui.model.enums.WallpaperScreenType
@@ -267,6 +269,20 @@ object PhotoDetailScreen : CoreScreen<PhotoDetailState, PhotoDetailEvent>() {
                 },
                 onOkayClicked = {
                     onEvent(PhotoDetailEvent.OnOkayClickErrorDialog)
+                }
+            )
+        }
+        if (state.showRateDialog) {
+            RateAppDialog(
+                onDismissRequest = {
+                    onEvent(PhotoDetailEvent.ShowRateDialog(false))
+                },
+                onCancelClick = {
+                    onEvent(PhotoDetailEvent.OnRateCancelClick)
+                },
+                onConfirmClick = {
+                    context.navigateRateApp()
+                    onEvent(PhotoDetailEvent.OnRateConfirmClick)
                 }
             )
         }
