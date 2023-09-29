@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">WallX</string>
+
+    <string name="common_close">Fermer</string>
+    <string name="common_okay">D\'ACCORD</string>
+    <string name="common_back">Dos</string>
+    <string name="common_no_favourites">Vous n\'avez pas encore de favoris.</string>
+    <string name="common_error">Une erreur inconnue est survenue.</string>
+    <string name="common_search">Recherche</string>
+    <string name="common_api_name">pixabay.com</string>
+    <string name="common_refresh">Rafraîchir</string>
+    <string name="common_cancel">Annuler</string>
+    <string name="common_feedback">Envoyer des Commentaires</string>
+    <string name="common_share_app_text">Hé, découvrez cette application géniale : %1$s</string>
+    <string name="common_share_app_title">Partager l\'application</string>
+
+    <string name="common_http_error">Une erreur inattendue est apparue</string>
+    <string name="common_empty_text">Il n\'y a aucun contenu sur la recherche.</string>
+
+
+    <string name="rate_dialog_title">Évaluez notre application</string>
+    <string name="rate_dialog_description">Veuillez prendre un moment pour évaluer notre application.</string>
+
+    <string name="watch_ad_sheet_title">Enregistrer la photo</string>
+    <string name="watch_ad_sheet_button_watch_video">Regarder l\'annonce</string>
+    <string name="watch_ad_sheet_button_pro">Passer à Pro</string>
+
+    <string name="bottom_bar_home_title">Maison</string>
+    <string name="bottom_bar_category_title">Catégories</string>
+    <string name="bottom_bar_favourites_title">Favoris</string>
+    <string name="bottom_bar_settings_title">Paramètres</string>
+
+    <!--Home Page-->
+    <string name="home_tab_latest">Dernière</string>
+    <string name="home_tab_popular">Populaire</string>
+
+    <!-- Favourite Page-->
+    <string name="favourite_remove_message">Supprimé de vos favoris.</string>
+    <string name="favourite_revoke">Révoquer</string>
+
+    <!--Photo Detail -->
+    <string name="photo_detail_save_button_initial">Sauvegarder</string>
+    <string name="photo_detail_save_button_success">Enregistrée</string>
+    <string name="photo_detail_save_button_failed">Échoué</string>
+
+    <string name="photo_detail_set_button_initial">Ensemble</string>
+    <string name="photo_detail_set_button_success">Sédiments</string>
+    <string name="photo_detail_set_button_failed">Échoué</string>
+
+    <string name="photo_detail_sheet_screen_selection_title">Select Wallpaper Screen</string>
+    <string name="photo_detail_sheet_screen_selection_home_screen">Home Screen</string>
+    <string name="photo_detail_sheet_screen_selection_lock">Lock Screen</string>
+    <string name="photo_detail_sheet_screen_selection_both">Home &amp; Lock Screen</string>
+    <string name="photo_detail_save_success_message">Photo enregistrée dans votre galerie.</string>
+    <string name="photo_detail_reward_ad_error">L\'annonce de récompense n\'est pas encore prête.</string>
+    <string name="photo_detail_set_wall_paper_success">Le papier peint est posé</string>
+
+
+    <!--Search -->
+    <string name="search_tab_photo">PHOTOS</string>
+    <string name="search_tab_collections">COLLECTIONS</string>
+
+    <!--Settings -->
+    <string name="settings_title">Paramètres</string>
+
+    <string name="settings_general">Générale</string>
+    <string name="settings_theme">Thème</string>
+    <string name="settings_theme_system">Thème Système</string>
+    <string name="settings_theme_light">Thème Lumière</string>
+    <string name="settings_theme_dark">Thème Sombre</string>
+
+
+    <string name="settings_auto_change_wallpaper">Changement Automatique de fond d\'écran</string>
+    <string name="settings_auto_change_title">Possibilités</string>
+    <string name="settings_auto_periodic">Période</string>
+    <string name="settings_period_1">15 Minutes</string>
+    <string name="settings_period_2">30 Minutes</string>
+    <string name="settings_period_3">1 Heures</string>
+    <string name="settings_period_4">3 Heures</string>
+    <string name="settings_period_5">6 Heures</string>
+    <string name="settings_period_6">12 Heures</string>
+    <string name="settings_period_7">24 Heures</string>
+    <string name="settings_period_8">48 Heures</string>
+
+    <string name="settings_source">Type de Source</string>
+    <string name="settings_source_random">Aléatoire</string>
+    <string name="settings_source_Favourite">Préférée</string>
+
+    <string name="settings_screen_type">Type D\'écran</string>
+    <string name="settings_screen_home">Home Screen</string>
+    <string name="settings_screen_lock">Lock Screen</string>
+    <string name="settings_screen_home_and_lock">Home &amp; Lock Screen</string>
+
+    <string name="settings_about">À propos</string>
+    <string name="settings_rate_us">Évaluez Notre Application</string>
+    <string name="settings_send_feedback">Envoyez-nous vos Commentaires</string>
+    <string name="settings_share_app">Partagez cette application avec des amis</string>
+</resources>

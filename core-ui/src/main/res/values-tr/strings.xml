@@ -71,7 +71,7 @@
     <string name="settings_theme_dark">Karanlık Teması</string>
 
 
-    <string name="settings_auto_change_wallpaper">Otomatik Duvar Kağıdı</string>
+    <string name="settings_auto_change_wallpaper">Duvar Kağıdı Otomatik Değiştir</string>
     <string name="settings_auto_change_title">Seçenekler</string>
     <string name="settings_auto_periodic">Periyotlar</string>
     <string name="settings_period_1">15 Dakika</string>
