@@ -5,6 +5,7 @@ import android.app.WallpaperManager
 import android.content.Context
 import android.graphics.Bitmap
 import com.yunuscagliyan.core.util.DownloadState
+import com.yunuscagliyan.core_ui.extension.getDeviceWidthAndHeight
 import com.yunuscagliyan.core_ui.model.enums.WallpaperScreenType
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.Flow
@@ -22,8 +23,12 @@ class ChangeWallpaper @Inject constructor(
     ): Flow<DownloadState> = flow {
         try {
             emit(DownloadState.Loading)
+            val screenSize = context.getDeviceWidthAndHeight()
+            val width = screenSize.first
+            val height = screenSize.second
 
             val wallpaperManager = WallpaperManager.getInstance(context)
+            wallpaperManager.suggestDesiredDimensions(width, height)
             when (wallpaperScreenType) {
                 WallpaperScreenType.HOME -> {
                     wallpaperManager.setBitmap(

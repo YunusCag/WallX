@@ -70,11 +70,7 @@ class AutoWallpaperManager @AssistedInject constructor(
         return try {
             val response = pixabayService.downloadImage(imageUrl = imageUrl)
             val inputStream = response.byteStream()
-            val bitmap = BitmapFactory.decodeStream(inputStream)
-            val screenSize = this.context.getDeviceWidthAndHeight()
-            val width = screenSize.first
-            val height = screenSize.first
-            Bitmap.createScaledBitmap(bitmap, width, height, true)
+            BitmapFactory.decodeStream(inputStream)
         } catch (e: Exception) {
             Log.e("AutoWallpaper", "downloadImage Error setWallpaper Message:${e.localizedMessage}")
             null
@@ -84,7 +80,12 @@ class AutoWallpaperManager @AssistedInject constructor(
     @SuppressLint("MissingPermission")
     private fun setWallpaper(bitmap: Bitmap, screenType: WallpaperScreenType) {
         try {
+            val screenSize = context.getDeviceWidthAndHeight()
+            val width = screenSize.first
+            val height = screenSize.second
             val wallpaperManager = WallpaperManager.getInstance(context)
+            wallpaperManager.suggestDesiredDimensions(width, height)
+
             when (screenType) {
                 WallpaperScreenType.HOME -> {
                     wallpaperManager.setBitmap(
