@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">WallX</string>
+
+    <string name="common_close">Kapat</string>
+    <string name="common_okay">TAMAM</string>
+    <string name="common_back">Geri</string>
+    <string name="common_no_favourites">Henüz favorileriniz yok.</string>
+    <string name="common_error">Bilinmeyen bir hata oluştu.</string>
+    <string name="common_search">Ara</string>
+    <string name="common_api_name">pixabay.com</string>
+    <string name="common_refresh">Yenile</string>
+    <string name="common_cancel">Iptal</string>
+    <string name="common_feedback">Geri Bildirim Gönder</string>
+    <string name="common_share_app_text">Hey, Bu harika uygulamaya göz at: %1$s</string>
+    <string name="common_share_app_title">Uygulamayı Paylaş</string>
+
+    <string name="common_http_error">Bilinmeyen bir hata oluştu.</string>
+    <string name="common_empty_text">Arama ile ilgili herhangi bir içerik bulunmuyor.</string>
+
+
+    <string name="rate_dialog_title">Uygulamamızı Değerlendirin</string>
+    <string name="rate_dialog_description">Lütfen uygulamamızı değerlendirmek için bir dakikanızı ayırın.</string>
+
+    <string name="watch_ad_sheet_title">Fotoğrafı Kaydet</string>
+    <string name="watch_ad_sheet_button_watch_video">Watch Ad</string>
+    <string name="watch_ad_sheet_button_pro">Reklamı İzle</string>
+
+    <string name="bottom_bar_home_title">Anasayfa</string>
+    <string name="bottom_bar_category_title">Kategoriler</string>
+    <string name="bottom_bar_favourites_title">Favoriler</string>
+    <string name="bottom_bar_settings_title">Ayarlar</string>
+
+    <!--Home Page-->
+    <string name="home_tab_latest">En Yeni</string>
+    <string name="home_tab_popular">Popüler</string>
+
+    <!-- Favourite Page-->
+    <string name="favourite_remove_message">Favorilerinizden kaldırıldı.</string>
+    <string name="favourite_revoke">Geri al</string>
+
+    <!--Photo Detail -->
+    <string name="photo_detail_save_button_initial">Kaydet</string>
+    <string name="photo_detail_save_button_success">Kaydedildi</string>
+    <string name="photo_detail_save_button_failed">Hata</string>
+
+    <string name="photo_detail_set_button_initial">Ayarla</string>
+    <string name="photo_detail_set_button_success">Ayarlandı</string>
+    <string name="photo_detail_set_button_failed">Hata</string>
+
+    <string name="photo_detail_sheet_screen_selection_title">Duvar Kağıdı Ekranını Seçin</string>
+    <string name="photo_detail_sheet_screen_selection_home_screen">Ana Ekran</string>
+    <string name="photo_detail_sheet_screen_selection_lock">Kilit Ekranı</string>
+    <string name="photo_detail_sheet_screen_selection_both">Ana &amp; Kilit Ekranı</string>
+    <string name="photo_detail_save_success_message">Fotoğraf galerinize kaydedildi.</string>
+    <string name="photo_detail_reward_ad_error">Ödül Reklamı henüz hazır değil.</string>
+    <string name="photo_detail_set_wall_paper_success">Duvar kağıdı ayarlandı</string>
+
+
+    <!--Search -->
+    <string name="search_tab_photo">FOTOĞRAFLAR</string>
+    <string name="search_tab_collections">KOLEKSİYONLAR</string>
+
+    <!--Settings -->
+    <string name="settings_title">Ayarlar</string>
+
+    <string name="settings_general">Genel</string>
+    <string name="settings_theme">Tema</string>
+    <string name="settings_theme_system">Sistem Teması</string>
+    <string name="settings_theme_light">Aydınlık Teması</string>
+    <string name="settings_theme_dark">Karanlık Teması</string>
+
+
+    <string name="settings_auto_change_wallpaper">Otomatik Duvar Kağıdı</string>
+    <string name="settings_auto_change_title">Seçenekler</string>
+    <string name="settings_auto_periodic">Periyotlar</string>
+    <string name="settings_period_1">15 Dakika</string>
+    <string name="settings_period_2">30 Dakika</string>
+    <string name="settings_period_3">1 Saat</string>
+    <string name="settings_period_4">3 Saat</string>
+    <string name="settings_period_5">6 Saat</string>
+    <string name="settings_period_6">12 Saat</string>
+    <string name="settings_period_7">24 Saat</string>
+    <string name="settings_period_8">48 Saat</string>
+
+    <string name="settings_source">Liste Tipi</string>
+    <string name="settings_source_random">Rastgele</string>
+    <string name="settings_source_Favourite">Favoriler</string>
+
+    <string name="settings_screen_type">Ekran Tipi</string>
+    <string name="settings_screen_home">Ana Ekran</string>
+    <string name="settings_screen_lock">Kilit Ekranı</string>
+    <string name="settings_screen_home_and_lock">Ana &amp; Kilit Ekranı</string>
+
+    <string name="settings_about">Hakkında</string>
+    <string name="settings_rate_us">Uygulamamızı Değerlendirin</string>
+    <string name="settings_send_feedback">Geri Bildirim Gönderin</string>
+    <string name="settings_share_app">Uygulamayı Arkadaşlarınızla Paylaşın</string>
+</resources>

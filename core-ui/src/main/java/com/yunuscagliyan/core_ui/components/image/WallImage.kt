@@ -6,20 +6,20 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.wrapContentHeight
-import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.unit.dp
+import androidx.compose.ui.res.painterResource
 import coil.compose.AsyncImagePainter
 import coil.compose.rememberAsyncImagePainter
 import coil.request.ImageRequest
 import coil.size.Size
-import com.yunuscagliyan.core.util.Constant
+import com.yunuscagliyan.core.util.Constant.StringParameter.EMPTY_STRING
+import com.yunuscagliyan.core_ui.R
 import com.yunuscagliyan.core_ui.extension.toColor
 import com.yunuscagliyan.core_ui.theme.WallXAppTheme
 
@@ -47,10 +47,10 @@ fun WallImage(
                     .height(WallXAppTheme.dimension.collectionItemHeight),
                 contentAlignment = Alignment.Center
             ) {
-                CircularProgressIndicator(
-                    color = WallXAppTheme.colors.background,
-                    trackColor = WallXAppTheme.colors.secondary,
-                    strokeWidth = WallXAppTheme.dimension.borderWidth
+                Icon(
+                   painter = painterResource(id = R.drawable.ic_error),
+                    tint = WallXAppTheme.colors.error,
+                    contentDescription = EMPTY_STRING
                 )
             }
         }
@@ -76,7 +76,7 @@ fun WallImage(
                 modifier = modifier
                     .fillMaxSize(),
                 painter = painter,
-                contentDescription = Constant.StringParameter.EMPTY_STRING,
+                contentDescription =EMPTY_STRING,
                 contentScale = contentScale
             )
         }
@@ -86,7 +86,7 @@ fun WallImage(
                 modifier = modifier
                     .fillMaxSize(),
                 painter = painter,
-                contentDescription = Constant.StringParameter.EMPTY_STRING,
+                contentDescription = EMPTY_STRING,
                 contentScale = contentScale,
 
                 )
