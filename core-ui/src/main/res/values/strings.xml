@@ -8,9 +8,12 @@
     <string name="common_no_favourites">You don\'t have any favourites yet.</string>
     <string name="common_error">An unknown error occurred.</string>
     <string name="common_search">Search</string>
-    <string name="common_unsplash">unsplash.com</string>
+    <string name="common_api_name">pixabay.com</string>
     <string name="common_refresh">Refresh</string>
     <string name="common_cancel">Cancel</string>
+    <string name="common_feedback">Send Feedback</string>
+    <string name="common_share_app_text">Hey, Check out this awesome app: %1$s</string>
+    <string name="common_share_app_title">Share App</string>
 
     <string name="common_http_error">An unexpected error occurred</string>
     <string name="common_empty_text">There is no content about the searching.</string>

@@ -381,7 +381,7 @@ object PhotoDetailScreen : CoreScreen<PhotoDetailState, PhotoDetailEvent>() {
                                 maxLines = 1
                             )
                             Text(
-                                text = stringResource(id = R.string.common_unsplash),
+                                text = stringResource(id = R.string.common_api_name),
                                 style = WallXAppTheme.typography.small1,
                                 color = WallXAppTheme.colors.secondaryGray
                             )

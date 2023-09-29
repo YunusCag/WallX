@@ -1,8 +1,11 @@
 package com.yunuscagliyan.core_ui.extension
 
 import android.app.Activity
+import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.ContextWrapper
+import android.content.Intent
+import android.net.Uri
 import androidx.work.BackoffPolicy
 import androidx.work.Constraints
 import androidx.work.ExistingPeriodicWorkPolicy
@@ -17,6 +20,7 @@ import com.google.android.gms.ads.interstitial.InterstitialAd
 import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback
 import com.yunuscagliyan.core.util.Constant.WorkManagerUtil.AUTO_WALLPAPER_MANAGER_NAME
 import com.yunuscagliyan.core_ui.BuildConfig
+import com.yunuscagliyan.core_ui.R
 import com.yunuscagliyan.core_ui.helper.AdmobHelper
 import com.yunuscagliyan.core_ui.manager.AutoWallpaperManager
 import com.yunuscagliyan.core_ui.model.enums.PeriodicTimeType
@@ -128,5 +132,52 @@ fun Context.showInterstitial(onAdDismissed: () -> Unit) {
         }
     } else {
         onAdDismissed()
+    }
+}
+
+
+fun Context.navigateRateApp() {
+    try {
+        val uriString = "market://details?id=$packageName"
+        Timber.e(uriString)
+        val uri = Uri.parse(uriString)
+        val intent = Intent(Intent.ACTION_VIEW, uri)
+        startActivity(intent)
+    } catch (e: ActivityNotFoundException) {
+        Timber.e(e.localizedMessage)
+        val uriString = "https://play.google.com/store/apps/details?id=$packageName"
+        val uri = Uri.parse(uriString)
+        val intent = Intent(Intent.ACTION_VIEW, uri)
+        startActivity(intent)
+    }
+}
+
+fun Context.navigateFeedback() {
+    try {
+        val emailIntent = Intent(Intent.ACTION_SENDTO)
+        emailIntent.data = Uri.parse("mailto:")
+
+        emailIntent.putExtra(Intent.EXTRA_EMAIL, arrayOf("yunuscagliyan8@gmail.com"))
+        emailIntent.putExtra(Intent.EXTRA_SUBJECT, "WallX - Feedback")
+        startActivity(emailIntent)
+    } catch (e: ActivityNotFoundException) {
+        Timber.e(e.localizedMessage)
+        val emailIntent = Intent(Intent.ACTION_SEND)
+        emailIntent.type = "text/email"
+        emailIntent.putExtra(Intent.EXTRA_EMAIL, arrayOf("yunuscagliyan8@gmail.com"))
+        emailIntent.putExtra(Intent.EXTRA_SUBJECT, "WallX - Feedback")
+        startActivity(Intent.createChooser(emailIntent, getString(R.string.common_feedback)))
+    }
+}
+
+fun Context.shareApp() {
+    try {
+        val playStoreLink = "https://play.google.com/store/apps/details?id=$packageName"
+        val intent = Intent(Intent.ACTION_SEND)
+        intent.putExtra(Intent.EXTRA_TEXT, getString(R.string.common_share_app_text, playStoreLink))
+        intent.type = "text/plain"
+        startActivity(Intent.createChooser(intent, getString(R.string.common_share_app_title)))
+    } catch (e: Exception) {
+        Timber.e(e.localizedMessage)
     }
 }
