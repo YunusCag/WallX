@@ -30,7 +30,7 @@ fun RateAppDialog(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(
-                    horizontal = WallXAppTheme.dimension.paddingMedium1
+                    horizontal = WallXAppTheme.dimension.paddingSmall2
                 )
         ) {
             OutlinedSecondaryButton(

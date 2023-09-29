@@ -113,7 +113,7 @@ fun BaseDialog(
                         modifier = Modifier
                     ) {
                         val (card, icon) = createRefs()
-                        val padding = WallXAppTheme.dimension.iconSizeLarge / 2
+                        val padding = WallXAppTheme.dimension.iconSizeLarge / 2 + WallXAppTheme.dimension.paddingSmall1
 
                         Card(
                             shape = CardDefaults.outlinedShape,
@@ -154,7 +154,7 @@ fun BaseDialog(
                                             .size(WallXAppTheme.dimension.iconSizeSmall)
                                     )
                                 }
-                                Spacer(modifier = Modifier.height(padding - (WallXAppTheme.dimension.iconSizeSmall + WallXAppTheme.dimension.paddingSmall2)))
+                                Spacer(modifier = Modifier.height(padding - (WallXAppTheme.dimension.iconSizeSmall + WallXAppTheme.dimension.paddingSmall1)))
                                 Column(
                                     modifier = Modifier
                                         .fillMaxWidth()
@@ -173,7 +173,7 @@ fun BaseDialog(
                                             modifier = Modifier
                                                 .fillMaxWidth()
                                         )
-                                        Spacer(modifier = Modifier.height(WallXAppTheme.dimension.paddingSmall1))
+                                        Spacer(modifier = Modifier.height(WallXAppTheme.dimension.paddingSmall2))
                                     }
 
                                     description?.let { description ->
@@ -187,7 +187,7 @@ fun BaseDialog(
                                         )
                                         Spacer(modifier = Modifier.height(WallXAppTheme.dimension.paddingSmall1))
                                     }
-                                    Spacer(modifier = Modifier.height(WallXAppTheme.dimension.paddingSmall1))
+                                    Spacer(modifier = Modifier.height(WallXAppTheme.dimension.paddingMedium1))
                                     bottomButtons?.let { buttons ->
                                         Row(
                                             modifier = Modifier
@@ -212,7 +212,7 @@ fun BaseDialog(
                                     end.linkTo(parent.end)
                                 }
                                 .padding(
-                                    2.dp
+                                    WallXAppTheme.dimension.borderWidth
                                 )
                             ) {
                                 Icon(
