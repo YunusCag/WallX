@@ -125,7 +125,7 @@ object SearchScreen : CoreScreen<SearchState, SearchEvent>() {
                     },
                     placeholder = {
                         Text(
-                            "Search",
+                            stringResource(id = R.string.common_search),
                             style = WallXAppTheme.typography.normal1,
                             color = WallXAppTheme.colors.secondaryGray
                         )
