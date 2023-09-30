@@ -21,5 +21,6 @@ data class PhotoDetailState(
     val showErrorDialog: Boolean = false,
     val errorMessage: UIText? = null,
     val shouldShowRewarded: Boolean = true,
-    val showWatchAdSheet: Boolean = false
+    val showWatchAdSheet: Boolean = false,
+    val showRateDialog: Boolean = false
 )

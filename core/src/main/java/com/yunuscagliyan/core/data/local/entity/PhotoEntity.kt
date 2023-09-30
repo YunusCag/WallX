@@ -4,6 +4,7 @@ import androidx.room.ColumnInfo
 import androidx.room.Embedded
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.squareup.moshi.Json
 import com.yunuscagliyan.core.data.remote.model.link.Links
 import com.yunuscagliyan.core.data.remote.model.url.Urls
 import com.yunuscagliyan.core.data.remote.model.user.User
@@ -13,37 +14,48 @@ import com.yunuscagliyan.core.util.Constant.DBUtil.PHOTO_ENTITY_NAME
 @Entity(tableName = PHOTO_ENTITY_NAME)
 data class PhotoEntity(
     @PrimaryKey(autoGenerate = false)
-    var photoId: String,
-    @ColumnInfo(name = "alt_description")
-    var altDescription: String? = null,
-    @ColumnInfo(name = "blur_hash")
-    var blurHash: String? = null,
-    @ColumnInfo(name = "color")
-    var color: String? = null,
-    @ColumnInfo(name = "created_at")
-    var createdAt: String? = null,
-    @ColumnInfo(name = "description")
-    var description: String? = null,
-    @ColumnInfo(name = "height")
-    var height: Int? = null,
-    @ColumnInfo(name = "width")
-    var width: Int? = null,
+    val photoId: Long? = null,
+    @ColumnInfo(name = "pageURL")
+    val pageURL: String? = null,
+    @ColumnInfo(name = "type")
+    val type: String? = null,
+    @ColumnInfo(name = "tags")
+    val tags: String? = null,
+    @ColumnInfo(name = "previewURL")
+    val previewURL: String? = null,
+    @ColumnInfo(name = "previewWidth")
+    val previewWidth: Int? = null,
+    @ColumnInfo(name = "previewHeight")
+    val previewHeight: Int? = null,
+    @ColumnInfo(name = "webformatURL")
+    val webformatURL: String? = null,
+    @ColumnInfo(name = "webformatWidth")
+    val webformatWidth: Int? = null,
+    @ColumnInfo(name = "webformatHeight")
+    val webformatHeight: Int? = null,
+    @ColumnInfo(name = "largeImageURL")
+    val largeImageURL: String? = null,
+    @ColumnInfo(name = "imageWidth")
+    val imageWidth: Int? = null,
+    @ColumnInfo(name = "imageHeight")
+    val imageHeight: Int? = null,
+    @ColumnInfo(name = "imageSize")
+    val imageSize: Long? = null,
+    @ColumnInfo(name = "views")
+    val views: Int? = null,
+    @ColumnInfo(name = "downloads")
+    val downloads: Int? = null,
+    @ColumnInfo(name = "collections")
+    val collections: Int? = null,
     @ColumnInfo(name = "likes")
-    var likes: Int? = null,
-
-    @ColumnInfo(name = "download_link")
-    var downloadLink: String? = null,
-    @ColumnInfo(name = "download_location")
-    var downloadLocation: String? = null,
-
-    @Embedded
-    var urls: Urls? = null,
-
-    @ColumnInfo(name = "profile_image")
-    var profileImage: String? = null,
-    @ColumnInfo(name = "first_name")
-    var firstName: String? = null,
-    @ColumnInfo(name = "last_name")
-    var lastName: String? = null,
+    val likes: Int? = null,
+    @ColumnInfo(name = "comments")
+    val comments: Int? = null,
+    @ColumnInfo(name = "user_id")
+    val userId: Long? = null,
+    @ColumnInfo(name = "user")
+    val user: String? = null,
+    @ColumnInfo(name = "userImageURL")
+    val userImageURL: String? = null,
 )
 

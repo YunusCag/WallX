@@ -4,12 +4,12 @@ import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.yunuscagliyan.core.data.enums.PhotoOrderBy
 import com.yunuscagliyan.core.data.remote.model.photo.PhotoModel
-import com.yunuscagliyan.core.data.remote.service.UnsplashService
+import com.yunuscagliyan.core.data.remote.service.PixabayService
 import com.yunuscagliyan.core.util.Constant
 
 class PhotoSearchSource(
-    private val unsplashService: UnsplashService,
-    private val query: String,
+    private val pixabayService: PixabayService,
+    private val query: String?,
     private val orderBy: PhotoOrderBy
 ) : PagingSource<Int, PhotoModel>() {
     override fun getRefreshKey(state: PagingState<Int, PhotoModel>): Int? {
@@ -22,7 +22,7 @@ class PhotoSearchSource(
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, PhotoModel> {
         return try {
             val page = params.key ?: 1
-            val response = unsplashService.getSearchPhotos(
+            val response = pixabayService.getSearchPhotos(
                 query = query,
                 page = page,
                 perPage = Constant.PaginationUtil.PER_PAGE,

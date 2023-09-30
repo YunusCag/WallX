@@ -3,7 +3,7 @@ package com.yunuscagliyan.core.data.remote.interceptors
 import com.yunuscagliyan.core.BuildConfig
 import com.yunuscagliyan.core.util.Constant.NetworkCacheUtil.CACHE_HEADER_KEY
 import com.yunuscagliyan.core.util.Constant.NetworkCacheUtil.MAX_AGE_DAY
-import com.yunuscagliyan.core.util.Constant.NetworkQueryParamKey.CLIENT_ID
+import com.yunuscagliyan.core.util.Constant.NetworkQueryParamKey.API_KEY
 import okhttp3.CacheControl
 import okhttp3.Interceptor
 import okhttp3.Response
@@ -14,7 +14,7 @@ class ClientIDInterceptor: Interceptor {
         val url = chain.request()
             .url
             .newBuilder()
-            .addQueryParameter(CLIENT_ID,BuildConfig.API_KEY)
+            .addQueryParameter(API_KEY,BuildConfig.API_KEY)
             .build()
 
         val request = chain.request()

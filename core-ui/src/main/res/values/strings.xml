@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">WallX</string>
 
@@ -8,11 +7,18 @@
     <string name="common_no_favourites">You don\'t have any favourites yet.</string>
     <string name="common_error">An unknown error occurred.</string>
     <string name="common_search">Search</string>
-    <string name="common_unsplash">unsplash.com</string>
+    <string name="common_api_name">pixabay.com</string>
     <string name="common_refresh">Refresh</string>
+    <string name="common_cancel">Cancel</string>
+    <string name="common_feedback">Send Feedback</string>
+    <string name="common_share_app_text">Hey, Check out this awesome app: %1$s</string>
+    <string name="common_share_app_title">Share App</string>
 
     <string name="common_http_error">An unexpected error occurred</string>
     <string name="common_empty_text">There is no content about the searching.</string>
+
+    <string name="rate_dialog_title">Rate Our App</string>
+    <string name="rate_dialog_description">Please take a moment to rate our app.</string>
 
     <string name="watch_ad_sheet_title">Save Photo</string>
     <string name="watch_ad_sheet_button_watch_video">Watch Ad</string>
@@ -46,6 +52,7 @@
     <string name="photo_detail_sheet_screen_selection_both">Home &amp; Lock Screen</string>
     <string name="photo_detail_save_success_message">Photo saved to your gallery.</string>
     <string name="photo_detail_reward_ad_error">The reward Ad isn\'t ready yet.</string>
+    <string name="photo_detail_set_wall_paper_success">Wallpaper is set</string>
 
 
     <!--Search -->
@@ -87,4 +94,9 @@
     <string name="settings_rate_us">Rate Our App</string>
     <string name="settings_send_feedback">Send Us Feedback</string>
     <string name="settings_share_app">Share this app with friends</string>
+
+    <string name="notification_name">Periodic Notification</string>
+    <string name="notification_periodic_title">New Wallpapers Available</string>
+    <string name="notification_periodic_description">Check out the latest wallpapers for your phone!</string>
+
 </resources>

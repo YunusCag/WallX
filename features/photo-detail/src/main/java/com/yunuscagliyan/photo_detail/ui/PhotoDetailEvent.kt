@@ -20,4 +20,7 @@ sealed class PhotoDetailEvent {
     data class ShowAdBottomSheet(val open: Boolean) : PhotoDetailEvent()
     object ShowRewardAdError : PhotoDetailEvent()
 
+    data class ShowRateDialog(val open: Boolean) : PhotoDetailEvent()
+    object OnRateCancelClick : PhotoDetailEvent()
+    object OnRateConfirmClick : PhotoDetailEvent()
 }

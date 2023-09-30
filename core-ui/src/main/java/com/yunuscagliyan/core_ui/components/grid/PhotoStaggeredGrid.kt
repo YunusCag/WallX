@@ -93,8 +93,7 @@ fun PhotoStaggeredGrid(
                                             onClick(photoModel)
                                         }
                                     },
-                                imageUrl = photoModel?.urls?.small,
-                                hexColor = photoModel?.color
+                                imageUrl = photoModel?.webformatURL,
                             )
                         }
                     }

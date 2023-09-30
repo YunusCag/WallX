@@ -26,7 +26,10 @@ import com.yunuscagliyan.core_ui.components.tile.SettingItemSwitchTile
 import com.yunuscagliyan.core_ui.components.tile.SettingItemTile
 import com.yunuscagliyan.core_ui.event.ScreenRoutes
 import com.yunuscagliyan.core_ui.extension.cancelAllWorkManager
+import com.yunuscagliyan.core_ui.extension.navigateFeedback
+import com.yunuscagliyan.core_ui.extension.navigateRateApp
 import com.yunuscagliyan.core_ui.extension.noRippleClickable
+import com.yunuscagliyan.core_ui.extension.shareApp
 import com.yunuscagliyan.core_ui.extension.startWorkManager
 import com.yunuscagliyan.core_ui.model.SelectionModel
 import com.yunuscagliyan.core_ui.model.SettingItemAction
@@ -175,6 +178,7 @@ object SettingScreen : CoreScreen<SettingState, SettingEvent>() {
                             color = WallXAppTheme.colors.dividerColor,
                             thickness = WallXAppTheme.dimension.borderWidth
                         )
+                        /*
                         SettingItemTile(
                             modifier = Modifier
                                 .noRippleClickable {
@@ -187,7 +191,7 @@ object SettingScreen : CoreScreen<SettingState, SettingEvent>() {
                         Divider(
                             color = WallXAppTheme.colors.dividerColor,
                             thickness = WallXAppTheme.dimension.borderWidth
-                        )
+                        )*/
                         SettingItemTile(
                             modifier = Modifier
                                 .noRippleClickable {
@@ -207,15 +211,15 @@ object SettingScreen : CoreScreen<SettingState, SettingEvent>() {
                 onClick = { action ->
                     when (action) {
                         SettingItemAction.RATE -> {
-
+                            context.navigateRateApp()
                         }
 
                         SettingItemAction.FEEDBACK -> {
-
+                            context.navigateFeedback()
                         }
 
                         SettingItemAction.SHARE_APP -> {
-
+                            context.shareApp()
                         }
 
                         else -> Unit

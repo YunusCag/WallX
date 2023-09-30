@@ -1,6 +1,7 @@
 package com.yunuscagliyan.search.ui
 
 import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
@@ -16,6 +17,7 @@ import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
@@ -25,9 +27,7 @@ import androidx.paging.compose.collectAsLazyPagingItems
 import com.yunuscagliyan.core.util.Constant.StringParameter.EMPTY_STRING
 import com.yunuscagliyan.core_ui.R
 import com.yunuscagliyan.core_ui.components.grid.PhotoStaggeredGrid
-import com.yunuscagliyan.core_ui.components.list.CollectionListView
 import com.yunuscagliyan.core_ui.components.main.MainUIFrame
-import com.yunuscagliyan.core_ui.components.tab.WallTapRow
 import com.yunuscagliyan.core_ui.event.ScreenRoutes
 import com.yunuscagliyan.core_ui.screen.CoreScreen
 import com.yunuscagliyan.core_ui.theme.WallXAppTheme
@@ -41,13 +41,11 @@ object SearchScreen : CoreScreen<SearchState, SearchEvent>() {
     @Composable
     override fun viewModel(): SearchViewModel = hiltViewModel()
 
-    @OptIn(ExperimentalFoundationApi::class)
     @Composable
     override fun Content(
         state: SearchState,
         onEvent: (SearchEvent) -> Unit
     ) {
-        val collections = state.collections.collectAsLazyPagingItems()
         val photos = state.photos.collectAsLazyPagingItems()
 
         MainUIFrame(
@@ -66,32 +64,14 @@ object SearchScreen : CoreScreen<SearchState, SearchEvent>() {
                 )
             }
         ) {
-            WallTapRow(
-                titles = listOf(
-                    stringResource(id = R.string.search_tab_photo),
-                    stringResource(id = R.string.search_tab_collections)
-                )
-            ) { page ->
-                when (page) {
-                    0 -> {
-                        PhotoStaggeredGrid(
-                            photosLazyItems = photos,
-                            onClick = {
-                                onEvent(SearchEvent.OnPhotoClick(it))
-                            }
-                        )
-                    }
-
-                    1 -> {
-                        CollectionListView(
-                            collections = collections,
-                            onClick = {
-                                onEvent(SearchEvent.OnCollectionClick(it))
-                            }
-                        )
-                    }
+            PhotoStaggeredGrid(
+                modifier = Modifier
+                    .fillMaxSize(),
+                photosLazyItems = photos,
+                onClick = {
+                    onEvent(SearchEvent.OnPhotoClick(it))
                 }
-            }
+            )
         }
     }
 
@@ -145,7 +125,7 @@ object SearchScreen : CoreScreen<SearchState, SearchEvent>() {
                     },
                     placeholder = {
                         Text(
-                            "Search",
+                            stringResource(id = R.string.common_search),
                             style = WallXAppTheme.typography.normal1,
                             color = WallXAppTheme.colors.secondaryGray
                         )

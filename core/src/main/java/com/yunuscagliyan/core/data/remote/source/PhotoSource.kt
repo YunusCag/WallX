@@ -4,12 +4,12 @@ import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.yunuscagliyan.core.data.enums.PhotoOrderBy
 import com.yunuscagliyan.core.data.remote.model.photo.PhotoModel
-import com.yunuscagliyan.core.data.remote.service.UnsplashService
+import com.yunuscagliyan.core.data.remote.service.PixabayService
 import com.yunuscagliyan.core.util.Constant.PaginationUtil.PER_PAGE
 import java.lang.Exception
 
 class PhotoSource(
-    private val unsplashService: UnsplashService,
+    private val pixabayService: PixabayService,
     private val orderBy: PhotoOrderBy
 
 ) : PagingSource<Int, PhotoModel>() {
@@ -23,7 +23,7 @@ class PhotoSource(
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, PhotoModel> {
         return try {
             val page = params.key ?: 1
-            val response = unsplashService.getPhotos(
+            val response = pixabayService.getPhotos(
                 page = page,
                 perPage = PER_PAGE,
                 orderBy = orderBy.value

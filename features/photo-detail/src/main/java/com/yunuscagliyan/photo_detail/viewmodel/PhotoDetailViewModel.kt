@@ -1,10 +1,13 @@
 package com.yunuscagliyan.photo_detail.viewmodel
 
 import androidx.lifecycle.viewModelScope
+import com.yunuscagliyan.core.data.local.preference.Preferences
+import com.yunuscagliyan.core.data.mapper.toPhotoEntity
 import com.yunuscagliyan.core_ui.model.enums.WallpaperScreenType
 import com.yunuscagliyan.core.data.repository.PhotoRepository
 import com.yunuscagliyan.core_ui.domain.ChangeWallpaper
 import com.yunuscagliyan.core.domain.DownloadImageAndSave
+import com.yunuscagliyan.core.util.Constant.PreferencesUtil.FEATURE_COUNTER
 import com.yunuscagliyan.core_ui.domain.DownloadImageAsBitmap
 import com.yunuscagliyan.core.util.DownloadState
 import com.yunuscagliyan.core.util.Resource
@@ -25,7 +28,8 @@ class PhotoDetailViewModel @Inject constructor(
     private val downloadImageAndSave: DownloadImageAndSave,
     private val downloadImageAsBitmap: DownloadImageAsBitmap,
     private val changeWallpaper: ChangeWallpaper,
-    private val repository: PhotoRepository
+    private val repository: PhotoRepository,
+    private val preferences: Preferences
 ) : CoreViewModel<PhotoDetailState, PhotoDetailEvent>() {
     override fun getInitialState(): PhotoDetailState = PhotoDetailState()
 
@@ -58,7 +62,7 @@ class PhotoDetailViewModel @Inject constructor(
                 state.value.photoModel?.let { photoModel ->
                     viewModelScope.launch(Dispatchers.IO) {
                         if (event.isFavourite) {
-                            repository.insertPhoto(photoModel = photoModel)
+                            repository.insertPhoto(photoEntity = photoModel.toPhotoEntity())
                         } else {
                             photoModel.id?.let { id ->
                                 repository.deletePhoto(photoId = id)
@@ -144,10 +148,36 @@ class PhotoDetailViewModel @Inject constructor(
                     )
                 }
             }
+
+            is PhotoDetailEvent.ShowRateDialog -> {
+                updateState {
+                    copy(
+                        showRateDialog = event.open
+                    )
+                }
+            }
+
+            is PhotoDetailEvent.OnRateCancelClick -> {
+                preferences.isAppRated = true
+                updateState {
+                    copy(
+                        showRateDialog = false
+                    )
+                }
+            }
+
+            is PhotoDetailEvent.OnRateConfirmClick -> {
+                preferences.isAppRated = true
+                updateState {
+                    copy(
+                        showRateDialog = false
+                    )
+                }
+            }
         }
     }
 
-    private fun checkPhotoLiked(photoId: String) {
+    private fun checkPhotoLiked(photoId: Long) {
         viewModelScope.launch(Dispatchers.IO) {
             repository.getLocalPhotoById(
                 photoId = photoId
@@ -192,10 +222,20 @@ class PhotoDetailViewModel @Inject constructor(
                         }
 
                         is DownloadState.Finished -> {
+                            sendEvent(
+                                Event.ShowSnackBar(
+                                    message = UIText.StringResource(
+                                        resId = R.string.photo_detail_set_wall_paper_success
+                                    )
+                                )
+                            )
+                            preferences.featureCounter = preferences.featureCounter + 1
                             updateState {
                                 copy(
                                     setButtonType = LoadingButtonType.INIT,
-                                    showWallpaperSelectionSheet = false
+                                    showWallpaperSelectionSheet = false,
+                                    showRateDialog = shouldShowRateApp(),
+                                    sheetSelectionIndex = -1
                                 )
                             }
                         }
@@ -205,12 +245,19 @@ class PhotoDetailViewModel @Inject constructor(
         }
     }
 
+    private fun shouldShowRateApp(): Boolean {
+        if (preferences.isAppRated) {
+            return false
+        }
+        return preferences.featureCounter != 0 && preferences.featureCounter % FEATURE_COUNTER == 0
+    }
+
     private fun downloadAndSaveImage() {
-        state.value.photoModel?.links?.download?.let {
+        state.value.photoModel?.largeImageURL?.let {
             viewModelScope.launch(Dispatchers.IO) {
                 downloadImageAndSave.invoke(
                     imageUrl = it,
-                    triggerUrl = state.value.photoModel?.links?.downloadLocation
+                    triggerUrl = state.value.photoModel?.largeImageURL
                 ).collectLatest { downloadState ->
                     updateState {
                         when (downloadState) {
@@ -247,11 +294,10 @@ class PhotoDetailViewModel @Inject constructor(
     }
 
     private fun downloadBitmap() {
-        state.value.photoModel?.links?.download?.let {
+        state.value.photoModel?.largeImageURL?.let {
             viewModelScope.launch(Dispatchers.IO) {
                 downloadImageAsBitmap.invoke(
-                    imageUrl = it,
-                    triggerUrl = state.value.photoModel?.links?.downloadLocation
+                    imageUrl = it
                 ).collectLatest { resource ->
                     when (resource) {
                         is Resource.Loading -> {

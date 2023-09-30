@@ -15,11 +15,12 @@ data class MainState(
             icon = R.drawable.ic_home,
             navRoute = ScreenRoutes.HomeScreen.route
         ),
+        /*
         MainNavigationItem(
             name = R.string.bottom_bar_category_title,
             icon = R.drawable.ic_category,
             navRoute = ScreenRoutes.CategoryScreen.route
-        ),
+        ),*/
         MainNavigationItem(
             name = R.string.bottom_bar_favourites_title,
             icon = R.drawable.ic_heart,

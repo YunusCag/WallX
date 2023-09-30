@@ -47,8 +47,8 @@ fun CollectionCard(
             modifier = Modifier
                 .fillMaxWidth()
                 .height(WallXAppTheme.dimension.collectionItemHeight),
-            url = collectionModel?.coverPhoto?.urls?.small,
-            hexColor = collectionModel?.coverPhoto?.color,
+            url = collectionModel?.coverPhoto?.previewURL,
+            //hexColor = collectionModel?.coverPhoto?.color,
         )
         Column(
             modifier = Modifier

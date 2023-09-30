@@ -8,7 +8,6 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.grid.GridCells
@@ -23,6 +22,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.yunuscagliyan.core.data.local.entity.PhotoEntity
 import com.yunuscagliyan.core.data.remote.model.photo.PhotoModel
 import com.yunuscagliyan.core_ui.R
 import com.yunuscagliyan.core_ui.components.card.FavouritePhotoCard
@@ -58,7 +58,7 @@ object FavouriteScreen : CoreScreen<FavouriteState, FavouriteEvent>() {
                     onEvent(
                         FavouriteEvent.OnFavouriteClick(
                             index = index,
-                            photoModel = photoModel
+                            entity = photoModel
                         )
                     )
                 }
@@ -97,9 +97,9 @@ object FavouriteScreen : CoreScreen<FavouriteState, FavouriteEvent>() {
     @OptIn(ExperimentalFoundationApi::class)
     @Composable
     private fun PhotoGrid(
-        photoList: List<PhotoModel>,
-        onClick: (PhotoModel) -> Unit,
-        onFavouriteClick: (Int, PhotoModel) -> Unit,
+        photoList: List<PhotoEntity>,
+        onClick: (PhotoEntity) -> Unit,
+        onFavouriteClick: (Int, PhotoEntity) -> Unit,
     ) {
         LazyVerticalGrid(
             modifier = Modifier
@@ -124,8 +124,7 @@ object FavouriteScreen : CoreScreen<FavouriteState, FavouriteEvent>() {
                         }
                         .aspectRatio(WallXAppTheme.dimension.favouritePhotoAspectRatio)
                         .animateItemPlacement(),
-                    imageUrl = photoModel.urls?.small,
-                    hexColor = photoModel.color,
+                    imageUrl = photoModel.webformatURL,
                     onFavouriteClick = {
                         onFavouriteClick(index, photoModel)
                     }

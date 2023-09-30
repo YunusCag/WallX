@@ -22,7 +22,9 @@ object RoomModule {
             context = app,
             klass = PhotoDatabase::class.java,
             name = DB_NAME
-        ).build()
+        )
+            .fallbackToDestructiveMigration()
+            .build()
     }
 
     @Singleton

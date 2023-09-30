@@ -1,7 +1,7 @@
 package com.yunuscagliyan.core.domain
 
 import android.os.Environment
-import com.yunuscagliyan.core.data.remote.service.UnsplashService
+import com.yunuscagliyan.core.data.remote.service.PixabayService
 import com.yunuscagliyan.core.util.Constant
 import com.yunuscagliyan.core.util.DownloadState
 import kotlinx.coroutines.Dispatchers
@@ -15,7 +15,7 @@ import java.util.UUID
 import javax.inject.Inject
 
 class DownloadImageAndSave @Inject constructor(
-    private val unsplashService: UnsplashService
+    private val pixabayService: PixabayService
 ) {
     operator fun invoke(
         imageUrl: String,
@@ -23,10 +23,10 @@ class DownloadImageAndSave @Inject constructor(
     ): Flow<DownloadState> = flow {
         try {
             emit(DownloadState.Loading)
-            val response = unsplashService.downloadImage(
+            val response = pixabayService.downloadImage(
                 imageUrl = imageUrl
             )
-            triggerUrl?.let { unsplashService.triggerDownload(url = it) }
+            triggerUrl?.let { pixabayService.triggerDownload(url = it) }
             val inputStream = response.byteStream()
             val filesDir =
                 File(

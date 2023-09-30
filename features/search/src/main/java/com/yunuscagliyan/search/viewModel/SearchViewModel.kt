@@ -84,10 +84,6 @@ class SearchViewModel @Inject constructor(
     private fun searchPhotosAndCollections(query: String) {
         updateState {
             copy(
-                collections = repository.getSearchCollections(
-                    query = query,
-                    orderBy = PhotoOrderBy.Popular
-                ).cachedIn(viewModelScope),
                 photos = repository.getSearchPhotos(
                     query = query,
                     orderBy = PhotoOrderBy.Relevant
