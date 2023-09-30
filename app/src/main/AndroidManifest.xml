@@ -3,8 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
     <uses-permission android:name="android.permission.SET_WALLPAPER" />
-    <uses-permission android:name="android.permission.SET_WALLPAPER_HINTS"/>
+    <uses-permission android:name="android.permission.SET_WALLPAPER_HINTS" />
     <uses-permission
         android:name="android.permission.WRITE_EXTERNAL_STORAGE"
         android:maxSdkVersion="29"
@@ -22,6 +23,13 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.WallX"
         tools:targetApi="31">
+
+
+        <receiver
+            android:name="com.yunuscagliyan.core_ui.receiver.NotificationReceiver"
+            android:enabled="true"
+            android:exported="true"/>
+
         <activity
             android:name=".MainActivity"
             android:configChanges="orientation"
@@ -34,9 +42,10 @@
             </intent-filter>
         </activity>
 
-        <provider android:name="androidx.startup.InitializationProvider"
+        <provider
+            android:name="androidx.startup.InitializationProvider"
             android:authorities="${applicationId}.androidx-startup"
-            tools:node="remove"/>
+            tools:node="remove" />
     </application>
 
 </manifest>

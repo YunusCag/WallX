@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">WallX</string>
 
@@ -17,7 +16,6 @@
 
     <string name="common_http_error">Bilinmeyen bir hata oluştu.</string>
     <string name="common_empty_text">Arama ile ilgili herhangi bir içerik bulunmuyor.</string>
-
 
     <string name="rate_dialog_title">Uygulamamızı Değerlendirin</string>
     <string name="rate_dialog_description">Lütfen uygulamamızı değerlendirmek için bir dakikanızı ayırın.</string>
@@ -96,4 +94,8 @@
     <string name="settings_rate_us">Uygulamamızı Değerlendirin</string>
     <string name="settings_send_feedback">Geri Bildirim Gönderin</string>
     <string name="settings_share_app">Uygulamayı Arkadaşlarınızla Paylaşın</string>
+
+    <string name="notification_name">Periyodik Bildirim</string>
+    <string name="notification_periodic_title">Yeni Duvar Kağıtları Mevcut</string>
+    <string name="notification_periodic_description">Telefonunuz için en yeni duvar kağıtlarına göz atın!</string>
 </resources>

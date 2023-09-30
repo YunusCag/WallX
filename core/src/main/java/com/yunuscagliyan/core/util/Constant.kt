@@ -62,6 +62,7 @@ class Constant {
         const val SHIMMER_DURATION = 1000
         const val SPLASH_DURATION = 2000
         const val DEFAULT_DELAY = 200L
+        const val NOTIFICATION_PERIOD_INTERVAL = 48 * 60 * 60 * 1000L
     }
 
     object FileUtil {

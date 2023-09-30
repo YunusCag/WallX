@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">WallX</string>
 
@@ -17,7 +16,6 @@
 
     <string name="common_http_error">Une erreur inattendue est apparue</string>
     <string name="common_empty_text">Il n\'y a aucun contenu sur la recherche.</string>
-
 
     <string name="rate_dialog_title">Évaluez notre application</string>
     <string name="rate_dialog_description">Veuillez prendre un moment pour évaluer notre application.</string>
@@ -96,4 +94,8 @@
     <string name="settings_rate_us">Évaluez Notre Application</string>
     <string name="settings_send_feedback">Envoyez-nous vos Commentaires</string>
     <string name="settings_share_app">Partagez cette application avec des amis</string>
+
+    <string name="notification_name">Notification Périodique</string>
+    <string name="notification_periodic_title">Nouveaux Fonds D\'écran Disponibles</string>
+    <string name="notification_periodic_description">Découvrez les derniers fonds d\'écran pour votre téléphone!</string>
 </resources>

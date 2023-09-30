@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">WallX</string>
 
@@ -96,4 +95,9 @@
     <string name="settings_rate_us">Califica Nuestra Aplicación</string>
     <string name="settings_send_feedback">Envianos tus Comentarios</string>
     <string name="settings_share_app">Comparte esta Aplicación con Amigas</string>
+
+    <string name="notification_name">Notificación Periódica</string>
+    <string name="notification_periodic_title">Nuevos Fondos de Pantalla Disponibles</string>
+    <string name="notification_periodic_description">Mira los últimos fondos de pantalla para tu teléfono</string>
+
 </resources>
