@@ -12,6 +12,7 @@ import androidx.compose.foundation.gestures.panBy
 import androidx.compose.foundation.gestures.rememberTransformableState
 import androidx.compose.foundation.gestures.zoomBy
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
@@ -173,14 +174,6 @@ object PhotoDetailScreen : CoreScreen<PhotoDetailState, PhotoDetailEvent>() {
             }
         }
 
-        var scale by remember { mutableFloatStateOf(1f) }
-        var offset by remember { mutableStateOf(Offset(0f, 0f)) }
-
-        val zoomState = rememberTransformableState { zoomChange, offsetChange, _ ->
-            scale *= zoomChange
-            offset = if (scale > 1f) offsetChange else Offset(0f, 0f)
-        }
-
         BackHandler {
             onBackPressed()
         }
@@ -286,51 +279,74 @@ object PhotoDetailScreen : CoreScreen<PhotoDetailState, PhotoDetailEvent>() {
                 }
             )
         }
-        Surface(
+
+        BoxWithConstraints(
             modifier = Modifier
                 .fillMaxSize()
-                .pointerInput(Unit) {
-                    detectTransformGestures { _, pan, zoom, _ ->
-                        coroutine.launch {
-                            zoomState.zoomBy(zoom)
-                            zoomState.panBy(pan)
-                        }
-                    }
-                },
-            color = Color.Transparent
         ) {
-            state.photoModel?.let { photo ->
-                PhotoImage(
-                    photo = photo,
-                    scale = scale,
-                    offset = offset
+            var scale by remember { mutableFloatStateOf(1f) }
+            var offset by remember { mutableStateOf(Offset(0f, 0f)) }
+
+            val zoomState = rememberTransformableState { zoomChange, panChange, _ ->
+                scale = (scale * zoomChange).coerceIn(1f,3f)
+
+                val extraWidth = (scale - 1) * constraints.maxWidth
+                val extraHeight = (scale - 1) * constraints.maxHeight
+
+                val maxX = extraWidth / 2
+                val maxY = extraHeight / 2
+                offset = Offset(
+                    x = (offset.x + scale * panChange.x).coerceIn(-maxX,maxX),
+                    y = (offset.y + scale * panChange.y).coerceIn(-maxY,maxY)
                 )
             }
-            MainUIFrame(
-                backgroundColor = Color.Transparent,
-                topBar = {
-                    TopBar(
-                        isFavourite = state.isFavourite,
-                        onBackPress = onBackPressed,
-                        onFavouriteClick = onFavouriteClick
+            Surface(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .pointerInput(Unit) {
+                        detectTransformGestures { _, pan, zoom, _ ->
+                            coroutine.launch {
+                                zoomState.zoomBy(zoom)
+                                zoomState.panBy(pan)
+                            }
+                        }
+                    },
+                color = Color.Transparent
+            ) {
+                state.photoModel?.let { photo ->
+                    PhotoImage(
+                        photo = photo,
+                        scale = scale,
+                        offset = offset
                     )
                 }
-            ) {
-                Column(
-                    modifier = Modifier
-                        .fillMaxSize(),
+                MainUIFrame(
+                    backgroundColor = Color.Transparent,
+                    topBar = {
+                        TopBar(
+                            isFavourite = state.isFavourite,
+                            onBackPress = onBackPressed,
+                            onFavouriteClick = onFavouriteClick
+                        )
+                    }
                 ) {
-                    Spacer(modifier = Modifier.weight(1f))
+                    Column(
+                        modifier = Modifier
+                            .fillMaxSize(),
+                    ) {
+                        Spacer(modifier = Modifier.weight(1f))
 
-                    InfoCard(
-                        state = state,
-                        onSaveClick = onSaveClick,
-                        onSetClick = onSetClick
-                    )
+                        InfoCard(
+                            state = state,
+                            onSaveClick = onSaveClick,
+                            onSetClick = onSetClick
+                        )
 
+                    }
                 }
             }
         }
+
 
     }
 
@@ -500,8 +516,8 @@ object PhotoDetailScreen : CoreScreen<PhotoDetailState, PhotoDetailEvent>() {
                     modifier = Modifier
                         .fillMaxSize()
                         .graphicsLayer(
-                            scaleX = maxOf(1f, minOf(3f, scale)),
-                            scaleY = maxOf(1f, minOf(3f, scale)),
+                            scaleX = scale,
+                            scaleY = scale,
                             translationX = offset.x,
                             translationY = offset.y
                         ),
