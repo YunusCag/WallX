@@ -41,7 +41,7 @@ fun WatchAdSheet(
             Text(
                 text = stringResource(id = R.string.watch_ad_sheet_title),
                 style = WallXAppTheme.typography.normal1,
-                color = WallXAppTheme.colors.accent,
+                color = WallXAppTheme.colors.textPrimary,
                 textAlign = TextAlign.Center,
                 modifier = Modifier
                     .fillMaxWidth()
