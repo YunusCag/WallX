@@ -22,6 +22,7 @@ import androidx.navigation.compose.rememberNavController
 import com.google.android.gms.ads.MobileAds
 import com.yunuscagliyan.core.util.Constant.DurationUtil.NOTIFICATION_PERIOD_INTERVAL
 import com.yunuscagliyan.core.util.Constant.DurationUtil.SPLASH_DURATION
+import com.yunuscagliyan.core.util.MobileAdsConsentManager
 import com.yunuscagliyan.core_ui.extension.loadInterstitial
 import com.yunuscagliyan.core_ui.helper.AdmobHelper
 import com.yunuscagliyan.core_ui.model.ThemeSelection
@@ -33,23 +34,25 @@ import com.yunuscagliyan.wallx.navigation.SetupNavGraph
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import timber.log.Timber
+import java.util.concurrent.atomic.AtomicBoolean
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     private var keepScreen: Boolean = true
 
+    private var isMobileAdsInitializedCalled = AtomicBoolean(false)
+    private lateinit var mobileAdsConsentManager: MobileAdsConsentManager
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         WindowCompat.setDecorFitsSystemWindows(window, false)
-        MobileAds.initialize(this)
-        this.loadInterstitial()
         val splash = installSplashScreen()
         splash.setKeepOnScreenCondition {
             keepScreen
         }
+        getConsent()
         lifecycleScope.launch {
             delay(SPLASH_DURATION.toLong())
-            checkNotificationPermission()
             keepScreen = false
         }
         setContent {
@@ -114,6 +117,28 @@ class MainActivity : ComponentActivity() {
             intervalInMillis,
             pendingIntent
         )
+    }
+
+    private fun getConsent() {
+        mobileAdsConsentManager = MobileAdsConsentManager.getInstance(applicationContext)
+        mobileAdsConsentManager.gatherConsent(this) { error ->
+            if (error != null) {
+                Timber.e("${error.errorCode}: ${error.message}")
+            }
+            if (mobileAdsConsentManager.canRequestAds) {
+                initializeMobileAdsSdk()
+            }
+        }
+        if (mobileAdsConsentManager.canRequestAds) {
+            initializeMobileAdsSdk()
+        }
+    }
+
+    private fun initializeMobileAdsSdk() {
+        if (isMobileAdsInitializedCalled.getAndSet(true)) return
+        MobileAds.initialize(this)
+        this.loadInterstitial()
+        checkNotificationPermission()
     }
 
     override fun onDestroy() {

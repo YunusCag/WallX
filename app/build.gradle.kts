@@ -31,6 +31,7 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+            signingConfig = signingConfigs.getByName("debug")
         }
     }
     compileOptions {
@@ -91,6 +92,8 @@ dependencies {
     implementation(Firebase.crashlytics)
 
     implementation(Admob.admob)
+    implementation(Admob.ump)
+
 
     testImplementation(TestLibs.jUnit)
     androidTestImplementation(TestLibs.espressoCore)

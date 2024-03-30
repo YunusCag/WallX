@@ -16,7 +16,7 @@ dependencies {
     implementation Room.runtime
     kapt Room.compiler
     implementation Room.ktx
-
+    implementation Admob.ump
 
     implementation Compose.pagingRuntime
     implementation Compose.pagingCompose
