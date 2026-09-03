@@ -13,6 +13,7 @@ import com.yunuscagliyan.core.data.local.preference.Preferences
 import com.yunuscagliyan.core.data.mapper.toPhotoModel
 import com.yunuscagliyan.core.data.remote.model.photo.PhotoModel
 import com.yunuscagliyan.core.data.remote.service.PixabayService
+import com.yunuscagliyan.core.util.PhotoQuality
 import com.yunuscagliyan.core_ui.extension.getDeviceWidthAndHeight
 import com.yunuscagliyan.core_ui.model.enums.WallpaperScreenType
 import kotlinx.coroutines.Dispatchers
@@ -56,7 +57,7 @@ class AutoWallpaperManager(
         photoModel: PhotoModel,
         screenType: WallpaperScreenType
     ) {
-        photoModel.largeImageURL?.let { url ->
+        PhotoQuality.bestImageUrl(photoModel)?.let { url ->
             val bitmap = downloadImage(
                 imageUrl = url,
             )

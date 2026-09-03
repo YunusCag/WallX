@@ -3,6 +3,7 @@ package com.yunuscagliyan.core.di
 import android.app.Application
 import androidx.room.Room
 import com.yunuscagliyan.core.data.local.dao.PhotoDao
+import com.yunuscagliyan.core.data.local.db.MIGRATION_2_3
 import com.yunuscagliyan.core.data.local.db.PhotoDatabase
 import com.yunuscagliyan.core.util.Constant.DBUtil.DB_NAME
 import dagger.Module
@@ -23,7 +24,8 @@ object RoomModule {
             klass = PhotoDatabase::class.java,
             name = DB_NAME
         )
-            .fallbackToDestructiveMigration()
+            .addMigrations(MIGRATION_2_3)
+            .fallbackToDestructiveMigration(dropAllTables = true)
             .build()
     }
 

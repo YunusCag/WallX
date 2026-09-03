@@ -26,7 +26,11 @@ class PhotoSearchSource(
                 query = query,
                 page = page,
                 perPage = Constant.PaginationUtil.PER_PAGE,
-                orderBy = orderBy.value
+                orderBy = orderBy.value,
+                imageType = Constant.PixabayUtil.IMAGE_TYPE_PHOTO,
+                orientation = Constant.PixabayUtil.ORIENTATION_VERTICAL,
+                minWidth = Constant.PixabayUtil.MIN_WIDTH,
+                minHeight = Constant.PixabayUtil.MIN_HEIGHT,
             )
             LoadResult.Page(
                 data = response.results ?: emptyList(),

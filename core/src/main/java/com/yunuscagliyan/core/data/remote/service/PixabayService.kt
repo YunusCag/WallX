@@ -9,6 +9,9 @@ import com.yunuscagliyan.core.util.Constant.NetworkPathUtil.RANDOM_PHOTO
 import com.yunuscagliyan.core.util.Constant.NetworkPathUtil.SEARCH_COLLECTION_PATH
 import com.yunuscagliyan.core.util.Constant.NetworkPathUtil.SEARCH_PHOTO_PATH
 import com.yunuscagliyan.core.util.Constant.NetworkQueryParamKey.COLLECTION_ID
+import com.yunuscagliyan.core.util.Constant.NetworkQueryParamKey.IMAGE_TYPE
+import com.yunuscagliyan.core.util.Constant.NetworkQueryParamKey.MIN_HEIGHT
+import com.yunuscagliyan.core.util.Constant.NetworkQueryParamKey.MIN_WIDTH
 import com.yunuscagliyan.core.util.Constant.NetworkQueryParamKey.ORDER_BY
 import com.yunuscagliyan.core.util.Constant.NetworkQueryParamKey.ORIENTATION
 import com.yunuscagliyan.core.util.Constant.NetworkQueryParamKey.PAGE
@@ -43,7 +46,11 @@ interface PixabayService {
         @Query(QUERY) query: String? = null,
         @Query(PAGE) page: Int,
         @Query(PER_PAGE) perPage: Int,
-        @Query(ORDER_BY) orderBy: String
+        @Query(ORDER_BY) orderBy: String,
+        @Query(IMAGE_TYPE) imageType: String? = null,
+        @Query(ORIENTATION) orientation: String? = null,
+        @Query(MIN_WIDTH) minWidth: Int? = null,
+        @Query(MIN_HEIGHT) minHeight: Int? = null,
     ): PhotoResponse
 
     @GET(COLLECTION_PHOTOS)

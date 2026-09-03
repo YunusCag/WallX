@@ -35,6 +35,11 @@ data class PhotoModel(
     var webformatHeight: Int? = null,
     @Json(name = "largeImageURL")
     var largeImageURL: String? = null,
+    // Only present when the Pixabay account has full API access.
+    @Json(name = "fullHDURL")
+    var fullHDURL: String? = null,
+    @Json(name = "imageURL")
+    var imageURL: String? = null,
     @Json(name = "imageWidth")
     var imageWidth: Int? = null,
     @Json(name = "imageHeight")

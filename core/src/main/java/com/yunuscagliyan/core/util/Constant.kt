@@ -24,6 +24,21 @@ class Constant {
         const val API_KEY = "key"
         const val COLLECTION_ID = "collection_id"
         const val ORIENTATION = "orientation"
+        const val IMAGE_TYPE = "image_type"
+        const val MIN_WIDTH = "min_width"
+        const val MIN_HEIGHT = "min_height"
+    }
+
+    /**
+     * Pixabay only hands out largeImageURL (1280px) unless the account is approved
+     * for full API access, which adds fullHDURL (1920px) and imageURL (original).
+     * Filtering the query is therefore the main lever on wallpaper quality.
+     */
+    object PixabayUtil {
+        const val IMAGE_TYPE_PHOTO = "photo"
+        const val ORIENTATION_VERTICAL = "vertical"
+        const val MIN_WIDTH = 1080
+        const val MIN_HEIGHT = 1920
     }
 
     object PaginationUtil {
@@ -40,7 +55,7 @@ class Constant {
 
     object DBUtil {
         const val PHOTO_ENTITY_NAME = "photo_entity"
-        const val DB_VERSION = 2
+        const val DB_VERSION = 3
         const val DB_NAME = "photo_db"
     }
 

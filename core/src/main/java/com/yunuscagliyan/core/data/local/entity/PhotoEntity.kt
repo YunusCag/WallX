@@ -35,6 +35,10 @@ data class PhotoEntity(
     val webformatHeight: Int? = null,
     @ColumnInfo(name = "largeImageURL")
     val largeImageURL: String? = null,
+    @ColumnInfo(name = "fullHDURL")
+    val fullHDURL: String? = null,
+    @ColumnInfo(name = "imageURL")
+    val imageURL: String? = null,
     @ColumnInfo(name = "imageWidth")
     val imageWidth: Int? = null,
     @ColumnInfo(name = "imageHeight")

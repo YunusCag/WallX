@@ -22,6 +22,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import javax.inject.Inject
+import com.yunuscagliyan.core.util.PhotoQuality
 
 @HiltViewModel
 class PhotoDetailViewModel @Inject constructor(
@@ -253,11 +254,11 @@ class PhotoDetailViewModel @Inject constructor(
     }
 
     private fun downloadAndSaveImage() {
-        state.value.photoModel?.largeImageURL?.let {
+        PhotoQuality.bestImageUrl(state.value.photoModel)?.let {
             viewModelScope.launch(Dispatchers.IO) {
                 downloadImageAndSave.invoke(
                     imageUrl = it,
-                    triggerUrl = state.value.photoModel?.largeImageURL
+                    triggerUrl = PhotoQuality.bestImageUrl(state.value.photoModel)
                 ).collectLatest { downloadState ->
                     updateState {
                         when (downloadState) {
@@ -294,7 +295,7 @@ class PhotoDetailViewModel @Inject constructor(
     }
 
     private fun downloadBitmap() {
-        state.value.photoModel?.largeImageURL?.let {
+        PhotoQuality.bestImageUrl(state.value.photoModel)?.let {
             viewModelScope.launch(Dispatchers.IO) {
                 downloadImageAsBitmap.invoke(
                     imageUrl = it

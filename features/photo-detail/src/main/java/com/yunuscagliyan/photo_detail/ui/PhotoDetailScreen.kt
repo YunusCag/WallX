@@ -7,10 +7,10 @@ import android.net.Uri
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.gestures.detectTransformGestures
-import androidx.compose.foundation.gestures.panBy
 import androidx.compose.foundation.gestures.rememberTransformableState
-import androidx.compose.foundation.gestures.zoomBy
+import com.yunuscagliyan.core.util.PhotoQuality
+import androidx.compose.foundation.gestures.transformable
+import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
@@ -100,6 +100,10 @@ import kotlinx.coroutines.launch
 import timber.log.Timber
 
 object PhotoDetailScreen : CoreScreen<PhotoDetailState, PhotoDetailEvent>() {
+
+    private const val MIN_ZOOM = 1f
+    private const val MAX_ZOOM = 3f
+    private const val DOUBLE_TAP_ZOOM = 2f
     override val route: String
         get() = ScreenRoutes.PhotoDetailScreen.route
 
@@ -286,32 +290,40 @@ object PhotoDetailScreen : CoreScreen<PhotoDetailState, PhotoDetailEvent>() {
             modifier = Modifier
                 .fillMaxSize()
         ) {
-            var scale by remember { mutableFloatStateOf(1f) }
-            var offset by remember { mutableStateOf(Offset(0f, 0f)) }
+            var scale by remember { mutableFloatStateOf(MIN_ZOOM) }
+            var offset by remember { mutableStateOf(Offset.Zero) }
+
+            // Clamp the pan to whatever the zoom actually pushed outside the viewport,
+            // recomputed from the new scale so the bounds never lag a gesture behind.
+            fun applyTransform(zoomChange: Float, panChange: Offset) {
+                val newScale = (scale * zoomChange).coerceIn(MIN_ZOOM, MAX_ZOOM)
+                val maxX = (newScale - MIN_ZOOM) * constraints.maxWidth / 2f
+                val maxY = (newScale - MIN_ZOOM) * constraints.maxHeight / 2f
+                scale = newScale
+                offset = Offset(
+                    x = (offset.x + panChange.x).coerceIn(-maxX, maxX),
+                    y = (offset.y + panChange.y).coerceIn(-maxY, maxY)
+                )
+            }
 
             val zoomState = rememberTransformableState { zoomChange, panChange, _ ->
-                scale = (scale * zoomChange).coerceIn(1f,3f)
-
-                val extraWidth = (scale - 1) * constraints.maxWidth
-                val extraHeight = (scale - 1) * constraints.maxHeight
-
-                val maxX = extraWidth / 2
-                val maxY = extraHeight / 2
-                offset = Offset(
-                    x = (offset.x + scale * panChange.x).coerceIn(-maxX,maxX),
-                    y = (offset.y + scale * panChange.y).coerceIn(-maxY,maxY)
-                )
+                applyTransform(zoomChange, panChange)
             }
             Surface(
                 modifier = Modifier
                     .fillMaxSize()
+                    .transformable(state = zoomState)
                     .pointerInput(Unit) {
-                        detectTransformGestures { _, pan, zoom, _ ->
-                            coroutine.launch {
-                                zoomState.zoomBy(zoom)
-                                zoomState.panBy(pan)
+                        detectTapGestures(
+                            onDoubleTap = {
+                                if (scale > MIN_ZOOM) {
+                                    scale = MIN_ZOOM
+                                    offset = Offset.Zero
+                                } else {
+                                    scale = DOUBLE_TAP_ZOOM
+                                }
                             }
-                        }
+                        )
                     },
                 color = Color.Transparent
             ) {
@@ -489,10 +501,18 @@ object PhotoDetailScreen : CoreScreen<PhotoDetailState, PhotoDetailEvent>() {
         val screenHeightPx = (screenHeightDp * density).toInt()
 
 
+        // Decoding at screen size made a zoomed-in photo a magnified screen-resolution
+        // bitmap. Ask for what the deepest zoom needs; Coil never upscales past the
+        // source, so this just stops the downsample rather than wasting memory.
         val painter = rememberAsyncImagePainter(
             model = ImageRequest.Builder(LocalContext.current)
-                .data(photo.largeImageURL)
-                .size(Size(screenWidthPx, screenHeightPx))
+                .data(PhotoQuality.bestImageUrl(photo))
+                .size(
+                    Size(
+                        (screenWidthPx * MAX_ZOOM).toInt(),
+                        (screenHeightPx * MAX_ZOOM).toInt()
+                    )
+                )
                 .crossfade(true)
                 .build()
         )
