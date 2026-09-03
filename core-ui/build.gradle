@@ -1,12 +1,10 @@
 apply from: "$rootDir/scripts/common.gradle"
+apply plugin: 'org.jetbrains.kotlin.plugin.compose'
 
 android {
     namespace "com.yunuscagliyan.core_ui"
     buildFeatures {
         compose = true
-    }
-    composeOptions {
-        kotlinCompilerExtensionVersion = AppConfig.kotlinCompilerExtensionVersion
     }
 }
 
@@ -26,14 +24,12 @@ dependencies {
     implementation(Compose.material3)
     implementation(Compose.materialWindowSizeClass)
     implementation(Compose.constraintLayout)
+    api(Compose.materialIcons)
 
     implementation(Compose.coil)
 
     implementation(Compose.pagingRuntime)
     implementation(Compose.pagingCompose)
-
-    implementation(Accompanist.accompanistPager)
-    implementation(Accompanist.accompanistPagerIndicator)
 
     implementation(WorkManager.coroutineWork)
     implementation(WorkManager.workHilt)

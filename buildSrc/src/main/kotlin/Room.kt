@@ -1,5 +1,5 @@
 object Room {
-    private const val version = "2.5.2"
+    private const val version = "2.8.4"
 
     const val runtime = "androidx.room:room-runtime:$version"
     const val compiler = "androidx.room:room-compiler:$version"

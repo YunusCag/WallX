@@ -9,12 +9,7 @@ android {
     namespace AppConfig.applicationId
 
     defaultConfig {
-        compileSdk AppConfig.compileSdk
         minSdk AppConfig.minSdk
-        targetSdk AppConfig.targetSdk
-        versionCode AppConfig.versionCode
-        versionName AppConfig.versionName
-
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
     }
@@ -25,7 +20,6 @@ android {
 
         debug {
             buildConfigField("String","API_KEY", localProperties["API_KEY"])
-            buildConfigField("String","SECRET_KEY", localProperties["SECRET_KEY"])
             buildConfigField("String","BASE_URL", localProperties["BASE_URL"])
             buildConfigField("String", "ADMOB_APP_ID", localProperties["ADMOB_APP_TEST_ID"])
             resValue("string", "admob_app_id", localProperties["ADMOB_APP_TEST_ID"])
@@ -38,7 +32,6 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             buildConfigField("String","API_KEY", localProperties["API_KEY"])
-            buildConfigField("String","SECRET_KEY", localProperties["SECRET_KEY"])
             buildConfigField("String","BASE_URL", localProperties["BASE_URL"])
             buildConfigField("String", "ADMOB_APP_ID", localProperties["ADMOB_APP_PROD_ID"])
             resValue("string", "admob_app_id", localProperties["ADMOB_APP_PROD_ID"])
@@ -53,26 +46,29 @@ android {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
     }
-    kotlinOptions {
-        jvmTarget = AppConfig.jvmTarget
-        freeCompilerArgs = ['-Xjvm-default=compatibility']
-    }
 
     buildFeatures {
         buildConfig true
+        resValues true
     }
 
-    dependencies {
-        implementation AndroidX.coreKtx
-        implementation AndroidX.lifecycle
-
-        implementation DaggerHilt.hiltAndroid
-        kapt DaggerHilt.hiltCompiler
-
-        implementation Timber.timber
-
-        testImplementation(TestLibs.jUnit)
-        androidTestImplementation(TestLibs.jUnitExt)
-        androidTestImplementation(TestLibs.espressoCore)
+    kotlinOptions {
+        jvmTarget = AppConfig.jvmTarget
     }
+}
+
+dependencies {
+    coreLibraryDesugaring Desugar.jdkLibs
+
+    implementation AndroidX.coreKtx
+    implementation AndroidX.lifecycle
+
+    implementation DaggerHilt.hiltAndroid
+    kapt DaggerHilt.hiltCompiler
+
+    implementation Timber.timber
+
+    testImplementation(TestLibs.jUnit)
+    androidTestImplementation(TestLibs.jUnitExt)
+    androidTestImplementation(TestLibs.espressoCore)
 }

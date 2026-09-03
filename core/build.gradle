@@ -9,9 +9,9 @@ dependencies {
     implementation Retrofit.retrofit
     implementation Retrofit.okHttpLoggingInterceptor
     implementation Retrofit.moshiConverter
+    // Adapters are resolved reflectively through KotlinJsonAdapterFactory (see
+    // RetrofitModule): moshi-kotlin-codegen cannot parse Kotlin 2.x metadata.
     implementation Retrofit.moshiKotlin
-    implementation Retrofit.moshiConverter
-    kapt Retrofit.moshiCodegen
 
     implementation Room.runtime
     kapt Room.compiler

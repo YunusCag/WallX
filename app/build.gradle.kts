@@ -1,6 +1,23 @@
+import java.util.Properties
+
+// Release signing is read from local.properties (never committed). Values there are
+// plain strings - do NOT wrap them in quotes like the BuildConfig entries.
+val keystoreProperties = Properties().apply {
+    val file = rootProject.file("local.properties")
+    if (file.exists()) file.inputStream().use { load(it) }
+}
+
+fun keystoreProperty(name: String): String? =
+    keystoreProperties.getProperty(name)?.takeIf { it.isNotBlank() }
+
+val releaseSigningConfigured = listOf(
+    "WALLX_STORE_FILE", "WALLX_STORE_PASSWORD", "WALLX_KEY_ALIAS", "WALLX_KEY_PASSWORD"
+).all { keystoreProperty(it) != null }
+
 plugins {
     id(Plugins.androidApplication)
     id(Plugins.androidKotlin)
+    id(Plugins.kotlinCompose)
     id(Plugins.kotlinKapt)
     id(Plugins.hilt)
     id(Plugins.googleServices)
@@ -24,6 +41,17 @@ android {
         }
     }
 
+    signingConfigs {
+        if (releaseSigningConfigured) {
+            create("release") {
+                storeFile = file(keystoreProperty("WALLX_STORE_FILE")!!)
+                storePassword = keystoreProperty("WALLX_STORE_PASSWORD")
+                keyAlias = keystoreProperty("WALLX_KEY_ALIAS")
+                keyPassword = keystoreProperty("WALLX_KEY_PASSWORD")
+            }
+        }
+    }
+
     buildTypes {
         release {
             isMinifyEnabled = false
@@ -31,21 +59,18 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
-            signingConfig = signingConfigs.getByName("debug")
+            // null when the keystore is not configured: an unsigned build is far
+            // safer than silently shipping a debug-signed release to Play.
+            signingConfig = signingConfigs.findByName("release")
         }
     }
     compileOptions {
+        isCoreLibraryDesugaringEnabled = true
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
     }
-    kotlinOptions {
-        jvmTarget = AppConfig.jvmTarget
-    }
     buildFeatures {
         compose = true
-    }
-    composeOptions {
-        kotlinCompilerExtensionVersion = AppConfig.kotlinCompilerExtensionVersion
     }
     packaging {
         resources {
@@ -54,7 +79,14 @@ android {
     }
 }
 
+kotlin {
+    compilerOptions {
+        jvmTarget = org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_17
+    }
+}
+
 dependencies {
+    coreLibraryDesugaring(Desugar.jdkLibs)
 
     implementation(project(Modules.core_ui))
     implementation(project(Modules.home))
@@ -77,7 +109,6 @@ dependencies {
     implementation(Compose.material3)
     implementation(Compose.splash)
 
-    implementation(Accompanist.animatedNavigation)
     implementation(WorkManager.coroutineWork)
     implementation(WorkManager.workHilt)
 

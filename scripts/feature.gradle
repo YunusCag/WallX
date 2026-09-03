@@ -1,11 +1,9 @@
 apply from: "$rootDir/scripts/common.gradle"
+apply plugin: 'org.jetbrains.kotlin.plugin.compose'
 
 android {
     buildFeatures {
         compose = true
-    }
-    composeOptions {
-        kotlinCompilerExtensionVersion = AppConfig.kotlinCompilerExtensionVersion
     }
 }
 
@@ -16,8 +14,6 @@ dependencies {
     implementation(AndroidX.composeViewModel)
     implementation(AndroidX.composeNavigation)
     implementation(AndroidX.hiltNavigationCompose)
-
-    implementation(Accompanist.animatedNavigation)
 
     implementation Compose.pagingRuntime
     implementation Compose.pagingCompose
@@ -32,5 +28,5 @@ dependencies {
     implementation(Compose.composeUIGraphic)
     implementation(Compose.composeToolingPreview)
     implementation(Compose.material3)
-
+    implementation(Compose.materialIcons)
 }

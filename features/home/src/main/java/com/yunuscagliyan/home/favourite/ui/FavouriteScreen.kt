@@ -123,7 +123,7 @@ object FavouriteScreen : CoreScreen<FavouriteState, FavouriteEvent>() {
                             onClick(photoModel)
                         }
                         .aspectRatio(WallXAppTheme.dimension.favouritePhotoAspectRatio)
-                        .animateItemPlacement(),
+                        .animateItem(),
                     imageUrl = photoModel.webformatURL,
                     onFavouriteClick = {
                         onFavouriteClick(index, photoModel)

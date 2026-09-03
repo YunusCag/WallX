@@ -1,9 +1,9 @@
 object AndroidX {
-    private const val coreKtxVersion = "1.9.0"
-    private const val lifecycleVersion = "2.6.1"
-    private const val composeViewModelVersion = "2.6.1"
-    private const val composeNavigationVersion = "2.6.0"
-    private const val hiltNavigationComposeVersion = "1.0.0"
+    private const val coreKtxVersion = "1.19.0"
+    private const val lifecycleVersion = "2.11.0"
+    private const val composeViewModelVersion = "2.11.0"
+    private const val composeNavigationVersion = "2.10.0"
+    private const val hiltNavigationComposeVersion = "1.4.0"
 
     const val coreKtx = "androidx.core:core-ktx:$coreKtxVersion"
     const val lifecycle = "androidx.lifecycle:lifecycle-runtime-ktx:$lifecycleVersion"
