@@ -135,8 +135,6 @@ object PhotoDetailScreen : CoreScreen<PhotoDetailState, PhotoDetailEvent>() {
 
         val onBackPressed: () -> Unit = remember {
             {
-                window.statusBarColor = primaryDark.toArgb()
-                window.navigationBarColor = barColor.toArgb()
                 WindowCompat.getInsetsController(window, view).isAppearanceLightNavigationBars =
                     !isDark
                 onEvent(PhotoDetailEvent.OnBackPress)
@@ -164,11 +162,15 @@ object PhotoDetailScreen : CoreScreen<PhotoDetailState, PhotoDetailEvent>() {
             }
         }
 
+        // Window bar colours are no-ops from API 35 on, so the strip behind the
+        // status bar is handed to MainUIFrame instead. It starts on the shared
+        // primaryDark and dims to the translucent scrim once the transition ends.
+        var statusBarColor by remember { mutableStateOf(primaryDark) }
+
         LaunchedEffect(key1 = Unit) {
             coroutine.launch {
                 delay(TRANSITION_DURATION.toLong())
-                window.statusBarColor = detailBarColor.toArgb()
-                window.navigationBarColor = detailBarColor.toArgb()
+                statusBarColor = detailBarColor
                 WindowCompat.getInsetsController(window, view).isAppearanceLightNavigationBars =
                     false
             }
@@ -322,6 +324,7 @@ object PhotoDetailScreen : CoreScreen<PhotoDetailState, PhotoDetailEvent>() {
                 }
                 MainUIFrame(
                     backgroundColor = Color.Transparent,
+                    statusBarColor = statusBarColor,
                     topBar = {
                         TopBar(
                             isFavourite = state.isFavourite,

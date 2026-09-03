@@ -9,7 +9,9 @@ import android.net.Uri
 import androidx.work.BackoffPolicy
 import androidx.work.Constraints
 import androidx.work.ExistingPeriodicWorkPolicy
+import androidx.work.ExistingWorkPolicy
 import androidx.work.NetworkType
+import androidx.work.OneTimeWorkRequestBuilder
 import androidx.work.PeriodicWorkRequestBuilder
 import androidx.work.WorkManager
 import com.google.android.gms.ads.AdError
@@ -19,10 +21,13 @@ import com.google.android.gms.ads.LoadAdError
 import com.google.android.gms.ads.interstitial.InterstitialAd
 import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback
 import com.yunuscagliyan.core.util.Constant.WorkManagerUtil.AUTO_WALLPAPER_MANAGER_NAME
+import com.yunuscagliyan.core.util.Constant.WorkManagerUtil.REMINDER_WORKER_NAME
+import com.yunuscagliyan.core.util.ReminderScheduler
 import com.yunuscagliyan.core_ui.BuildConfig
 import com.yunuscagliyan.core_ui.R
 import com.yunuscagliyan.core_ui.helper.AdmobHelper
 import com.yunuscagliyan.core_ui.manager.AutoWallpaperManager
+import com.yunuscagliyan.core_ui.manager.ReminderWorker
 import com.yunuscagliyan.core_ui.model.enums.PeriodicTimeType
 import timber.log.Timber
 import java.util.concurrent.TimeUnit
@@ -69,9 +74,37 @@ fun Context.startWorkManager(
     val workManager = WorkManager.getInstance(applicationContext)
     workManager.enqueueUniquePeriodicWork(
         AUTO_WALLPAPER_MANAGER_NAME,
-        ExistingPeriodicWorkPolicy.CANCEL_AND_REENQUEUE,
+        // UPDATE, not CANCEL_AND_REENQUEUE: Settings re-runs this on every visit and
+        // cancelling would restart the full initial delay each time, so a user who
+        // checks Settings often would never reach a wallpaper change.
+        ExistingPeriodicWorkPolicy.UPDATE,
         workRequest
     )
+}
+
+/**
+ * Schedules the reminder notification for [REMINDER_DELAY_DAY] days from now at
+ * [REMINDER_HOUR_OF_DAY]:00 local time.
+ *
+ * Called every time the app is opened. The work is unique and enqueued with
+ * [ExistingWorkPolicy.REPLACE], so an already pending reminder is cancelled and the
+ * countdown starts over - a user who keeps coming back never gets the notification.
+ */
+fun Context.scheduleReminderNotification() {
+    val now = System.currentTimeMillis()
+    val delay = ReminderScheduler.initialDelayMillis(now)
+
+    val workRequest = OneTimeWorkRequestBuilder<ReminderWorker>()
+        .addTag(REMINDER_WORKER_NAME)
+        .setInitialDelay(delay, TimeUnit.MILLISECONDS)
+        .build()
+
+    WorkManager.getInstance(applicationContext).enqueueUniqueWork(
+        REMINDER_WORKER_NAME,
+        ExistingWorkPolicy.REPLACE,
+        workRequest
+    )
+    Timber.d("Reminder scheduled in ${delay}ms")
 }
 
 fun Context.findActivity(): Activity? = when (this) {

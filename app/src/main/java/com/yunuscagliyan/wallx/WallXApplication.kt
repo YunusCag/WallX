@@ -64,12 +64,18 @@ class WallXWorkerFactory @Inject constructor(
         appContext: Context,
         workerClassName: String,
         workerParameters: WorkerParameters
-    ): ListenableWorker? = AutoWallpaperManager(
-        context = appContext,
-        params = workerParameters,
-        photoDao = photoDao,
-        pixabayService = pixabayService,
-        preferences = preferences
-    )
+    ): ListenableWorker? = when (workerClassName) {
+        AutoWallpaperManager::class.java.name -> AutoWallpaperManager(
+            context = appContext,
+            params = workerParameters,
+            photoDao = photoDao,
+            pixabayService = pixabayService,
+            preferences = preferences
+        )
+        // Workers without injected dependencies (ReminderWorker) are left to
+        // WorkManager's default factory. Returning the wallpaper worker for every
+        // class name would run the wrong job.
+        else -> null
+    }
 
 }

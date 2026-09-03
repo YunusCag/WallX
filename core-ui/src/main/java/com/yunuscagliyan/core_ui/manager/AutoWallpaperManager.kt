@@ -6,7 +6,6 @@ import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.util.Log
-import androidx.hilt.work.HiltWorker
 import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
 import com.yunuscagliyan.core.data.local.dao.PhotoDao
@@ -16,18 +15,22 @@ import com.yunuscagliyan.core.data.remote.model.photo.PhotoModel
 import com.yunuscagliyan.core.data.remote.service.PixabayService
 import com.yunuscagliyan.core_ui.extension.getDeviceWidthAndHeight
 import com.yunuscagliyan.core_ui.model.enums.WallpaperScreenType
-import dagger.assisted.Assisted
-import dagger.assisted.AssistedInject
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
-@HiltWorker
-class AutoWallpaperManager @AssistedInject constructor(
-    @Assisted private val context: Context,
-    @Assisted params: WorkerParameters,
-    @Assisted private val photoDao: PhotoDao,
-    @Assisted private val pixabayService: PixabayService,
-    @Assisted private val preferences: Preferences,
+/**
+ * Built by hand in WallXWorkerFactory, so it takes its dependencies as plain
+ * constructor parameters. It is not a @HiltWorker: that annotation was never
+ * processed (androidx.hilt:hilt-compiler is not on the classpath) and marking the
+ * injected dependencies @Assisted was invalid anyway - only Context and
+ * WorkerParameters may be assisted.
+ */
+class AutoWallpaperManager(
+    private val context: Context,
+    params: WorkerParameters,
+    private val photoDao: PhotoDao,
+    private val pixabayService: PixabayService,
+    private val preferences: Preferences,
 ) : CoroutineWorker(context, params) {
     override suspend fun doWork(): Result {
         return withContext(Dispatchers.IO) {

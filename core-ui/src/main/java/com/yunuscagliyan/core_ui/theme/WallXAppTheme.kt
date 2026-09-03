@@ -11,7 +11,6 @@ import androidx.compose.runtime.ReadOnlyComposable
 import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.compositionLocalOf
 import androidx.compose.runtime.remember
-import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalView
 import androidx.core.view.WindowCompat
@@ -73,8 +72,9 @@ fun WallXAppTheme(
     if (!view.isInEditMode) {
         SideEffect {
             val window = activity.window
-            window.statusBarColor = colors.primaryDark.toArgb()
-            window.navigationBarColor = colors.bottomBar.toArgb()
+            // Window.statusBarColor / navigationBarColor are no-ops from API 35 on:
+            // the bars are always transparent, so the colours are drawn by the app
+            // itself (see MainUIFrame). Only the icon appearance is still settable.
             WindowCompat.getInsetsController(window, view).isAppearanceLightStatusBars = false
             WindowCompat.getInsetsController(window, view).isAppearanceLightNavigationBars = !darkTheme
         }

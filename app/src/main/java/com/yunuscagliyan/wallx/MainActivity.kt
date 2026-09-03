@@ -1,10 +1,7 @@
 package com.yunuscagliyan.wallx
 
 import android.Manifest
-import android.app.AlarmManager
-import android.app.PendingIntent
 import android.content.Context
-import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
@@ -20,16 +17,15 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.compose.rememberNavController
 import com.google.android.gms.ads.MobileAds
-import com.yunuscagliyan.core.util.Constant.DurationUtil.NOTIFICATION_PERIOD_INTERVAL
 import com.yunuscagliyan.core.util.Constant.DurationUtil.SPLASH_DURATION
 import com.yunuscagliyan.core.util.MobileAdsConsentManager
 import com.yunuscagliyan.core_ui.extension.loadInterstitial
+import com.yunuscagliyan.core_ui.extension.scheduleReminderNotification
 import com.yunuscagliyan.core_ui.helper.AdmobHelper
 import com.yunuscagliyan.core_ui.model.ThemeSelection
 import com.yunuscagliyan.core_ui.theme.WallXAppTheme
 import com.yunuscagliyan.core_ui.viewmodel.SharedViewModel
 import com.yunuscagliyan.core_ui.helper.NotificationHelper
-import com.yunuscagliyan.core_ui.receiver.NotificationReceiver
 import com.yunuscagliyan.wallx.navigation.SetupNavGraph
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
@@ -80,7 +76,7 @@ class MainActivity : ComponentActivity() {
     private val requestNotificationPermission =
         registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted ->
             if (isGranted) {
-                setNotificationReceiver()
+                scheduleReminderNotification()
             }
         }
 
@@ -92,32 +88,16 @@ class MainActivity : ComponentActivity() {
                     permission
                 ) == PackageManager.PERMISSION_GRANTED
             ) {
-                setNotificationReceiver()
+                scheduleReminderNotification()
             } else {
                 requestNotificationPermission.launch(permission)
             }
         } else {
-            setNotificationReceiver()
+            scheduleReminderNotification()
         }
     }
 
-    private fun setNotificationReceiver() {
-        val alarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
-        val intent = Intent(this, NotificationReceiver::class.java)
-        val pendingIntent = PendingIntent.getBroadcast(
-            this,
-            0,
-            intent,
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) PendingIntent.FLAG_MUTABLE else PendingIntent.FLAG_UPDATE_CURRENT
-        )
-        val intervalInMillis = NOTIFICATION_PERIOD_INTERVAL
-        alarmManager.setRepeating(
-            AlarmManager.RTC_WAKEUP,
-            System.currentTimeMillis(),
-            intervalInMillis,
-            pendingIntent
-        )
-    }
+
 
     private fun getConsent() {
         mobileAdsConsentManager = MobileAdsConsentManager.getInstance(applicationContext)

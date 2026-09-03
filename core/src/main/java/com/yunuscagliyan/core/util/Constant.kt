@@ -62,7 +62,6 @@ class Constant {
         const val SHIMMER_DURATION = 1000
         const val SPLASH_DURATION = 2000
         const val DEFAULT_DELAY = 200L
-        const val NOTIFICATION_PERIOD_INTERVAL = 48 * 60 * 60 * 1000L
     }
 
     object FileUtil {
@@ -71,6 +70,11 @@ class Constant {
 
     object WorkManagerUtil {
         const val AUTO_WALLPAPER_MANAGER_NAME = "auto_wallpaper_manager"
+
+        // Reminder fires this many days after the app was last opened, at this hour.
+        const val REMINDER_WORKER_NAME = "reminder_notification"
+        const val REMINDER_DELAY_DAY = 2
+        const val REMINDER_HOUR_OF_DAY = 19
     }
 
     object AdMobUtil {
