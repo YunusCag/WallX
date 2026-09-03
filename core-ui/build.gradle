@@ -12,6 +12,7 @@ dependencies {
     api project(Modules.core)
 
     implementation(AndroidX.composeViewModel)
+    implementation(AndroidX.lifecycleRuntimeCompose)
     implementation(AndroidX.composeNavigation)
     implementation(AndroidX.hiltNavigationCompose)
 

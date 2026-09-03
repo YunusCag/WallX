@@ -47,6 +47,10 @@ class MainActivity : ComponentActivity() {
             keepScreen
         }
         getConsent()
+        // Independent of ads: hanging this off initializeMobileAdsSdk() meant a user
+        // who declined consent, or whose consent request failed, never got the
+        // reminder scheduled at all.
+        checkNotificationPermission()
         lifecycleScope.launch {
             delay(SPLASH_DURATION.toLong())
             keepScreen = false
@@ -118,7 +122,6 @@ class MainActivity : ComponentActivity() {
         if (isMobileAdsInitializedCalled.getAndSet(true)) return
         MobileAds.initialize(this)
         this.loadInterstitial()
-        checkNotificationPermission()
     }
 
     override fun onDestroy() {

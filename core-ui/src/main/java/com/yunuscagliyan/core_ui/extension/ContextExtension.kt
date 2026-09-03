@@ -128,6 +128,11 @@ fun Context.findActivity(): Activity? = when (this) {
 }
 
 fun Context.loadInterstitial() {
+    // Without this the retry-on-every-event behaviour would queue a request per
+    // navigation while the first one is still in flight.
+    if (!AdmobHelper.shouldRequestInterstitial()) return
+    AdmobHelper.markInterstitialRequested()
+
     val request = AdRequest.Builder()
         .build()
     InterstitialAd.load(
@@ -137,8 +142,8 @@ fun Context.loadInterstitial() {
         object : InterstitialAdLoadCallback() {
             override fun onAdFailedToLoad(adError: LoadAdError) {
                 super.onAdFailedToLoad(adError)
-                AdmobHelper.clearInterstitialAd()
-
+                Timber.e("Interstitial failed to load: ${adError.message}")
+                AdmobHelper.onInterstitialLoadFailed()
             }
 
             override fun onAdLoaded(interstitialAd: InterstitialAd) {
