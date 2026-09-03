@@ -1,7 +1,5 @@
 package com.yunuscagliyan.core_ui.manager
 
-import android.annotation.SuppressLint
-import android.app.WallpaperManager
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
@@ -14,7 +12,10 @@ import com.yunuscagliyan.core.data.mapper.toPhotoModel
 import com.yunuscagliyan.core.data.remote.model.photo.PhotoModel
 import com.yunuscagliyan.core.data.remote.service.PixabayService
 import com.yunuscagliyan.core.util.PhotoQuality
+import com.yunuscagliyan.core.util.BitmapSampling
+import com.yunuscagliyan.core.util.DownloadState
 import com.yunuscagliyan.core_ui.extension.getDeviceWidthAndHeight
+import com.yunuscagliyan.core_ui.domain.ChangeWallpaper
 import com.yunuscagliyan.core_ui.model.enums.WallpaperScreenType
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -32,6 +33,7 @@ class AutoWallpaperManager(
     private val photoDao: PhotoDao,
     private val pixabayService: PixabayService,
     private val preferences: Preferences,
+    private val changeWallpaper: ChangeWallpaper,
 ) : CoroutineWorker(context, params) {
     override suspend fun doWork(): Result {
         return withContext(Dispatchers.IO) {
@@ -58,14 +60,15 @@ class AutoWallpaperManager(
         screenType: WallpaperScreenType
     ) {
         PhotoQuality.bestImageUrl(photoModel)?.let { url ->
-            val bitmap = downloadImage(
-                imageUrl = url,
-            )
+            val bitmap = downloadImage(imageUrl = url)
             bitmap?.let {
-                setWallpaper(
-                    bitmap = it,
-                    screenType = screenType
-                )
+                // Same use case the detail screen calls, so cropping and the
+                // wallpaper-allowed guards cannot drift between the two paths.
+                changeWallpaper(bitmap = it, wallpaperScreenType = screenType).collect { state ->
+                    if (state is DownloadState.Error) {
+                        Log.e("AutoWallpaper", "Could not set wallpaper", state.error)
+                    }
+                }
             }
         }
     }
@@ -73,51 +76,27 @@ class AutoWallpaperManager(
     private suspend fun downloadImage(imageUrl: String): Bitmap? {
         return try {
             val response = pixabayService.downloadImage(imageUrl = imageUrl)
-            val inputStream = response.byteStream()
-            BitmapFactory.decodeStream(inputStream)
+            val bytes = response.byteStream().use { it.readBytes() }
+
+            val (screenWidth, screenHeight) = context.getDeviceWidthAndHeight()
+            val bounds = BitmapFactory.Options().apply { inJustDecodeBounds = true }
+            BitmapFactory.decodeByteArray(bytes, 0, bytes.size, bounds)
+
+            // Decoding at full size is wasted memory for a 1280px file and an OOM
+            // once full API access starts returning multi-thousand pixel originals.
+            val options = BitmapFactory.Options().apply {
+                inSampleSize = BitmapSampling.calculateInSampleSize(
+                    sourceWidth = bounds.outWidth,
+                    sourceHeight = bounds.outHeight,
+                    requestedWidth = screenWidth,
+                    requestedHeight = screenHeight,
+                )
+            }
+            BitmapFactory.decodeByteArray(bytes, 0, bytes.size, options)
         } catch (e: Exception) {
-            Log.e("AutoWallpaper", "downloadImage Error setWallpaper Message:${e.localizedMessage}")
+            Log.e("AutoWallpaper", "downloadImage failed", e)
             null
         }
     }
 
-    @SuppressLint("MissingPermission")
-    private fun setWallpaper(bitmap: Bitmap, screenType: WallpaperScreenType) {
-        try {
-            val screenSize = context.getDeviceWidthAndHeight()
-            val width = screenSize.first
-            val height = screenSize.second
-            val wallpaperManager = WallpaperManager.getInstance(context)
-            wallpaperManager.suggestDesiredDimensions(width, height)
-
-            when (screenType) {
-                WallpaperScreenType.HOME -> {
-                    wallpaperManager.setBitmap(
-                        bitmap,
-                        null,
-                        true,
-                        WallpaperManager.FLAG_SYSTEM
-                    )
-                }
-
-                WallpaperScreenType.LOCK -> {
-                    wallpaperManager.setBitmap(
-                        bitmap,
-                        null,
-                        true,
-                        WallpaperManager.FLAG_LOCK
-                    )
-                }
-
-                WallpaperScreenType.HOME_AND_LOCK -> {
-                    wallpaperManager.setBitmap(
-                        bitmap
-                    )
-                }
-            }
-        } catch (e: Exception) {
-            Log.e("AutoWallpaper", "Error setWallpaper Message:${e.localizedMessage}")
-        }
-
-    }
 }

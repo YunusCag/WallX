@@ -5,6 +5,8 @@ import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.ContextWrapper
 import android.content.Intent
+import android.os.Build
+import android.view.WindowManager
 import android.net.Uri
 import androidx.work.BackoffPolicy
 import androidx.work.Constraints
@@ -32,12 +34,24 @@ import com.yunuscagliyan.core_ui.model.enums.PeriodicTimeType
 import timber.log.Timber
 import java.util.concurrent.TimeUnit
 
+/**
+ * Full display size in pixels.
+ *
+ * resources.displayMetrics reports the app window, which is not the display in
+ * multi-window, so the wallpaper crop would be computed against the wrong aspect
+ * ratio. WindowMetrics gives the real bounds from API 30 on.
+ */
 fun Context.getDeviceWidthAndHeight(): Pair<Int, Int> {
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+        val windowManager = getSystemService(Context.WINDOW_SERVICE) as? WindowManager
+        windowManager?.maximumWindowMetrics?.bounds?.let { bounds ->
+            if (bounds.width() > 0 && bounds.height() > 0) {
+                return Pair(bounds.width(), bounds.height())
+            }
+        }
+    }
     val metrics = this.resources.displayMetrics
-    val screenWidth = metrics.widthPixels
-    val screenHeight = metrics.heightPixels
-
-    return Pair(screenWidth, screenHeight)
+    return Pair(metrics.widthPixels, metrics.heightPixels)
 }
 
 fun Context.cancelAllWorkManager() {

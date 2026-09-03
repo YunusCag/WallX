@@ -14,6 +14,7 @@ import com.yunuscagliyan.core.BuildConfig
 import com.yunuscagliyan.core.data.local.dao.PhotoDao
 import com.yunuscagliyan.core.data.local.preference.Preferences
 import com.yunuscagliyan.core.data.remote.service.PixabayService
+import com.yunuscagliyan.core_ui.domain.ChangeWallpaper
 import com.yunuscagliyan.core_ui.manager.AutoWallpaperManager
 import com.yunuscagliyan.core_ui.helper.NotificationHelper
 import dagger.hilt.android.HiltAndroidApp
@@ -59,6 +60,7 @@ class WallXWorkerFactory @Inject constructor(
     private val photoDao: PhotoDao,
     private val pixabayService: PixabayService,
     private val preferences: Preferences,
+    private val changeWallpaper: ChangeWallpaper,
 ) : WorkerFactory() {
     override fun createWorker(
         appContext: Context,
@@ -70,7 +72,8 @@ class WallXWorkerFactory @Inject constructor(
             params = workerParameters,
             photoDao = photoDao,
             pixabayService = pixabayService,
-            preferences = preferences
+            preferences = preferences,
+            changeWallpaper = changeWallpaper,
         )
         // Workers without injected dependencies (ReminderWorker) are left to
         // WorkManager's default factory. Returning the wallpaper worker for every
